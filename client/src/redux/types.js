@@ -9,3 +9,7 @@ export const SET_EMPTY_USER = 'SET_EMPTY_USER';
 
 export const SET_ERR = 'SET_ERR';
 export const SET_EMPTY_ERR = 'SET_EMPTY_ERR';
+
+// TYPE
+
+export const GET_TYPES = 'GET_TYPES';

@@ -26,7 +26,9 @@ function NavBar() {
         ) : (
           <>
             <Nav style={{ width: '500px', justifyContent: 'space-between' }}>
-
+              <NavItem>
+                <Link to={`/lk/${user.id}`}> Личный кабинет </Link>
+              </NavItem>
               <NavItem>
                 <Link to="/" style={{ textDecoration: 'none', color: 'black' }} onClick={() => dispatch(logoutThunk())}> Выйти </Link>
               </NavItem>

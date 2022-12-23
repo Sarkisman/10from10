@@ -9,7 +9,8 @@ import NavBar from './components/ui/NavBar/NavBar';
 import LoginPage from './components/pages/LoginPage';
 import PrivateRoute from './HOC/PrivateRoute';
 import { checkAuth } from './redux/actions/UserActions';
-// import RegPageClub from './components/pages/RegPageClub';
+import Lk from './components/pages/Lk/Lk';
+import RegPageClub from './components/pages/RegPageClub';
 
 function App() {
   const user = useSelector((store) => store.user);
@@ -27,9 +28,12 @@ function App() {
             <Route element={<PrivateRoute isAllowed={!user?.id} redirectPath="/" />}>
               <Route path="/auth" element={<LoginPage />} />
               <Route path="/reg" element={<RegPage />} />
-              {/* <Route path="/reg/:params" element={<RegPageClub />} /> */}
+
             </Route>
-            {/* <Route element={<PrivateRoute isAllowed={user?.id} />}>
+            <Route path="/lk/:id" element={<Lk />} />
+            <Route path="/reg/:params" element={<RegPageClub />} />
+            {/* <Route element={<PrivateRoute isAllowed={!user?.id} />}>
+
             </Route> */}
           </Routes>
         </div>
