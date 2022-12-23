@@ -36,7 +36,7 @@ userRouter.post('/reg', async (req, res) => {
   const [user, isCreated] = await User.findOrCreate({ // метод ищет в базе и если не нахит зап-ет
     // возвращает при этом найденный обьект и false либо созданный объект и true
     where: { email },
-    defaults: { name, email, hashpass: hashPassword },
+    defaults: { name, email, password: hashPassword },
   });
 
   if (!isCreated) return res.status(400).json({ message: 'Вы уже зарегистрированны, пройдите в авторизацию!' });
