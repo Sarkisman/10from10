@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Button, Col, Form, Input, Label, Row,
@@ -8,8 +8,8 @@ import {
 export default function ClubOrUser() {
   const { params } = useParams();
   console.log(params);
-  const dispatch = useDispatch();
-  const err = useSelector((store) => store.err);
+  // const dispatch = useDispatch();
+  // const err = useSelector((store) => store.err);
   return (
     <Form>
       <Row>
@@ -88,7 +88,7 @@ export default function ClubOrUser() {
           size: 6,
         }}
         >
-          {err && (<div style={{ color: 'red' }}>{err.message}</div>)}
+          {/* {err && (<div style={{ color: 'red' }}>{err.message}</div>)} */}
         </Col>
       </Row>
     </Form>
