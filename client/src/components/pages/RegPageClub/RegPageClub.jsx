@@ -1,15 +1,20 @@
-import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
+import Multiselect from 'multiselect-react-dropdown';
+import { getTypesAction } from '../../../redux/actions/ClubActions';
 
 export default function ClubOrUser() {
+  const types = useSelector((state) => state.club_type);
+  const dispatch = useDispatch();
   const { params } = useParams();
   console.log(params);
-  // const dispatch = useDispatch();
-  // const err = useSelector((store) => store.err);
+  useEffect(() => {
+    dispatch(getTypesAction());
+  });
   return (
     <Form>
       <Row>
@@ -52,21 +57,25 @@ export default function ClubOrUser() {
             type="email"
           />
         </Col>
-        <Col md={{
-          offset: 3,
-          size: 6,
-        }}
-        >
-          <Label for="examplePassword">
-            Password
-          </Label>
-          <Input
-            id="examplePassword"
-            name="password"
-            placeholder="password placeholder"
-            type="password"
-          />
-        </Col>
+        <Row>
+          <Col md={{
+            offset: 3,
+            size: 6,
+          }}
+          >
+            <Label for="exampleEmail">
+              Выберите направление(я) вашего стрелкового клуба.
+            </Label>
+            <Multiselect
+              isObject={false}
+          // onKeyPressFn={noRefCheck()}
+          // onRemove={noRefCheck()}
+          // onSearch={noRefCheck()}
+          // onSelect={noRefCheck()}
+              options={types}
+            />
+          </Col>
+        </Row>
       </Row>
       <Row>
         <Col md={{
@@ -75,9 +84,7 @@ export default function ClubOrUser() {
         }}
         >
           <Row>
-            <Label for="examplePassword">
-              {' '}
-            </Label>
+            <Label for="examplePassword" />
           </Row>
           <Button>
             Sign in
