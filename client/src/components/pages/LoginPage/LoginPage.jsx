@@ -56,6 +56,7 @@ export default function AuthPage() {
       <Row>
         {' '}
         {err && (<div>{err.message}</div>)}
+        {console.log('commemt')}
       </Row>
     </>
   );
