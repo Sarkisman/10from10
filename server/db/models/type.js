@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Type extends Model {
     /**
@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.hasMany(Club, { through: 'Club_Type', foreignKey: 'type_id' });
+      this.hasMany(models.Club, { through: 'Club_Type', foreignKey: 'type_id' });
     }
   }
   Type.init({
-    club_type: DataTypes.STRING
+    club_type: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Type',
