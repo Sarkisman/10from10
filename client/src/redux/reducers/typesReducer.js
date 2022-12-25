@@ -1,6 +1,6 @@
 import { GET_TYPES } from '../types';
 
-export default function errReducer(state = '', action) {
+export default function errReducer(state = [], action) {
   const { type, payload } = action;
   switch (type) {
     case GET_TYPES:
