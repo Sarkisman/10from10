@@ -64,9 +64,9 @@ export default function ClubOrUser() {
               // name="types"
               displayValue="club_type"
               isObject
-          // onKeyPressFn={noRefCheck()}
-          // onRemove={noRefCheck()}
-          // onSearch={noRefCheck()}
+              // onKeyPressFn={noRefCheck()}
+              // onRemove={noRefCheck()}
+              // onSearch={noRefCheck()}
               onSelect={(e) => setSelect(() => [...e])}
               options={types}
             />
