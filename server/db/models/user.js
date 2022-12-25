@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.Comment, {
         foreignKey: 'user_id',
       });
-      this.belongsToMany(models.Event, { through: 'Event_User' });
+      this.belongsToMany(models.Event, { through: 'Event_User', foreignKey: 'user_id' });
     }
   }
   User.init({
