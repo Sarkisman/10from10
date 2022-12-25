@@ -15,7 +15,7 @@ userRouter.post('/login', async (req, res) => {
   if (!user) return res.status(400).json({ message: 'Неверно введена почта или пароль пользователя!' });
 
   // сравниваем введеный пароль и захэшированый пароль из БД;
-  const isPassValid = await compare(password, user.hashpass);
+  const isPassValid = await compare(password, user.password);
   // если не сходится сообщаем что введенные им данные неверны
   if (!isPassValid) return res.status(400).json({ message: 'Неверно введён логин или пароль пользователя!' });
 
