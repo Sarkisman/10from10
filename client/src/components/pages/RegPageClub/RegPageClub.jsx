@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
-import Multiselect from 'multiselect-react-dropdown';
+// import Multiselect from 'multiselect-react-dropdown';
 import { getTypesAction } from '../../../redux/actions/ClubActions';
 
 export default function ClubOrUser() {
-  const types = useSelector((state) => state.club_type);
+  // const types = useSelector((state) => state.club_type);
   const dispatch = useDispatch();
   const { params } = useParams();
   console.log(params);
@@ -66,14 +66,14 @@ export default function ClubOrUser() {
             <Label for="exampleEmail">
               Выберите направление(я) вашего стрелкового клуба.
             </Label>
-            <Multiselect
+            {/* <Multiselect
               isObject={false}
           // onKeyPressFn={noRefCheck()}
           // onRemove={noRefCheck()}
           // onSearch={noRefCheck()}
           // onSelect={noRefCheck()}
               options={types}
-            />
+            /> */}
           </Col>
         </Row>
       </Row>
