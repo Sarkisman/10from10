@@ -13,3 +13,7 @@ export const SET_EMPTY_ERR = 'SET_EMPTY_ERR';
 // TYPE
 
 export const GET_TYPES = 'GET_TYPES';
+
+// COMMENTS
+
+export const GET_COMMENTS = 'GET_COMMENTS';
