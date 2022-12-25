@@ -1,22 +1,31 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
-import { getTypesAction } from '../../../redux/actions/ClubActions';
+import { getTypesAction, sendDataClub } from '../../../redux/actions/ClubActions';
 
 export default function ClubOrUser() {
-  const types = useSelector((state) => state.club_type);
+  // const selectRef = useRef(null);
+  const [select, setSelect] = useState([]);
+  const types = useSelector((state) => state.types);
+  console.log(types);
   const dispatch = useDispatch();
   const { params } = useParams();
-  console.log(params);
   useEffect(() => {
     dispatch(getTypesAction());
-  });
+  }, []);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    dispatch(sendDataClub(
+      { user_id: params, input: Object.fromEntries(new FormData(e.target)), select },
+    ));
+  };
   return (
-    <Form>
+    <Form onSubmit={(e) => submitHandler(e)}>
       <Row>
         <Col md={{
           offset: 3,
@@ -42,36 +51,23 @@ export default function ClubOrUser() {
         </Col>
       </Row>
       <Row>
-        <Col md={{
-          offset: 3,
-          size: 6,
-        }}
-        >
-          <Label for="exampleEmail">
-            Email
-          </Label>
-          <Input
-            id="exampleEmail"
-            name="email"
-            placeholder="with a placeholder"
-            type="email"
-          />
-        </Col>
         <Row>
           <Col md={{
             offset: 3,
-            size: 6,
+            size: 7,
           }}
           >
             <Label for="exampleEmail">
               Выберите направление(я) вашего стрелкового клуба.
             </Label>
             <Multiselect
-              isObject={false}
+              // name="types"
+              displayValue="club_type"
+              isObject
           // onKeyPressFn={noRefCheck()}
           // onRemove={noRefCheck()}
           // onSearch={noRefCheck()}
-          // onSelect={noRefCheck()}
+              onSelect={(e) => setSelect(() => [...e])}
               options={types}
             />
           </Col>
@@ -86,7 +82,7 @@ export default function ClubOrUser() {
           <Row>
             <Label for="examplePassword" />
           </Row>
-          <Button>
+          <Button type="submit">
             Sign in
           </Button>
         </Col>

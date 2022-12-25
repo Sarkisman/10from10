@@ -3,9 +3,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-const {
-  authRouter,
-} = require('./routes');
+// const { Type } = require('./db/models');
+const { authRouter, clubRouter } = require('./routes');
 require('dotenv').config();
 
 const app = express();
@@ -32,5 +31,16 @@ app.use(session({
 }));
 
 app.use('/auth', authRouter);
+app.use('/club', clubRouter);
+
+// app.get('/club/types', async (req, res) => {
+//   try {
+//     let types = await Type.findAll();
+//     types = types.map((el) => el.club_type);
+//     res.json(types);
+//   } catch {
+//     console.log('error');
+//   }
+// });
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));
