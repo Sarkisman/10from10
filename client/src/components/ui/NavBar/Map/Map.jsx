@@ -62,15 +62,15 @@ export default function Map() {
     ymaps.ready(init);
   }, []);
 
-  // const myGeocoder = ymaps.geocode('Петрозаводск');
-  // myGeocoder.then(
-  //   (res) => {
-  //     console.log(`Координаты объекта :${res.geoObjects.get(0).geometry.getCoordinates()}`);
-  //   },
-  //   (err) => {
-  //     (console.log(err));
-  //   },
-  // );
+  const myGeocoder = ymaps.geocode('Клин');
+  myGeocoder.then(
+    (res) => {
+      console.log(`Координаты объекта :${res.geoObjects.get(0).geometry.getCoordinates()}`);
+    },
+    (err) => {
+      (console.log(err));
+    },
+  );
 
   return (
     <div id="map-test" className="map-test" />

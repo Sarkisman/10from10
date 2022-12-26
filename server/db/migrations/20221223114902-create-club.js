@@ -29,6 +29,12 @@ module.exports = {
       user_id: {
         type: Sequelize.INTEGER,
       },
+      latitude: {
+        type: Sequelize.FLOAT,
+      },
+      longitude: {
+        type: Sequelize.FLOAT,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
