@@ -1,18 +1,18 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
 // import { useNavigate } from 'react-router-dom';
 import { regAction } from '../../../redux/actions/UserActions';
-import getSingleClub from '../../../redux/actions/ClubActions';
+// import { getSingleClub } from '../../../redux/actions/ClubActions';
 
 export default function AuthPage() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getSingleClub());
-  });
+  // useEffect(() => {
+  //   dispatch(getSingleClub());
+  // });
   const err = useSelector((store) => store.err);
   return (
     <>
