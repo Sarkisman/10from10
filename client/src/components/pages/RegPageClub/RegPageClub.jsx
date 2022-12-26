@@ -11,9 +11,10 @@ export default function ClubOrUser() {
   // const selectRef = useRef(null);
   const [select, setSelect] = useState([]);
   const [avatar, setAvatar] = useState();
+  const [coordinates, setCoordinates] = useState([]);
   // console.log(avatar);
   const types = useSelector((state) => state.types);
-  console.log(types);
+  // console.log(types);
   const dispatch = useDispatch();
   const { params } = useParams();
   useEffect(() => {
@@ -31,12 +32,22 @@ export default function ClubOrUser() {
   console.log('formdata:', formdata);
   console.log('avatar:', avatar);
 
+  const { ymaps } = window;
+
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log((Object.fromEntries(new FormData(e.target))).address);
+    const myGeocoder = ymaps.geocode((Object.fromEntries(new FormData(e.target))).address);
+    myGeocoder
+      .then((res) => setCoordinates((res.geoObjects.get(0).geometry.getCoordinates()).split(',')));
 
     dispatch(sendDataClub(
       {
-        user_id: params, input: Object.fromEntries(new FormData(e.target)), select,
+        user_id: params,
+        latitude: coordinates[0],
+        longitude: coordinates[1],
+        input: Object.fromEntries(new FormData(e.target)),
+        select,
       },
     ));
     e.target.reset();
