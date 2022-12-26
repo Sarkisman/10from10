@@ -46,14 +46,14 @@ clubRouter.get('/types', async (req, res) => {
 
 clubRouter.post('/types', async (req, res) => {
   const {
-    user_id, input: { clubName, address }, select,
+    user_id, input: { clubName, address }, select, longitude, latitude,
   } = req.body;
-  // console.log(req.body, '=======================');
+  console.log(req.body, '=======================');
   try {
     const [club, isCreated] = await Club.findOrCreate({
       where: { user_id },
       defaults: {
-        user_id, name: clubName, address,
+        user_id, name: clubName, address, longitude, latitude,
       },
     });
     // await Club_Type.create({ club_id: club.id, type_id: el.id });
