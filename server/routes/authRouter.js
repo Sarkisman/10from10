@@ -15,7 +15,7 @@ userRouter.post('/login', async (req, res) => {
   if (!user) return res.status(400).json({ message: 'Неверно введена почта или пароль пользователя!' });
 
   // сравниваем введеный пароль и захэшированый пароль из БД;
-  const isPassValid = await compare(password, user.hashpass);
+  const isPassValid = await compare(password, user.password);
   // если не сходится сообщаем что введенные им данные неверны
   if (!isPassValid) return res.status(400).json({ message: 'Неверно введён логин или пароль пользователя!' });
 
@@ -36,7 +36,7 @@ userRouter.post('/reg', async (req, res) => {
   const [user, isCreated] = await User.findOrCreate({ // метод ищет в базе и если не нахит зап-ет
     // возвращает при этом найденный обьект и false либо созданный объект и true
     where: { email },
-    defaults: { name, email, hashpass: hashPassword },
+    defaults: { name, email, password: hashPassword },
   });
 
   if (!isCreated) return res.status(400).json({ message: 'Вы уже зарегистрированны, пройдите в авторизацию!' });

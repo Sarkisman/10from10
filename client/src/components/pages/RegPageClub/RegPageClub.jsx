@@ -1,17 +1,49 @@
-import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
+import Multiselect from 'multiselect-react-dropdown';
+import { getTypesAction, sendClubAvatar, sendDataClub } from '../../../redux/actions/ClubActions';
 
 export default function ClubOrUser() {
+  // const selectRef = useRef(null);
+  const [select, setSelect] = useState([]);
+  const [avatar, setAvatar] = useState();
+  // console.log(avatar);
+  const types = useSelector((state) => state.types);
+  console.log(types);
+  const dispatch = useDispatch();
   const { params } = useParams();
-  console.log(params);
-  // const dispatch = useDispatch();
-  // const err = useSelector((store) => store.err);
+  useEffect(() => {
+    dispatch(getTypesAction());
+  }, []);
+
+  // const postFile = (file) => {
+  //   setAvatar(file);
+  //   // const formdata = new FormData();
+  //   // formdata.append('file', file);
+  //   // console.log(file);
+  // };
+  const formdata = new FormData();
+  formdata.append('avatar', avatar);
+  console.log('formdata:', formdata);
+  console.log('avatar:', avatar);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    dispatch(sendDataClub(
+      {
+        user_id: params, input: Object.fromEntries(new FormData(e.target)), select,
+      },
+    ));
+    e.target.reset();
+    dispatch(sendClubAvatar(formdata, params));
+  };
   return (
-    <Form>
+    <Form onSubmit={(e) => submitHandler(e)}>
       <Row>
         <Col md={{
           offset: 3,
@@ -37,36 +69,27 @@ export default function ClubOrUser() {
         </Col>
       </Row>
       <Row>
-        <Col md={{
-          offset: 3,
-          size: 6,
-        }}
-        >
-          <Label for="exampleEmail">
-            Email
-          </Label>
-          <Input
-            id="exampleEmail"
-            name="email"
-            placeholder="with a placeholder"
-            type="email"
-          />
-        </Col>
-        <Col md={{
-          offset: 3,
-          size: 6,
-        }}
-        >
-          <Label for="examplePassword">
-            Password
-          </Label>
-          <Input
-            id="examplePassword"
-            name="password"
-            placeholder="password placeholder"
-            type="password"
-          />
-        </Col>
+        <Row>
+          <Col md={{
+            offset: 3,
+            size: 7,
+          }}
+          >
+            <Label for="exampleEmail">
+              Выберите направление(я) вашего стрелкового клуба.
+            </Label>
+            <Multiselect
+              // name="types"
+              displayValue="club_type"
+              isObject
+              // onKeyPressFn={noRefCheck()}
+              // onRemove={noRefCheck()}
+              // onSearch={noRefCheck()}
+              onSelect={(e) => setSelect(() => [...e])}
+              options={types}
+            />
+          </Col>
+        </Row>
       </Row>
       <Row>
         <Col md={{
@@ -75,11 +98,18 @@ export default function ClubOrUser() {
         }}
         >
           <Row>
-            <Label for="examplePassword">
-              {' '}
-            </Label>
+            <Label for="examplePassword" />
           </Row>
-          <Button>
+          <Input
+            name="avatar"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              setAvatar(file);
+            }}
+          />
+          <Button type="submit">
             Sign in
           </Button>
         </Col>
