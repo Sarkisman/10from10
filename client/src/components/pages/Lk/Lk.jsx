@@ -7,7 +7,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 export default function Lk() {
+  const club = null;
   const user = useSelector((store) => store.user);
+  // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
@@ -75,15 +77,28 @@ export default function Lk() {
       </Row>
       <Row>
         <Col>
-          <Button
-            color="primary"
-            outline
-            type="button"
-            onClick={() => buttonHandler()}
-          >
-            Подать заявку на регистрацию клуба.
+          {club ? (
+            <Button
+              color="primary"
+              outline
+              type="button"
+              onClick={() => navigate(`/club/${club?.id}`)}
+            >
+              мой клуб
 
-          </Button>
+            </Button>
+          ) : (
+            <Button
+              color="primary"
+              outline
+              type="button"
+              onClick={() => buttonHandler()}
+            >
+              Подать заявку на регистрацию клуба.
+
+            </Button>
+          )}
+
         </Col>
       </Row>
     </>
