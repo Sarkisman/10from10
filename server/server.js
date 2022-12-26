@@ -1,5 +1,6 @@
 const express = require('express');
 const morgan = require('morgan');
+const multer = require('multer'); // мультер
 const cors = require('cors');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);

@@ -5,11 +5,13 @@ import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
-import { getTypesAction, sendDataClub } from '../../../redux/actions/ClubActions';
+import { getTypesAction, sendClubAvatar, sendDataClub } from '../../../redux/actions/ClubActions';
 
 export default function ClubOrUser() {
   // const selectRef = useRef(null);
   const [select, setSelect] = useState([]);
+  const [avatar, setAvatar] = useState();
+  // console.log(avatar);
   const types = useSelector((state) => state.types);
   console.log(types);
   const dispatch = useDispatch();
@@ -18,12 +20,27 @@ export default function ClubOrUser() {
     dispatch(getTypesAction());
   }, []);
 
+  // const postFile = (file) => {
+  //   setAvatar(file);
+  //   // const formdata = new FormData();
+  //   // formdata.append('file', file);
+  //   // console.log(file);
+  // };
+  const formdata = new FormData();
+  formdata.append('avatar', avatar);
+  console.log('formdata:', formdata);
+  console.log('avatar:', avatar);
+
   const submitHandler = (e) => {
     e.preventDefault();
+
     dispatch(sendDataClub(
-      { user_id: params, input: Object.fromEntries(new FormData(e.target)), select },
+      {
+        user_id: params, input: Object.fromEntries(new FormData(e.target)), select,
+      },
     ));
     e.target.reset();
+    dispatch(sendClubAvatar(formdata, params));
   };
   return (
     <Form onSubmit={(e) => submitHandler(e)}>
@@ -83,6 +100,15 @@ export default function ClubOrUser() {
           <Row>
             <Label for="examplePassword" />
           </Row>
+          <Input
+            name="avatar"
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              const file = e.target.files[0];
+              setAvatar(file);
+            }}
+          />
           <Button type="submit">
             Sign in
           </Button>
