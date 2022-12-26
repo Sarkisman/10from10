@@ -5,10 +5,14 @@ import {
 } from 'reactstrap';
 // import { useNavigate } from 'react-router-dom';
 import { regAction } from '../../../redux/actions/UserActions';
+// import { getSingleClub } from '../../../redux/actions/ClubActions';
 
 export default function AuthPage() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
+  // useEffect(() => {
+  //   dispatch(getSingleClub());
+  // });
   const err = useSelector((store) => store.err);
   return (
     <>

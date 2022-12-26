@@ -30,11 +30,11 @@ export const sendClubAvatar = (data, id) => () => {
 };
 
 export const getAllClubs = () => (dispatch) => {
-  axios('/clubs')
+  axios('/club/clubs')
     .then((res) => dispatch(getClubs(res.data)));
 };
 
 export const getSingleClub = () => (dispatch) => {
-  axios('/oneclub')
+  axios('/club/oneclub')
     .then((res) => dispatch(getOneClub(res.data)));
 };

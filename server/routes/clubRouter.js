@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-return-await */
 const express = require('express');
 const cors = require('cors');
