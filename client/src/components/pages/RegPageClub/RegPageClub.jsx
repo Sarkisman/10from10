@@ -23,6 +23,7 @@ export default function ClubOrUser() {
     dispatch(sendDataClub(
       { user_id: params, input: Object.fromEntries(new FormData(e.target)), select },
     ));
+    e.target.reset();
   };
   return (
     <Form onSubmit={(e) => submitHandler(e)}>
