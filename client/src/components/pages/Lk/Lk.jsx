@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { getCommentsAction } from '../../../redux/actions/Comments';
+import { getSingleClub } from '../../../redux/actions/ClubActions';
 
 export default function Lk() {
   const club = null;
@@ -15,6 +16,7 @@ export default function Lk() {
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getCommentsAction());
+    dispatch(getSingleClub());
   });
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
