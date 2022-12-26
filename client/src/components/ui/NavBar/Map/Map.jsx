@@ -40,11 +40,11 @@ function init() {
   });
   // myMap.controls.remove('geolocationControl'); // удаляем геолокацию
   // myMap.controls.remove('searchControl'); // удаляем поиск
-  // myMap.controls.remove('trafficControl'); // удаляем контроль трафика
-  // myMap.controls.remove('typeSelector'); // удаляем тип
-  // myMap.controls.remove('fullscreenControl'); // удаляем кнопку перехода в полноэкранный режим
-  // myMap.controls.remove('zoomControl'); // удаляем контрол зуммирования
-  // myMap.controls.remove('rulerControl'); // удаляем контрол правил
+  myMap.controls.remove('trafficControl'); // удаляем контроль трафика
+  myMap.controls.remove('typeSelector'); // удаляем тип
+  myMap.controls.remove('fullscreenControl'); // удаляем кнопку перехода в полноэкранный режим
+  myMap.controls.remove('zoomControl'); // удаляем контрол зуммирования
+  myMap.controls.remove('rulerControl'); // удаляем контрол правил
   // myMap.behaviors.disable(['scrollZoom']); // отключаем скролл карты (опционально)
 
   // myMap.geoObjects.add(placemark);  это балун по умолчанию, без стилей
@@ -59,7 +59,17 @@ export default function Map() {
     ymaps.ready(init);
   }, []);
 
+  const myGeocoder = ymaps.geocode('Петрозаводск');
+  myGeocoder.then(
+    (res) => {
+      console.log(`Координаты объекта :${res.geoObjects.get(0).geometry.getCoordinates()}`);
+    },
+    (err) => {
+      (console.log(err));
+    },
+  );
+
   return (
-    <div id="map-test" className="map-test">Map</div>
+    <div id="map-test" className="map-test" />
   );
 }
