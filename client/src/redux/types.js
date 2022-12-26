@@ -19,3 +19,6 @@ export const GET_CLUBS = 'GET_CLUBS';
 
 // ONE CLUB
 export const GET_ONE_CLUB = 'GET_ONE_CLUB';
+// COMMENTS
+
+export const GET_COMMENTS = 'GET_COMMENTS';

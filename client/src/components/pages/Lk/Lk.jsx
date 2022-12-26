@@ -1,16 +1,21 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   Button,
   Card, CardBody, CardImg, Col, Row, UncontrolledCarousel,
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+import { getCommentsAction } from '../../../redux/actions/Comments';
 
 export default function Lk() {
   const club = null;
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getCommentsAction());
+  });
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
