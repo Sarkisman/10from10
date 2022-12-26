@@ -57,7 +57,7 @@ export default function Map() {
     return myMap;
   }
   const clubs = useSelector((store) => store.clubs);
-  console.log(clubs);
+  // console.log(clubs);
   useEffect(() => {
     ymaps.ready(init);
   }, []);
