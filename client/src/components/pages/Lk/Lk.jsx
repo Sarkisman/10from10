@@ -8,8 +8,10 @@ import { useNavigate } from 'react-router-dom';
 import { getCommentsAction } from '../../../redux/actions/Comments';
 
 export default function Lk() {
+  const club = null;
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getCommentsAction());
@@ -80,15 +82,28 @@ export default function Lk() {
       </Row>
       <Row>
         <Col>
-          <Button
-            color="primary"
-            outline
-            type="button"
-            onClick={() => buttonHandler()}
-          >
-            Подать заявку на регистрацию клуба.
+          {club ? (
+            <Button
+              color="primary"
+              outline
+              type="button"
+              onClick={() => navigate(`/club/${club?.id}`)}
+            >
+              мой клуб
 
-          </Button>
+            </Button>
+          ) : (
+            <Button
+              color="primary"
+              outline
+              type="button"
+              onClick={() => buttonHandler()}
+            >
+              Подать заявку на регистрацию клуба.
+
+            </Button>
+          )}
+
         </Col>
       </Row>
     </>
