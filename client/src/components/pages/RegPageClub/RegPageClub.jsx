@@ -39,6 +39,7 @@ export default function ClubOrUser() {
         user_id: params, input: Object.fromEntries(new FormData(e.target)), select,
       },
     ));
+    e.target.reset();
     dispatch(sendClubAvatar(formdata, params));
   };
   return (
