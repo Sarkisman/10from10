@@ -6,7 +6,7 @@ export default function LkClub() {
 
   return (
     <div>
-      {club}
+      {club.name}
       LkClub
     </div>
   );

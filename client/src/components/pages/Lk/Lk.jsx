@@ -4,7 +4,6 @@ import {
   Button, Col, Row, UncontrolledCarousel,
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
-
 import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getSingleClub } from '../../../redux/actions/ClubActions';
 import UserCard from '../../ui/UserCard';
