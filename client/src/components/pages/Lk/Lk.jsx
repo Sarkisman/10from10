@@ -15,12 +15,10 @@ export default function Lk() {
   const user = useSelector((store) => store.user);
   // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
-
   useEffect(() => {
     dispatch(getCommentsAction());
     dispatch(getSingleClub());
   });
-
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
