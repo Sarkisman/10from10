@@ -15,6 +15,18 @@ eventsRouter.route('/club/:id')
     const allEvents = await Event.findAll({ where: { club_id: +req.params.id }, order: [['createdAt', 'DESC']], include: Club });
     res.json(allEvents);
   });
+
+eventsRouter.get('/club/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const oneEvent = await Event.findOne({ where: { id } });
+    res.json(oneEvent);
+  } catch (error) {
+    // console.log(error);
+    res.sendStatus(500);
+  }
+});
+
 // eventsRouter.route('/:id')
 //   .post(async (req, res) => {
 //     try {

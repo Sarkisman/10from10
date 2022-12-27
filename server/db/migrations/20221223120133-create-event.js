@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.TEXT,
       },
       date: {
-        type: Sequelize.STRING,
+        type: Sequelize.DATE,
       },
       club_id: {
         type: Sequelize.INTEGER,
