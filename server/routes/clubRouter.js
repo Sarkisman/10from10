@@ -45,14 +45,14 @@ clubRouter.get('/types', async (req, res) => {
 
 clubRouter.post('/types', async (req, res) => {
   const {
-    user_id, input: { clubName, address }, select,
+    user_id, input: { clubName, address }, select, longitude, latitude,
   } = req.body;
-  // console.log(req.body, '=======================');
+  console.log(req.body, '=======================');
   try {
     const [club, isCreated] = await Club.findOrCreate({
       where: { user_id },
       defaults: {
-        user_id, name: clubName, address,
+        user_id, name: clubName, address, longitude, latitude,
       },
     });
     // await Club_Type.create({ club_id: club.id, type_id: el.id });
@@ -71,16 +71,17 @@ clubRouter.get('/clubs', async (req, res) => {
 });
 // один клуб
 clubRouter.get('/oneclub', async (req, res) => {
-  const { id } = req.session;
-  const oneClub = await Club.findOne({ where: { user_id: id } });
+  const oneClub = await Club.findOne({ where: { user_id: req.session.user.id } });
   res.json(oneClub);
 });
 
 clubRouter.post('/avatar/:id', upload.single('avatar'), async (req, res) => {
-  const { id } = req.params;
-  // console.log('id:', id);
-  // console.log('reqFile =======>', req.file.path);
-  await Club.update({ avatar: req.file.path }, { where: { user_id: id } });
+  try {
+    const { id } = req.params;
+    // console.log('id:', id);
+    // console.log('reqFile =======>', req.file.path);
+    await Club.update({ avatar: req.file.path }, { where: { user_id: id } });
+  } catch { console.log('err'); }
 });
 
 module.exports = clubRouter;

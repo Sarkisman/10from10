@@ -11,14 +11,17 @@ export default function ClubOrUser() {
   // const selectRef = useRef(null);
   const [select, setSelect] = useState([]);
   const [avatar, setAvatar] = useState();
+  const [coordinates, setCoordinates] = useState();
+  const [adress, setAdress] = useState();
   // console.log(avatar);
   const types = useSelector((state) => state.types);
-  console.log(types);
+  // console.log(types);
   const dispatch = useDispatch();
   const { params } = useParams();
   useEffect(() => {
     dispatch(getTypesAction());
   }, []);
+  useEffect(() => { console.log(adress); }, [adress]);
 
   // const postFile = (file) => {
   //   setAvatar(file);
@@ -28,19 +31,40 @@ export default function ClubOrUser() {
   // };
   const formdata = new FormData();
   formdata.append('avatar', avatar);
-  console.log('formdata:', formdata);
-  console.log('avatar:', avatar);
+  const { ymaps } = window;
+  // (Object.fromEntries(new FormData(e.target))).address
+  const changeHandler = (e) => {
+    setAdress(
+      (prev) => ({ ...prev, [e.target.name]: e.target.value }),
+    );
+    const myGeocoder = ymaps.geocode(adress?.address);
+    myGeocoder
+      .then((res) => (setCoordinates(res.geoObjects.get(0).geometry.getCoordinates()).split(',')));
+  };
 
   const submitHandler = (e) => {
     e.preventDefault();
+    console.log((Object.fromEntries(new FormData(e.target))).address);
+    const myGeocoder = ymaps.geocode((Object.fromEntries(new FormData(e.target))).address);
+    myGeocoder
+      .then((res) => (setCoordinates(res.geoObjects.get(0).geometry.getCoordinates()).split(',')))
+      .then((data) => console.log(data, 'tut byl ya'));
+    console.log(coordinates, '0000000000000');
+    setTimeout(() => {
+      dispatch(sendDataClub(
+        {
+          user_id: params,
+          latitude: coordinates[0],
+          longitude: coordinates[1],
+          input: Object.fromEntries(new FormData(e.target)),
+          select,
+        },
+      ));
+      dispatch(sendClubAvatar(formdata, params));
+    }, 1000);
 
-    dispatch(sendDataClub(
-      {
-        user_id: params, input: Object.fromEntries(new FormData(e.target)), select,
-      },
-    ));
     e.target.reset();
-    dispatch(sendClubAvatar(formdata, params));
+    console.log(coordinates, '2222222222');
   };
   return (
     <Form onSubmit={(e) => submitHandler(e)}>
@@ -62,6 +86,7 @@ export default function ClubOrUser() {
             Address
           </Label>
           <Input
+            onChange={changeHandler}
             id="exampleAddress"
             name="address"
             placeholder="1234 Main St"

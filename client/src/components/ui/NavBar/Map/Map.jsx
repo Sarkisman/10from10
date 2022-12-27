@@ -5,9 +5,7 @@ import './style.css';
 
 export default function Map() {
   const [map, setMap] = useState(null);
-  const clubs = useSelector((store) => store.clubs);
   const dispatch = useDispatch();
-  console.log(clubs);
   const { ymaps } = window;
   const center = [55.76, 37.64];
   function init() {
@@ -37,6 +35,15 @@ export default function Map() {
     ymaps.ready(init);
   }, []);
 
+  const myGeocoder = ymaps?.geocode('Клин');
+  myGeocoder?.then(
+    (res) => {
+      console.log(`Координаты объекта :${res.geoObjects.get(0).geometry.getCoordinates()}`);
+    },
+    (err) => {
+      (console.log(err));
+    },
+  );
   useEffect(() => {
     // console.log(clubs, 'CLUUUUBBBBSSSS');
     clubs?.forEach((el) => {
