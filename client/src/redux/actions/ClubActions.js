@@ -24,7 +24,7 @@ export const sendDataClub = (input) => (dispatch) => {
 };
 
 export const sendClubAvatar = (data, id) => () => {
-  console.log('input:', data, id);
+  // console.log('input:', data, id);
   axios.post(`/club/avatar/${id}`, data);
   // .then((res) => dispatch(getTypes(res.data)))
 };
