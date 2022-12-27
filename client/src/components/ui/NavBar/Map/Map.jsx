@@ -37,6 +37,16 @@ export default function Map() {
     ymaps.ready(init);
   }, []);
 
+
+  const myGeocoder = ymaps?.geocode('Клин');
+  myGeocoder?.then(
+    (res) => {
+      console.log(`Координаты объекта :${res.geoObjects.get(0).geometry.getCoordinates()}`);
+    },
+    (err) => {
+      (console.log(err));
+    },
+  );
   useEffect(() => {
     // console.log(clubs, 'CLUUUUBBBBSSSS');
     clubs?.forEach((el) => {

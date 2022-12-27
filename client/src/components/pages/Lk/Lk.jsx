@@ -5,8 +5,11 @@ import {
   Card, CardBody, CardImg, Col, Row, UncontrolledCarousel,
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
-// import { getCommentsAction } from '../../../redux/actions/Comments';
+
+import { getCommentsAction } from '../../../redux/actions/Comments';
+import { getSingleClub } from '../../../redux/actions/ClubActions';
 import UserCard from '../../ui/UserCard';
+
 
 export default function Lk() {
   const club = null;
@@ -14,9 +17,12 @@ export default function Lk() {
   const user = useSelector((store) => store.user);
   // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   dispatch(getCommentsAction());
-  // });
+
+  useEffect(() => {
+    dispatch(getCommentsAction());
+    dispatch(getSingleClub());
+  });
+
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
