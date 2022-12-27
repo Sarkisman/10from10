@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button,
-  Card, CardBody, CardImg, Col, Row, UncontrolledCarousel,
+  Button, Col, Row, UncontrolledCarousel,
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
+
 import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getSingleClub } from '../../../redux/actions/ClubActions';
-// import { getCommentsAction } from '../../../redux/actions/Comments';
 import UserCard from '../../ui/UserCard';
 
 export default function Lk() {
@@ -20,9 +19,6 @@ export default function Lk() {
     dispatch(getCommentsAction());
     dispatch(getSingleClub());
   });
-  // useEffect(() => {
-  //   dispatch(getCommentsAction());
-  // });
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
