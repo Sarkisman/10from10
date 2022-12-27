@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button,
-  Card, CardBody, CardImg, Col, Row, UncontrolledCarousel,
+  Button, Col, Row, UncontrolledCarousel,
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -10,10 +9,9 @@ import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getSingleClub } from '../../../redux/actions/ClubActions';
 import UserCard from '../../ui/UserCard';
 
-
 export default function Lk() {
   const club = null;
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
