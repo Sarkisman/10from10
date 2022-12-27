@@ -47,7 +47,6 @@ clubRouter.post('/types', async (req, res) => {
   const {
     user_id, input: { clubName, address }, select, longitude, latitude,
   } = req.body;
-  console.log(req.body, '=======================');
   try {
     const [club, isCreated] = await Club.findOrCreate({
       where: { user_id },
@@ -59,7 +58,6 @@ clubRouter.post('/types', async (req, res) => {
     await select.map(async (el) => await Club_Type.create(
       { club_id: club.id, type_id: el.id },
     ));
-    // console.log(club);
   } catch {
     console.log('error');
   }
@@ -78,8 +76,6 @@ clubRouter.get('/oneclub', async (req, res) => {
 clubRouter.post('/avatar/:id', upload.single('avatar'), async (req, res) => {
   try {
     const { id } = req.params;
-    // console.log('id:', id);
-    // console.log('reqFile =======>', req.file.path);
     await Club.update({ avatar: req.file.path }, { where: { user_id: id } });
   } catch { console.log('err'); }
 });

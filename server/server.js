@@ -4,7 +4,7 @@ const cors = require('cors');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 // const { Type } = require('./db/models');
-const { authRouter, clubRouter } = require('./routes');
+const { authRouter, clubRouter, eventsRouter } = require('./routes');
 require('dotenv').config();
 
 const app = express();
@@ -32,6 +32,7 @@ app.use(session({
 
 app.use('/auth', authRouter);
 app.use('/club', clubRouter);
+app.use('/events', eventsRouter);
 
 // app.get('/club/types', async (req, res) => {
 //   try {
