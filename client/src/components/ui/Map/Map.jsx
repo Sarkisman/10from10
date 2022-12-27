@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAllClubs } from '../../../../redux/actions/ClubActions';
+import { useNavigate } from 'react-router-dom';
+import { getAllClubs } from '../../../redux/actions/ClubActions';
+import { getEvents } from '../../../redux/actions/eventActions';
 import './style.css';
 
 export default function Map() {
+  const navigate = useNavigate();
   const [map, setMap] = useState(null);
   const clubs = useSelector((store) => store.clubs);
+  const events = useSelector((store) => store.events);
   console.log(clubs);
   const dispatch = useDispatch();
   const { ymaps } = window;
@@ -33,27 +37,21 @@ export default function Map() {
     ymaps.ready(init);
   }, []);
 
-  // const myGeocoder = ymaps?.geocode('Клин');
-  // myGeocoder?.then(
-  //   (res) => {
-  //     console.log(`Координаты объекта :${res.geoObjects.get(0).geometry.getCoordinates()}`);
-  //   },
-  //   (err) => {
-  //     (console.log(err));
-  //   },
-  // );
   useEffect(() => {
+    dispatch(getEvents());
     setTimeout(() => {
       clubs?.forEach((el) => {
         const coordinates = [el.latitude, el.longitude];
-        // console.log('coordinates', coordinates);
+        const clubEvents = events?.filter((item) => item.club_id === el.id);
         const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
           balloonContent: `
                 <div class="balloon">
-                  <div class="balloon__title">${el.name}</div>
-                  <button type="button" class="btn sixth" id=${el.id}>Подробнее</button>
-                </div>
-                `,
+                  <div class="balloon__title">${el?.name}</div>
+
+                  ${clubEvents?.map((e) => `<div>${e?.title}</div>`).join('')}
+      <button type="button" class="btn sixth" id=${el.id}>Подробнее</button>
+                </div >
+        `,
         }, {
           iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
           iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1016/1016056.png', // Своё изображение иконки метки.
@@ -62,19 +60,15 @@ export default function Map() {
           iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
         });
         map?.geoObjects.add(myPlacemarkWithContent);
+        map?.geoObjects.events.add('balloonopen', () => {
+          document.getElementById(`${el.id}`)?.addEventListener('click', () => {
+            navigate(`/ events / club / ${el.id}`);
+            map?.balloon.close();
+          });
+        });
       });
     }, 250);
   }, [clubs]);
-
-  // const myGeocoder = ymaps.geocode('Клин');
-  // myGeocoder.then(
-  //   (res) => {
-  //     console.log(`Координаты объекта :${res.geoObjects.get(0).geometry.getCoordinates()}`);
-  //   },
-  //   (err) => {
-  //     (console.log(err));
-  //   },
-  // );
 
   return (
     <div id="map-test" className="map-test" />

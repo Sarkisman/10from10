@@ -23,3 +23,10 @@ export const GET_ONE_CLUB = 'GET_ONE_CLUB';
 // COMMENTS
 
 export const GET_COMMENTS = 'GET_COMMENTS';
+
+// EVENTS
+export const SET_EVENTS = 'SET_EVENTS';
+export const SET_EVENT = 'SET_EVENT';
+export const ADD_EVENT = 'ADD_EVENT';
+export const DELETE_EVENT = 'DELETE_EVENT';
+export const UPDATE_EVENT = 'UPDATE_EVENT';
