@@ -1,24 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Button,
-  Card, CardBody, CardTitle, CardSubtitle, CardText, Input,
+  Card, CardBody, CardTitle, Input,
 } from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { setUserAavatar } from '../../../redux/actions/userAvatarAction';
+import { getAvatar, setUserAavatar } from '../../../redux/actions/userAvatarAction';
 
 export default function UserCard() {
   const user = useSelector((store) => store.user);
   const defaultAvatar = useSelector((store) => store.userAvatar);
-  console.log(user);
-  const [avatar, setAvatar] = useState(defaultAvatar);
+  console.log(defaultAvatar);
   const dispatch = useDispatch();
-  // console.log('avatar:', avatar);
+  console.log('defaultAvatar:', defaultAvatar);
+  useEffect(() => {
+    dispatch(getAvatar());
+  }, [defaultAvatar]);
 
+  const [avatar, setAvatar] = useState(defaultAvatar);
+  console.log('avatar:', avatar);
   const formdata = new FormData();
   formdata.append('avatar', avatar);
 
   const submitHandler = () => {
     dispatch(setUserAavatar(formdata));
+    setAvatar(dispatch(getAvatar()));
   };
   return (
 
@@ -43,14 +48,19 @@ export default function UserCard() {
         }}
       />
       <CardBody>
-        <CardTitle tag="h5">
+        <CardTitle
+          style={{
+            marginLeft: '50px',
+          }}
+          tag="h5"
+        >
           hello
           {' '}
           {user.name}
           {' '}
           {user.id}
         </CardTitle>
-        <CardSubtitle
+        {/* <CardSubtitle
           className="mb-2 text-muted"
           tag="h6"
         >
@@ -58,7 +68,7 @@ export default function UserCard() {
         </CardSubtitle>
         <CardText>
           Some quick example tex up the bulk of the card‘s content.
-        </CardText>
+        </CardText> */}
         <div>
           <Input
             name="avatar"

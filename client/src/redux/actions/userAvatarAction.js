@@ -6,7 +6,6 @@ import {
 export const setAvatar = (payload) => ({ type: SET_USER_AVATAR, payload });
 
 export const getAvatar = () => (dispatch) => {
-  console.log('111');
   axios.get('/auth')
     .then((res) => dispatch(setAvatar(res.data)));
 };

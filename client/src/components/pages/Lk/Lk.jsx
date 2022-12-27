@@ -8,19 +8,19 @@ import { useNavigate } from 'react-router-dom';
 import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getSingleClub } from '../../../redux/actions/ClubActions';
 import UserCard from '../../ui/UserCard';
+import { getAvatar } from '../../../redux/actions/userAvatarAction';
 
 export default function Lk() {
-  const club = null;
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAvatar());
+    dispatch(getCommentsAction());
+    dispatch(getSingleClub());
+  }, []);
+  const club = null;
   const user = useSelector((store) => store.user);
   // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    dispatch(getCommentsAction());
-    dispatch(getSingleClub());
-  });
-
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
