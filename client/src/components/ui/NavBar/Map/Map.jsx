@@ -5,9 +5,7 @@ import './style.css';
 
 export default function Map() {
   const [map, setMap] = useState(null);
-  const clubs = useSelector((store) => store.clubs);
   const dispatch = useDispatch();
-  console.log(clubs);
   const { ymaps } = window;
   const center = [55.76, 37.64];
   function init() {
@@ -36,7 +34,6 @@ export default function Map() {
   useEffect(() => {
     ymaps.ready(init);
   }, []);
-
 
   const myGeocoder = ymaps?.geocode('Клин');
   myGeocoder?.then(
