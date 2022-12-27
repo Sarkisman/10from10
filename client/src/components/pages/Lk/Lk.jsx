@@ -7,6 +7,8 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getSingleClub } from '../../../redux/actions/ClubActions';
+// import { getCommentsAction } from '../../../redux/actions/Comments';
+import UserCard from '../../ui/UserCard';
 
 export default function Lk() {
   const club = null;
@@ -18,6 +20,9 @@ export default function Lk() {
     dispatch(getCommentsAction());
     dispatch(getSingleClub());
   });
+  // useEffect(() => {
+  //   dispatch(getCommentsAction());
+  // });
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
@@ -25,7 +30,8 @@ export default function Lk() {
     <>
       <Row>
         <Col>
-          <Card
+          <UserCard />
+          {/* <Card
             style={{
               width: '20rem',
             }}
@@ -46,7 +52,7 @@ export default function Lk() {
                 Ваганович
               </div>
             </CardBody>
-          </Card>
+          </Card> */}
         </Col>
         <Col>
           <div>моя фотогалерея</div>
