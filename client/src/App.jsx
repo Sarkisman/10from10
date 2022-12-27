@@ -29,14 +29,12 @@ function App() {
             <Route element={<PrivateRoute isAllowed={!user?.id} redirectPath="/" />}>
               <Route path="/auth" element={<LoginPage />} />
               <Route path="/reg" element={<RegPage />} />
-
             </Route>
-            <Route path="/lk/:id" element={<Lk />} />
-            <Route path="/club/:id" element={<LkClub />} />
-            <Route path="/reg/:params" element={<RegPageClub />} />
-            {/* <Route element={<PrivateRoute isAllowed={!user?.id} />}>
-
-            </Route> */}
+            <Route element={<PrivateRoute isAllowed={user?.id} />}>
+              <Route path="/lk/:id" element={<Lk />} />
+              <Route path="/club/:id" element={<LkClub />} />
+              <Route path="/reg/:params" element={<RegPageClub />} />
+            </Route>
           </Routes>
         </div>
       ) : (<div>LOADING</div>)}

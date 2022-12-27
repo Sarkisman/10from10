@@ -80,4 +80,13 @@ clubRouter.post('/avatar/:id', upload.single('avatar'), async (req, res) => {
   } catch { console.log('err'); }
 });
 
+clubRouter.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const club = await Club.findOne({ where: { user_id: id } });
+    console.log(club, '===========================');
+    res.json(club);
+  } catch { console.log('err'); }
+});
+
 module.exports = clubRouter;

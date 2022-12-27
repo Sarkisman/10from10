@@ -6,6 +6,7 @@ import clubsReducer from './reducers/clubsReducer';
 import oneClubReducer from './reducers/oneClubReducer';
 import userAvatarReducer from './reducers/userAvatarReducer';
 import eventsReducer from './reducers/eventsReducer';
+import myClubReducer from './reducers/myClubReducer';
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     oneClub: oneClubReducer,
     userAvatar: userAvatarReducer,
     events: eventsReducer,
+    club: myClubReducer,
   },
 });
 
