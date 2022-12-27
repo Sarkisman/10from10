@@ -1,4 +1,6 @@
-import { SET_USER, LOGOUT, SET_EMPTY_USER } from '../types';
+import {
+  SET_USER, LOGOUT, SET_EMPTY_USER,
+} from '../types';
 
 export default function userReducer(state = { isFetching: true }, action) {
   const { type, payload } = action;
@@ -9,6 +11,7 @@ export default function userReducer(state = { isFetching: true }, action) {
       return null;
     case LOGOUT:
       return null;
+
     default:
       return state;
   }

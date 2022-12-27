@@ -31,6 +31,8 @@ export default function Map() {
     setMap(myMap);
     return myMap;
   }
+  const clubs = useSelector((store) => store.clubs);
+  // console.log(clubs);
   useEffect(() => {
     ymaps.ready(init);
   }, []);

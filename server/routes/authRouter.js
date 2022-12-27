@@ -1,8 +1,28 @@
 const { hash, compare } = require('bcrypt');
 const express = require('express');
+const cors = require('cors');
+const multer = require('multer'); // мультер
+
 const { User } = require('../db/models');
 
 const userRouter = express.Router();
+
+userRouter.use(cors({
+  credentials: true,
+  origin: true,
+}));
+
+const storage = multer.diskStorage({ // хранилище img
+  destination(req, file, cb) {
+    cb(null, './images');
+  },
+  filename(req, file, cb) {
+    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+    cb(null, `${file.fieldname}-${uniqueSuffix}.jpeg`); // имя файла
+  },
+});
+
+const upload = multer({ storage });
 
 userRouter.post('/login', async (req, res) => {
   const { name, password } = req.body;
@@ -19,7 +39,9 @@ userRouter.post('/login', async (req, res) => {
   // если не сходится сообщаем что введенные им данные неверны
   if (!isPassValid) return res.status(400).json({ message: 'Неверно введён логин или пароль пользователя!' });
 
-  req.session.user = { id: user.id, name: user.name, email: user.email };
+  req.session.user = {
+    id: user.id, name: user.name, email: user.email,
+  };
   if (req.session.user) {
     return res.json(req.session.user);
   } return res.json(null);
@@ -61,6 +83,19 @@ userRouter.get('/logout', (req, res) => {
   // Удалить куку
   req.session.destroy(); // Завершить сессию
   res.clearCookie('user_sid').sendStatus(200);
+});
+
+userRouter.get('/', async (req, res) => {
+  const user = await User.findOne({ where: { id: req.session.user.id } });
+  const { avatar } = user;
+  res.json(avatar);
+});
+
+userRouter.post('/avatar', upload.single('avatar'), async (req, res) => {
+  // console.log('reqFile =======>', req.file.path);
+  await User.update({ avatar: req.file.path.slice(7) }, { where: { id: req.session.user.id } });
+  const oneUser = await User.findOne({ where: { id: req.session.user.id } });
+  res.json(oneUser);
 });
 
 module.exports = userRouter;
