@@ -3,7 +3,6 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer'); // мультер
-const { where } = require('sequelize');
 const { Type, Club, Club_Type } = require('../db/models');
 
 const clubRouter = express.Router();
