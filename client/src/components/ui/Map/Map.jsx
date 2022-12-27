@@ -46,15 +46,21 @@ export default function Map() {
         const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
           balloonContent: `
                 <div class="balloon">
-                  <div class="balloon__title">${el?.name}</div>
+                  <div class="balloon__title">клуб: ${el?.name}</div>
+                  <div class="balloon__title">почта: ${el?.email}</div>
+                  <div class="balloon__title">телефон: ${el?.phone}</div>
+                  <button type="button" class="btn sixth" id=${el.id}>Подробнее о клубе</button>
+                  <br></br>
 
-                  ${clubEvents?.map((e) => `<div>${e?.title}</div>`).join('')}
-      <button type="button" class="btn sixth" id=${el.id}>Подробнее</button>
-                </div >
+                  
+                  <div class="balloon__title"><b>События:
+                  ${clubEvents?.map((e) => `<div><a href="/events/club/${e.id}">${e?.title}<button type="button" class="btn sixth" id=${el.id}>Подробнее</button></div>`).join('')}
+                </b></div >
+                </div>
         `,
         }, {
           iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-          iconImageHref: 'https://cdn-icons-png.flaticon.com/512/1016/1016056.png', // Своё изображение иконки метки.
+          iconImageHref: el.clubEvents?.length !== 0 ? 'https://cdn-icons-png.flaticon.com/512/1004/1004305.png' : 'https://cdn-icons-png.flaticon.com/512/1016/1016056.png', // Своё изображение иконки метки.
           iconImageSize: [40, 40], // Размеры метки.
           iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки"
           iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.

@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   Event.init({
     title: DataTypes.STRING,
     description: DataTypes.TEXT,
-    date: DataTypes.STRING,
+    date: DataTypes.DATE,
     club_id: DataTypes.INTEGER,
     num_of_members: DataTypes.INTEGER,
   }, {

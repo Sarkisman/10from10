@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Club.init({
     name: DataTypes.STRING,
+    phone: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.TEXT,
     avatar: DataTypes.STRING,

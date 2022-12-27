@@ -11,6 +11,7 @@ import PrivateRoute from './HOC/PrivateRoute';
 import { checkAuth } from './redux/actions/UserActions';
 import Lk from './components/pages/Lk/Lk';
 import RegPageClub from './components/pages/RegPageClub';
+import EventPage from './components/pages/EventPage';
 
 function App() {
   const user = useSelector((store) => store.user);
@@ -32,6 +33,7 @@ function App() {
             </Route>
             <Route path="/lk/:id" element={<Lk />} />
             <Route path="/reg/:params" element={<RegPageClub />} />
+            <Route path="/events/club/:id" element={<EventPage />} />
             {/* <Route element={<PrivateRoute isAllowed={!user?.id} />}>
 
             </Route> */}
