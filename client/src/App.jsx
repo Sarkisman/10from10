@@ -12,6 +12,7 @@ import { checkAuth } from './redux/actions/UserActions';
 import Lk from './components/pages/Lk/Lk';
 import RegPageClub from './components/pages/RegPageClub';
 import LkClub from './components/pages/LkClub/LkClub';
+import EventPage from './components/pages/EventPage';
 
 function App() {
   const user = useSelector((store) => store.user);
@@ -35,6 +36,9 @@ function App() {
               <Route path="/club/:id" element={<LkClub />} />
               <Route path="/reg/:params" element={<RegPageClub />} />
             </Route>
+            <Route path="/lk/:id" element={<Lk />} />
+            <Route path="/reg/:params" element={<RegPageClub />} />
+            <Route path="/events/club/:id" element={<EventPage />} />
           </Routes>
         </div>
       ) : (<div>LOADING</div>)}

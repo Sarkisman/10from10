@@ -22,11 +22,11 @@ export const getEventsByClub = (id) => (dispatch) => {
     .catch((e) => console.log('error in getting Events', e));
 };
 
-// export const getOneEvent = (id) => (dispatch) => {
-//   axios.get(`/events/${id}`)
-//     .then((res) => dispatch(setEvent(res.data)))
-//     .catch((err) => console.log('error in deleting Event', err));
-// };
+export const getOneEvent = (id) => (dispatch) => {
+  axios.get(`/events/club/${id}`)
+    .then((res) => dispatch(setEvent(res.data)))
+    .catch((err) => console.log('error', err));
+};
 
 // export const submitEvent = (e, inputs, value, id) => (dispatch) => {
 //   e.preventDefault();
