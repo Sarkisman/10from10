@@ -11,6 +11,7 @@ import PrivateRoute from './HOC/PrivateRoute';
 import { checkAuth } from './redux/actions/UserActions';
 import Lk from './components/pages/Lk/Lk';
 import RegPageClub from './components/pages/RegPageClub';
+import LkClub from './components/pages/LkClub/LkClub';
 import EventPage from './components/pages/EventPage';
 
 function App() {
@@ -29,14 +30,15 @@ function App() {
             <Route element={<PrivateRoute isAllowed={!user?.id} redirectPath="/" />}>
               <Route path="/auth" element={<LoginPage />} />
               <Route path="/reg" element={<RegPage />} />
-
+            </Route>
+            <Route element={<PrivateRoute isAllowed={user?.id} />}>
+              <Route path="/lk/:id" element={<Lk />} />
+              <Route path="/club/:id" element={<LkClub />} />
+              <Route path="/reg/:params" element={<RegPageClub />} />
             </Route>
             <Route path="/lk/:id" element={<Lk />} />
             <Route path="/reg/:params" element={<RegPageClub />} />
             <Route path="/events/club/:id" element={<EventPage />} />
-            {/* <Route element={<PrivateRoute isAllowed={!user?.id} />}>
-
-            </Route> */}
           </Routes>
         </div>
       ) : (<div>LOADING</div>)}

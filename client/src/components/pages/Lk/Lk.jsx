@@ -4,21 +4,22 @@ import {
   Button, Col, Row, UncontrolledCarousel,
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
-
 import { getCommentsAction } from '../../../redux/actions/Comments';
-import { getSingleClub } from '../../../redux/actions/ClubActions';
+import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
 import UserCard from '../../ui/UserCard';
 
 export default function Lk() {
-  const club = null;
+  const club = useSelector((store) => store.club);
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-  // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
   useEffect(() => {
     dispatch(getCommentsAction());
     dispatch(getSingleClub());
-  });
+    dispatch(checkHaveClub(user?.id));
+  }, []);
+
+  console.log(club);
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
@@ -27,28 +28,6 @@ export default function Lk() {
       <Row>
         <Col>
           <UserCard />
-          {/* <Card
-            style={{
-              width: '20rem',
-            }}
-          >
-            <CardImg
-              alt="Card image cap"
-              src="https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg"
-              top
-              width="100%"
-            />
-            <CardBody>
-              <div>
-                {' '}
-                Арутюнян
-                {' '}
-                {user.name}
-                {' '}
-                Ваганович
-              </div>
-            </CardBody>
-          </Card> */}
         </Col>
         <Col>
           <div>моя фотогалерея</div>
@@ -93,8 +72,9 @@ export default function Lk() {
               type="button"
               onClick={() => navigate(`/club/${club?.id}`)}
             >
-              мой клуб
-
+              Мой клуб:
+              {'  '}
+              {club?.name}
             </Button>
           ) : (
             <Button
@@ -104,7 +84,6 @@ export default function Lk() {
               onClick={() => buttonHandler()}
             >
               Подать заявку на регистрацию клуба.
-
             </Button>
           )}
 

@@ -3,14 +3,13 @@ import {
   GET_TYPES,
   GET_CLUBS,
   GET_ONE_CLUB,
-
+  GET_MY_CLUB,
 } from '../types';
 
 export const getTypes = (payload) => ({ type: GET_TYPES, payload });
-
 export const getClubs = (payload) => ({ type: GET_CLUBS, payload });
-
 export const getOneClub = (payload) => ({ type: GET_ONE_CLUB, payload });
+export const getMyClub = (payload) => ({ type: GET_MY_CLUB, payload });
 
 export const getTypesAction = () => (dispatch) => {
   axios('/club/types')
@@ -37,4 +36,9 @@ export const getAllClubs = () => (dispatch) => {
 export const getSingleClub = () => (dispatch) => {
   axios('/club/oneclub')
     .then((res) => dispatch(getOneClub(res.data)));
+};
+
+export const checkHaveClub = (id) => (dispatch) => {
+  axios(`/club/${id}`)
+    .then((res) => dispatch(getMyClub(res.data)));
 };
