@@ -9,7 +9,7 @@ function EventPage() {
   const dispatch = useDispatch();
   const events = useSelector((store) => store.events); // .find((el) => el.id === id);
   console.log(events);
-  const event = events.find((el) => el.id === id);
+  const event = events.find((el) => el.id === +id);
   console.log(event);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function EventPage() {
   }, []);
 
   return (
-    <div>{event.title}</div>
+    <div>{event?.title}</div>
   );
 }
 

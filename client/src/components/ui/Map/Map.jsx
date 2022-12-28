@@ -41,6 +41,7 @@ export default function Map() {
     dispatch(getEvents());
     setTimeout(() => {
       clubs?.forEach((el) => {
+        console.log(el, 'clubevents');
         const coordinates = [el.latitude, el.longitude];
         const clubEvents = events?.filter((item) => item.club_id === el.id);
         const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
@@ -54,13 +55,13 @@ export default function Map() {
 
                   
                   <div class="balloon__title"><b>События:
-                  ${clubEvents?.map((e) => `<div><a href="/events/club/${e.id}">${e?.title}<button type="button" class="btn sixth" id=${el.id}>Подробнее</button></div>`).join('')}
+                  ${clubEvents?.map((e) => `<div><a href="/events/club/${e.id}">${e?.title}</div>`).join('')}
                 </b></div >
                 </div>
         `,
         }, {
           iconLayout: 'default#imageWithContent', // Необходимо указать данный тип макета.
-          iconImageHref: el.clubEvents?.length !== 0 ? 'https://cdn-icons-png.flaticon.com/512/1004/1004305.png' : 'https://cdn-icons-png.flaticon.com/512/1016/1016056.png', // Своё изображение иконки метки.
+          iconImageHref: clubEvents?.length ? 'https://cdn-icons-png.flaticon.com/512/1004/1004305.png' : 'https://cdn-icons-png.flaticon.com/512/1016/1016056.png', // Своё изображение иконки метки.
           iconImageSize: [40, 40], // Размеры метки.
           iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки"
           iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
@@ -68,7 +69,7 @@ export default function Map() {
         map?.geoObjects.add(myPlacemarkWithContent);
         map?.geoObjects.events.add('balloonopen', () => {
           document.getElementById(`${el.id}`)?.addEventListener('click', () => {
-            navigate(`/ events / club / ${el.id}`);
+            navigate(`/club/${el.id}`);
             map?.balloon.close();
           });
         });
