@@ -4,24 +4,29 @@ import {
   Button, Col, Row, UncontrolledCarousel,
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
-
 import { getCommentsAction } from '../../../redux/actions/Comments';
-import { getSingleClub } from '../../../redux/actions/ClubActions';
 // import UserCard from '../../ui/UserCard';
 import { getAvatar } from '../../../redux/actions/userAvatarAction';
 import NewUserCard from '../../ui/NewUserCard';
+import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
 
 export default function Lk() {
+  const club = useSelector((store) => store.club);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAvatar());
     dispatch(getCommentsAction());
     dispatch(getSingleClub());
   }, []);
-  const club = null;
   const user = useSelector((store) => store.user);
-  // const clubs = useSelector((store) => store.clubs);
   const navigate = useNavigate();
+  useEffect(() => {
+    dispatch(getCommentsAction());
+    dispatch(getSingleClub());
+    dispatch(checkHaveClub(user?.id));
+  }, []);
+
+  console.log(club);
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
@@ -96,8 +101,9 @@ export default function Lk() {
               type="button"
               onClick={() => navigate(`/club/${club?.id}`)}
             >
-              мой клуб
-
+              Мой клуб:
+              {'  '}
+              {club?.name}
             </Button>
           ) : (
             <Button
@@ -107,7 +113,6 @@ export default function Lk() {
               onClick={() => buttonHandler()}
             >
               Подать заявку на регистрацию клуба.
-
             </Button>
           )}
 

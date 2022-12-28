@@ -90,9 +90,11 @@ userRouter.get('/logout', (req, res) => {
 });
 
 userRouter.get('/', async (req, res) => {
-  const user = await User.findOne({ where: { id: req.session.user.id } });
-  const { avatar } = user;
-  res.json(avatar);
+  try {
+    const user = await User.findOne({ where: { id: req.session.user.id } });
+    const { avatar } = user;
+    res.json(avatar);
+  } catch { console.log('net Avatara'); }
 });
 
 userRouter.post('/avatar', upload.single('avatar'), async (req, res) => {

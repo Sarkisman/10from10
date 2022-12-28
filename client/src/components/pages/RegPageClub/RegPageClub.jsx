@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
@@ -8,38 +8,29 @@ import Multiselect from 'multiselect-react-dropdown';
 import { getTypesAction, sendClubAvatar, sendDataClub } from '../../../redux/actions/ClubActions';
 
 export default function ClubOrUser() {
-  // const selectRef = useRef(null);
+  const navigate = useNavigate();
   const [select, setSelect] = useState([]);
   const [avatar, setAvatar] = useState();
   const [coordinates, setCoordinates] = useState();
   const [adress, setAdress] = useState();
-  // console.log(avatar);
   const types = useSelector((state) => state.types);
-  // console.log(types);
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const { params } = useParams();
   useEffect(() => {
     dispatch(getTypesAction());
   }, []);
-  useEffect(() => { console.log(adress); }, [adress]);
-
-  // const postFile = (file) => {
-  //   setAvatar(file);
-  //   // const formdata = new FormData();
-  //   // formdata.append('file', file);
-  //   // console.log(file);
-  // };
   const formdata = new FormData();
   formdata.append('avatar', avatar);
   const { ymaps } = window;
-  // (Object.fromEntries(new FormData(e.target))).address
   const changeHandler = (e) => {
+    ymaps.geocode(adress?.address)
+      .then((res) => (
+        setCoordinates(res.geoObjects.get(0).geometry.getCoordinates()).split(',')
+      ));
     setAdress(
       (prev) => ({ ...prev, [e.target.name]: e.target.value }),
     );
-    const myGeocoder = ymaps.geocode(adress?.address);
-    myGeocoder
-      .then((res) => (setCoordinates(res.geoObjects.get(0).geometry.getCoordinates()).split(',')));
   };
 
   const submitHandler = (e) => {
@@ -47,24 +38,19 @@ export default function ClubOrUser() {
     console.log((Object.fromEntries(new FormData(e.target))).address);
     const myGeocoder = ymaps.geocode((Object.fromEntries(new FormData(e.target))).address);
     myGeocoder
-      .then((res) => (setCoordinates(res.geoObjects.get(0).geometry.getCoordinates()).split(',')))
-      .then((data) => console.log(data, 'tut byl ya'));
-    console.log(coordinates, '0000000000000');
-    setTimeout(() => {
-      dispatch(sendDataClub(
-        {
-          user_id: params,
-          latitude: coordinates[0],
-          longitude: coordinates[1],
-          input: Object.fromEntries(new FormData(e.target)),
-          select,
-        },
-      ));
-      dispatch(sendClubAvatar(formdata, params));
-    }, 1000);
-
+      .then((res) => (setCoordinates(res.geoObjects.get(0).geometry.getCoordinates()).split(',')));
+    dispatch(sendDataClub(
+      {
+        user_id: params,
+        latitude: coordinates[0],
+        longitude: coordinates[1],
+        input: Object.fromEntries(new FormData(e.target)),
+        select,
+      },
+    ));
+    dispatch(sendClubAvatar(formdata, params));
     e.target.reset();
-    console.log(coordinates, '2222222222');
+    navigate(`/lk/${user?.id}`);
   };
   return (
     <Form onSubmit={(e) => submitHandler(e)}>
