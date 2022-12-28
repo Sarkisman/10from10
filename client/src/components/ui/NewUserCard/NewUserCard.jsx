@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {
   Button,
-  Card, CardBody, CardTitle, Input,
-} from 'reactstrap';
+  Card, CardBody, Input,
+} from 'reactstrap'; // CardTitle,
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserAvatar } from '../../../redux/actions/userAvatarAction';
 
