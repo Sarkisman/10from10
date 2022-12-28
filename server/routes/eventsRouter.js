@@ -27,27 +27,27 @@ eventsRouter.get('/club/:id', async (req, res) => {
   }
 });
 
-// eventsRouter.route('/:id')
-//   .post(async (req, res) => {
-//     try {
-//       const {
-//         title, description, date, tgLink,
-//       } = req.body;
-//       // console.log('reqqqq', req.params);
-//       const newEvent = await Event.create({
-//         title,
-//         description,
-//         date: new Date(date),
-//         tgLink,
-//         userId: req.session.user.id,
-//         placeId: req.params.id,
-//       });
-//       // const eventWithUser = await Event.findByPk(newEvent.id, { include: User });
-//       res.json(newEvent);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   });
+eventsRouter.route('/new/:id')
+  .post(async (req, res) => {
+    console.log('__________________________________________________________', req.params.id);
+    console.log(',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,', req.body.num_of_members);
+    try {
+      const {
+        title, description, date, num_of_members,
+      } = req.body;
+      const newEvent = await Event.create({
+        title,
+        description,
+        date: new Date(date),
+        club_id: req.params.id,
+        num_of_members: +num_of_members,
+      });
+      // const eventWithUser = await Event.findByPk(newEvent.id, { include: User });
+      res.json(newEvent);
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
 // eventsRouter.route('/joiners')
 //   .get(async (req, res) => {
