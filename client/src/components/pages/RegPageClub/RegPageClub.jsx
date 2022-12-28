@@ -5,12 +5,12 @@ import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
-import { getTypesAction, sendClubAvatar, sendDataClub } from '../../../redux/actions/ClubActions';
+import { getTypesAction, sendDataClub } from '../../../redux/actions/ClubActions';
 
 export default function ClubOrUser() {
   const navigate = useNavigate();
   const [select, setSelect] = useState([]);
-  const [avatar, setAvatar] = useState();
+  // const [avatar, setAvatar] = useState();
   const [coordinates, setCoordinates] = useState();
   const [adress, setAdress] = useState();
   const types = useSelector((state) => state.types);
@@ -20,8 +20,8 @@ export default function ClubOrUser() {
   useEffect(() => {
     dispatch(getTypesAction());
   }, []);
-  const formdata = new FormData();
-  formdata.append('avatar', avatar);
+  // const formdata = new FormData();
+  // formdata.append('avatar', avatar);
   const { ymaps } = window;
   const changeHandler = (e) => {
     ymaps.geocode(adress?.address)
@@ -48,7 +48,7 @@ export default function ClubOrUser() {
         select,
       },
     ));
-    dispatch(sendClubAvatar(formdata, params));
+    // dispatch(sendClubAvatar(formdata, params));
     e.target.reset();
     navigate(`/lk/${user?.id}`);
   };
@@ -111,7 +111,7 @@ export default function ClubOrUser() {
           <Row>
             <Label for="examplePassword" />
           </Row>
-          <Input
+          {/* <Input
             name="avatar"
             type="file"
             accept="image/*"
@@ -119,7 +119,7 @@ export default function ClubOrUser() {
               const file = e.target.files[0];
               setAvatar(file);
             }}
-          />
+          /> */}
           <Button type="submit">
             Sign in
           </Button>
