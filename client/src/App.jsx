@@ -13,6 +13,7 @@ import Lk from './components/pages/Lk/Lk';
 import RegPageClub from './components/pages/RegPageClub';
 import EventPage from './components/pages/EventPage';
 import ClubPage from './components/pages/ClubPage/ClubPage';
+import NewClubEventPage from './components/pages/NewClubEventPage';
 
 function App() {
   const user = useSelector((store) => store.user);
@@ -36,6 +37,7 @@ function App() {
               <Route path="/club/:id" element={<ClubPage />} />
               <Route path="/reg/:params" element={<RegPageClub />} />
               <Route path="/events/club/:id" element={<EventPage />} />
+              <Route path="/event/new/:id" element={<NewClubEventPage />} />
             </Route>
 
             {/* <Route element={<PrivateRoute isAllowed={!user?.id} />}>

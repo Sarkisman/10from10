@@ -28,14 +28,12 @@ export const getOneEvent = (id) => (dispatch) => {
     .catch((err) => console.log('error', err));
 };
 
-// export const submitEvent = (e, inputs, value, id) => (dispatch) => {
-//   e.preventDefault();
-//   axios.post(`/events/${id}`, {
-//     title: inputs.title, description: inputs.description, tgLink: inputs.tgLink, date: value,
-//   })
-//     .then((res) => dispatch(addEvent(res.data)))
-//     .catch((er) => console.log('error in submitting Event', er));
-// };
+export const submitEvent = (e, payload, id) => (dispatch) => {
+  e.preventDefault();
+  axios.post(`/events/new/${id}`, payload)
+    .then((res) => dispatch(addEvent(res.data)))
+    .catch((er) => console.log('error in submitting Event', er));
+};
 
 // export const asyncDelete = (id) => (dispatch) => {
 //   axios.delete(`/events/${id}`)
