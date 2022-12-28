@@ -13,7 +13,6 @@ import Lk from './components/pages/Lk/Lk';
 import RegPageClub from './components/pages/RegPageClub';
 import EventPage from './components/pages/EventPage';
 import ClubPage from './components/pages/ClubPage/ClubPage';
-import Err from './components/pages/Err';
 
 function App() {
   const user = useSelector((store) => store.user);
