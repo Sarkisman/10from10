@@ -32,7 +32,6 @@ function App() {
               <Route path="/auth" element={<LoginPage />} />
               <Route path="/reg" element={<RegPage />} />
             </Route>
-
             <Route element={<PrivateRoute isAllowed={user?.id} />}>
               <Route path="/lk/:id" element={<Lk />} />
               <Route path="/club/:id" element={<ClubPage />} />
@@ -40,7 +39,6 @@ function App() {
               <Route path="/events/club/:id" element={<EventPage />} />
               <Route path="/event/new/:id" element={<NewClubEventPage />} />
             </Route>
-
 
             {/* <Route element={<PrivateRoute isAllowed={!user?.id} />}>
 

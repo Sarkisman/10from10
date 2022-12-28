@@ -27,5 +27,6 @@ module.exports = {
     'import/prefer-default-export': 0,
     'no-console': 0,
     'max-len': 0,
+    'import/no-cycle': 0,
   },
 };
