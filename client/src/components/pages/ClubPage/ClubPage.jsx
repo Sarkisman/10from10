@@ -25,10 +25,28 @@ function ClubPage() {
     navigate(`/event/new/${club.id}`);
   };
 
+  // const submitHandler = () => {
+
+  // };
+
   return (
     <>
+      {/* <div className="split left">
+        <div className="centered">
+          <h2>HTML CSS</h2>
+          <p>Some text.</p>
+        </div>
+      </div>
+
+      <div className="split right">
+        <div className="centered">
+          <h2>HTML CSS</h2>
+          <p>Some text here too.</p>
+        </div>
+      </div> */}
       <Row>
-        <Col>
+        <Col className="split left">
+          {/* <Form onSubmit={submitHandler}> */}
           <div>
             <b>название клуба: </b>
             {club?.name}
@@ -45,19 +63,8 @@ function ClubPage() {
             <b>о клубе: </b>
             {club?.description}
           </div>
-        </Col>
-
-        <Col>
-          <div>
-            События клуба:
-            <ul>
-              {events.map((el) => <OneEventCard key={el.id} event={el} />)}
-            </ul>
-          </div>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+          {/* <Button type="submit"> Редактировать иформацию</Button>
+          </Form> */}
 
           <Button
             color="primary"
@@ -68,6 +75,18 @@ function ClubPage() {
             Создать событие
           </Button>
         </Col>
+
+        <Col className="split right">
+          <div>
+            События клуба:
+            <ul>
+              {events.map((el) => <OneEventCard key={el.id} event={el} />)}
+            </ul>
+          </div>
+        </Col>
+      </Row>
+      <Row>
+        <Col />
       </Row>
     </>
   );
