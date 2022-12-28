@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getSingleClub } from '../../../redux/actions/ClubActions';
-import UserCard from '../../ui/UserCard';
+// import UserCard from '../../ui/UserCard';
 import { getAvatar } from '../../../redux/actions/userAvatarAction';
+import NewUserCard from '../../ui/NewUserCard';
 
 export default function Lk() {
   const dispatch = useDispatch();
@@ -28,7 +29,7 @@ export default function Lk() {
     <>
       <Row>
         <Col>
-          <UserCard />
+          <NewUserCard />
           {/* <Card
             style={{
               width: '20rem',

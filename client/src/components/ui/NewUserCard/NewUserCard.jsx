@@ -4,27 +4,33 @@ import {
   Card, CardBody, CardTitle, Input,
 } from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAvatar, setUserAavatar } from '../../../redux/actions/userAvatarAction';
+import { setUserAvatar } from '../../../redux/actions/userAvatarAction';
 
-export default function UserCard() {
+export default function NewUserCard() {
+  const [fileData, setFileData] = useState({ avatar: null });
   const user = useSelector((store) => store.user);
-  const defaultAvatar = useSelector((store) => store.userAvatar);
-  console.log(defaultAvatar);
+  const [avatar, setAvatar] = useState(user?.avatar || 'Zaglushka.jpeg');
   const dispatch = useDispatch();
-  console.log('defaultAvatar:', defaultAvatar);
-  useEffect(() => {
-    dispatch(getAvatar());
-  }, [defaultAvatar]);
 
-  const [avatar, setAvatar] = useState(defaultAvatar);
+  console.log('user:', user);
   console.log('avatar:', avatar);
-  const formdata = new FormData();
-  formdata.append('avatar', avatar);
 
-  const submitHandler = () => {
-    dispatch(setUserAavatar(formdata));
-    setAvatar(dispatch(getAvatar()));
+  useEffect(() => {
+    if (user?.avatar) {
+      setAvatar(user?.avatar);
+    }
+  }, [user]);
+  const submitHandler = (e) => {
+    e.preventDefault();
+    const data = new FormData();
+    data.append('avatar', fileData.avatar);
+    dispatch(setUserAvatar(data));
   };
+
+  const changeImg = (e) => {
+    setFileData({ [e.target.name]: e.target.files[0] });
+  };
+
   return (
 
     <Card
@@ -39,7 +45,7 @@ export default function UserCard() {
     >
       <img
         alt="Sample"
-        src={`http://localhost:3001/${defaultAvatar}`} // image={`http://localhost:3001/lk/${avatar}`}
+        src={`http://localhost:3001/${avatar}`} // image={`http://localhost:3001/lk/${avatar}`}
         style={{
           marginTop: '10px',
           width: '250px',
@@ -56,9 +62,9 @@ export default function UserCard() {
         >
           hello
           {' '}
-          {user.name}
+          {user?.name}
           {' '}
-          {user.id}
+          {user?.id}
         </CardTitle>
         {/* <CardSubtitle
           className="mb-2 text-muted"
@@ -74,14 +80,11 @@ export default function UserCard() {
             name="avatar"
             type="file"
             accept="image/*"
-            onChange={(e) => {
-              const file = e.target.files[0];
-              setAvatar(file);
-            }}
+            onChange={changeImg}
           />
         </div>
         <Button
-          onClick={() => submitHandler()}
+          onClick={submitHandler}
           color="primary"
           outline
           type="submit"

@@ -100,7 +100,7 @@ userRouter.post('/avatar', upload.single('avatar'), async (req, res) => {
   try {
     await User.update({ avatar: req.file.path.slice(7) }, { where: { id: req.session.user.id } });
     const oneUser = await User.findOne({ where: { id: req.session.user.id } });
-    res.json(oneUser);
+    res.json(oneUser.avatar);
   } catch (err) {
     console.log('photo is not add');
   }

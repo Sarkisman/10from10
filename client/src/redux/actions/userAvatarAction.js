@@ -10,7 +10,7 @@ export const getAvatar = () => (dispatch) => {
     .then((res) => dispatch(setAvatar(res.data)));
 };
 
-export const setUserAavatar = (data) => (dispatch) => {
+export const setUserAvatar = (data) => (dispatch) => {
   axios.post('/auth/avatar', data)
     .then((res) => dispatch(setAvatar(res.data)));
 };

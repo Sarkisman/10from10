@@ -29,6 +29,6 @@ export const regAction = (e, payload) => (dispatch) => {
 
 export const logoutThunk = () => (dispatch) => {
   axios('/auth/logout')
-    .then(() => dispatch(setUser()));
+    .then(() => dispatch(setUser({})));
 };
 // диспатч - хук переносчик данных(санки)
