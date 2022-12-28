@@ -4,7 +4,7 @@ import errReducer from './reducers/errReducer';
 import typesReducer from './reducers/typesReducer';
 import clubsReducer from './reducers/clubsReducer';
 import oneClubReducer from './reducers/oneClubReducer';
-import userAvatarReducer from './reducers/userAvatarReducer';
+
 import eventsReducer from './reducers/eventsReducer';
 import myClubReducer from './reducers/myClubReducer';
 
@@ -15,7 +15,7 @@ const store = configureStore({
     types: typesReducer,
     clubs: clubsReducer,
     oneClub: oneClubReducer,
-    userAvatar: userAvatarReducer,
+
     events: eventsReducer,
     club: myClubReducer,
   },

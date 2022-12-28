@@ -40,7 +40,7 @@ userRouter.post('/login', async (req, res) => {
   if (!isPassValid) return res.status(400).json({ message: 'Неверно введён логин или пароль пользователя!' });
 
   req.session.user = {
-    id: user.id, name: user.name, email: user.email,
+    id: user.id, name: user.name, email: user.email, avatar: user.avatar,
   };
   if (req.session.user) {
     return res.json(req.session.user);
@@ -58,12 +58,16 @@ userRouter.post('/reg', async (req, res) => {
   const [user, isCreated] = await User.findOrCreate({ // метод ищет в базе и если не нахит зап-ет
     // возвращает при этом найденный обьект и false либо созданный объект и true
     where: { email },
-    defaults: { name, email, password: hashPassword },
+    defaults: {
+      name, email, password: hashPassword, avatar: 'Zaglushka.jpeg',
+    },
   });
 
   if (!isCreated) return res.status(400).json({ message: 'Вы уже зарегистрированны, пройдите в авторизацию!' });
 
-  req.session.user = { id: user.id, name: user.name, email: user.email };
+  req.session.user = {
+    id: user.id, name: user.name, email: user.email, avatar: user.avatar,
+  };
 
   return res.json(req.session.user);
 });
@@ -95,9 +99,13 @@ userRouter.get('/', async (req, res) => {
 
 userRouter.post('/avatar', upload.single('avatar'), async (req, res) => {
   // console.log('reqFile =======>', req.file.path);
-  await User.update({ avatar: req.file.path.slice(7) }, { where: { id: req.session.user.id } });
-  const oneUser = await User.findOne({ where: { id: req.session.user.id } });
-  res.json(oneUser);
+  try {
+    await User.update({ avatar: req.file.path.slice(7) }, { where: { id: req.session.user.id } });
+    const oneUser = await User.findOne({ where: { id: req.session.user.id } });
+    res.json(oneUser.avatar);
+  } catch (err) {
+    console.log('photo is not add');
+  }
 });
 
 module.exports = userRouter;
