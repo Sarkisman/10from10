@@ -9,6 +9,7 @@ import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getAvatar } from '../../../redux/actions/userAvatarAction';
 import NewUserCard from '../../ui/NewUserCard';
 import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
+import OneEventCard from '../../ui/OneEventCard/OneEventCard';
 
 export default function Lk() {
   const club = useSelector((store) => store.club);

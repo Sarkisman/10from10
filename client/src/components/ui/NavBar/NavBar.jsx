@@ -41,6 +41,25 @@ function NavBar() {
           </>
         )}
 
+        { user ? (
+          <div style={{
+            width: '100px',
+            height: '100px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: '3px solid',
+          }}
+          >
+            <img
+              src={`http://localhost:3001/${user?.avatar}`}
+              alt="avatar"
+              style={{
+                heigh: 'auto',
+                width: '100%',
+              }}
+            />
+          </div>
+        ) : ''}
       </Navbar>
 
     </div>
