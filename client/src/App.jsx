@@ -31,13 +31,11 @@ function App() {
               <Route path="/auth" element={<LoginPage />} />
               <Route path="/reg" element={<RegPage />} />
             </Route>
-            <Route element={<PrivateRoute isAllowed={user?.id} />}>
-              <Route path="/lk/:id" element={<Lk />} />
-              <Route path="/club/:id" element={<LkClub />} />
-              <Route path="/reg/:params" element={<RegPageClub />} />
-            </Route>
+            {/* <Route element={<PrivateRoute isAllowed={user?.id} />}> */}
             <Route path="/lk/:id" element={<Lk />} />
+            <Route path="/club/:id" element={<LkClub />} />
             <Route path="/reg/:params" element={<RegPageClub />} />
+            {/* </Route> */}
             <Route path="/events/club/:id" element={<EventPage />} />
           </Routes>
         </div>
