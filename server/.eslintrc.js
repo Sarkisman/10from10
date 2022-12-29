@@ -14,5 +14,6 @@ module.exports = {
   rules: {
     'no-console': 0,
     camelcase: 0,
+    'max-len': 0,
   },
 };
