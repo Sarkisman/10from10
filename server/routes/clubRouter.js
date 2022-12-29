@@ -73,10 +73,21 @@ clubRouter.get('/oneclub', async (req, res) => {
   res.json(oneClub);
 });
 
-clubRouter.post('/avatar/:id', upload.single('avatar'), async (req, res) => {
+clubRouter.patch('/:id', upload.single('avatar'), async (req, res) => {
+  console.log(req.body);
   try {
     const { id } = req.params;
-    await Club.update({ avatar: req.file.path }, { where: { user_id: id } });
+    console.log({
+      avatar: req.file.path,
+    });
+    await Club.update({
+      avatar: req.file.path.slice(7),
+      email: req.body.email,
+      phone: req.body.phone,
+      title: req.body.title,
+      address: req.body.address,
+      description: req.body.description,
+    }, { where: { id } });
   } catch { console.log('err'); }
 });
 

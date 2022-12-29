@@ -2,22 +2,21 @@ import React, { useState, useEffect } from 'react';
 import {
   Button,
   Card, CardBody, Input,
-} from 'reactstrap'; // CardTitle,
+} from 'reactstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserAvatar } from '../../../redux/actions/userAvatarAction';
 
 export default function NewUserCard() {
+  const user = useSelector((store) => store.user);
   const [isEdit, setIsEdit] = useState(false);
   const [fileData, setFileData] = useState({ avatar: null });
-  const user = useSelector((store) => store.user);
   const [avatar, setAvatar] = useState(user?.avatar || 'Zaglushka.jpeg');
+
   const dispatch = useDispatch();
 
   const editHandler = () => {
     setIsEdit((prev) => !prev);
   };
-  console.log('user:', user);
-  console.log('avatar:', avatar);
 
   useEffect(() => {
     if (user?.avatar) {
