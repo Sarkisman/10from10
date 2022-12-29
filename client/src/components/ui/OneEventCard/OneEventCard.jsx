@@ -6,6 +6,7 @@ import './OneCard.css';
 
 export default function OneEventCard({ event }) {
   // console.log(event.date.slice(0, -14));
+  console.log(event, '-------------<');
   return (
     <Card
       style={{
@@ -43,7 +44,7 @@ export default function OneEventCard({ event }) {
         >
           количество участников:
           {' '}
-          {}
+          { }
           {event.num_of_members}
         </CardSubtitle>
         <CardText>
@@ -52,7 +53,7 @@ export default function OneEventCard({ event }) {
         <CardText>
           дата проведения:
           {' '}
-          {(event.date).slice(0, 10) }
+          {event?.date?.slice(0, 10)}
         </CardText>
         {/* <button type="button" className="btn">❤️</button> */}
         <Button
