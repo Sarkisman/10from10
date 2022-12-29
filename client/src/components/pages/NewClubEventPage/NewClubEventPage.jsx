@@ -50,7 +50,8 @@ export default function NewClubEventPage() {
           <Label for="exampleAddress">
             Выберите дату
           </Label>
-          <Input type="date" min="2023-01-13" max="2024-06-08" />
+          <Input type="date" name="date" min="2023-01-13" max="2024-06-08" />
+          {/* <Input name="date" type="date" /> */}
           <Button type="submit">
             Отправить
           </Button>
