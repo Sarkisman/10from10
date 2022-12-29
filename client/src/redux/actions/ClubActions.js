@@ -42,3 +42,9 @@ export const checkHaveClub = (id) => (dispatch) => {
   axios(`/club/${id}`)
     .then((res) => dispatch(getMyClub(res.data)));
 };
+
+export const changeClubThunk = (id, data) => (dispatch) => {
+  console.log(data);
+  axios.patch(`/club/${id}`, data)
+    .then((res) => dispatch(getMyClub(res.data)));
+};
