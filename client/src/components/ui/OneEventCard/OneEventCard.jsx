@@ -3,6 +3,7 @@ import React from 'react';
 import './OneCard.css';
 
 export default function OneEventCard({ event }) {
+  // console.log(event.date.slice(0, -14));
   return (
     <div className="post-dog-card-container">
       {/* <div className="posted-dog-Img">

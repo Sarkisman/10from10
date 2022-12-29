@@ -29,8 +29,6 @@ eventsRouter.get('/club/:id', async (req, res) => {
 
 eventsRouter.route('/new/:id')
   .post(async (req, res) => {
-    console.log('__________________________________________________________', req.params.id);
-    console.log(',,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,', req.body.num_of_members);
     try {
       const {
         title, description, date, num_of_members,
