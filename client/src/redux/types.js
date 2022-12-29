@@ -30,3 +30,7 @@ export const SET_EVENT = 'SET_EVENT';
 export const ADD_EVENT = 'ADD_EVENT';
 export const DELETE_EVENT = 'DELETE_EVENT';
 export const UPDATE_EVENT = 'UPDATE_EVENT';
+
+// COUNTER
+export const SET_COUNTER = 'SET_COUNTER';
+export const ADD_COUNTER = 'ADD_COUNTER';

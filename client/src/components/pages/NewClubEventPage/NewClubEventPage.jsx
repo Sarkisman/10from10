@@ -1,6 +1,5 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import {
   Col, Form, Input, Label, Row, Button,
@@ -8,10 +7,16 @@ import {
 import { submitEvent } from '../../../redux/actions/eventActions';
 
 export default function NewClubEventPage() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const submitHandler = (e) => {
+    dispatch(submitEvent(e, Object.fromEntries(new FormData(e.target)), id));
+    navigate(`/club/${id}`);
+  };
+
   return (
-    <Form onSubmit={(e) => dispatch(submitEvent(e, Object.fromEntries(new FormData(e.target)), id))}>
+    <Form onSubmit={submitHandler}>
       <Row>
         <Col md={{
           offset: 3,
@@ -45,11 +50,8 @@ export default function NewClubEventPage() {
           <Label for="exampleAddress">
             Выберите дату
           </Label>
-          <Input
-            bsSize="lg"
-            type="date"
-            name="date"
-          />
+          <Input type="date" name="date" min="2023-01-13" max="2024-06-08" />
+          {/* <Input name="date" type="date" /> */}
           <Button type="submit">
             Отправить
           </Button>
