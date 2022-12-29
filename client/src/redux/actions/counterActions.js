@@ -13,6 +13,8 @@ export const getEventCounter = (id) => (dispatch) => {
 export const submitCounter = (id) => (dispatch) => {
   //   e.preventDefault();
   axios.post(`/counter/event/${id}`)
-    .then((res) => dispatch(addCounter(res.data)))
+    .then((res) => {
+      dispatch(addCounter(res.data));
+    })
     .catch((error) => console.log('error in submitting Counter', error));
 };
