@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import {
   Button,
-  Card, CardBody, CardTitle, Input,
-} from 'reactstrap';
+  Card, CardBody, Input,
+} from 'reactstrap'; // CardTitle,
 import { useSelector, useDispatch } from 'react-redux';
 import { setUserAvatar } from '../../../redux/actions/userAvatarAction';
 
 export default function NewUserCard() {
+  const [isEdit, setIsEdit] = useState(false);
   const [fileData, setFileData] = useState({ avatar: null });
   const user = useSelector((store) => store.user);
   const [avatar, setAvatar] = useState(user?.avatar || 'Zaglushka.jpeg');
   const dispatch = useDispatch();
 
+  const editHandler = () => {
+    setIsEdit((prev) => !prev);
+  };
   console.log('user:', user);
   console.log('avatar:', avatar);
 
@@ -25,6 +29,7 @@ export default function NewUserCard() {
     const data = new FormData();
     data.append('avatar', fileData.avatar);
     dispatch(setUserAvatar(data));
+    editHandler();
   };
 
   const changeImg = (e) => {
@@ -45,7 +50,7 @@ export default function NewUserCard() {
     >
       <img
         alt="Sample"
-        src={`http://localhost:3001/${avatar}`} // image={`http://localhost:3001/lk/${avatar}`}
+        src={`http://localhost:3001/${avatar}`}
         style={{
           marginTop: '10px',
           width: '250px',
@@ -54,49 +59,57 @@ export default function NewUserCard() {
         }}
       />
       <CardBody>
-        <CardTitle
-          style={{
-            marginLeft: '50px',
-          }}
-          tag="h5"
-        >
-          hello
-          {' '}
-          {user?.name}
-          {' '}
-          {user?.id}
-        </CardTitle>
-        {/* <CardSubtitle
-          className="mb-2 text-muted"
-          tag="h6"
-        >
-          Card subtitle
-        </CardSubtitle>
-        <CardText>
-          Some quick example tex up the bulk of the card‘s content.
-        </CardText> */}
-        <div>
-          <Input
-            name="avatar"
-            type="file"
-            accept="image/*"
-            onChange={changeImg}
-          />
-        </div>
-        <Button
-          onClick={submitHandler}
-          color="primary"
-          outline
-          type="submit"
-          style={{
-            marginTop: '10px',
-            marginBottom: '10px',
-            marginLeft: '80px',
-          }}
+        <div style={{
+          dispaly: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
 
+        }}
         >
-          add photo
-        </Button>
+          <div>
+            <h5 style={{ textAlign: 'center' }}>
+              {' '}
+              {user?.name}
+              {' '}
+            </h5>
+          </div>
+
+        </div>
+
+        {isEdit ? (
+          <div>
+            <Input
+              name="avatar"
+              type="file"
+              accept="image/*"
+              onChange={changeImg}
+            />
+            <Button
+              onClick={submitHandler}
+              color="primary"
+              outline
+              type="submit"
+              style={{
+                marginTop: '10px',
+                marginBottom: '10px',
+                marginLeft: '80px',
+              }}
+            >
+              add photo
+            </Button>
+          </div>
+        ) : (
+          <Button
+            color="primary"
+            outline
+            type="button"
+            onClick={() => editHandler()}
+          >
+            Change
+
+          </Button>
+        ) }
+
       </CardBody>
     </Card>
   );

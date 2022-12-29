@@ -5,7 +5,6 @@ import {
 } from 'reactstrap';
 import { useNavigate } from 'react-router-dom';
 import { getCommentsAction } from '../../../redux/actions/Comments';
-// import UserCard from '../../ui/UserCard';
 import { getAvatar } from '../../../redux/actions/userAvatarAction';
 import NewUserCard from '../../ui/NewUserCard';
 import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
@@ -35,28 +34,6 @@ export default function Lk() {
       <Row>
         <Col>
           <NewUserCard />
-          {/* <Card
-            style={{
-              width: '20rem',
-            }}
-          >
-            <CardImg
-              alt="Card image cap"
-              src="https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg"
-              top
-              width="100%"
-            />
-            <CardBody>
-              <div>
-                {' '}
-                Арутюнян
-                {' '}
-                {user.name}
-                {' '}
-                Ваганович
-              </div>
-            </CardBody>
-          </Card> */}
         </Col>
         <Col>
           <div>моя фотогалерея</div>

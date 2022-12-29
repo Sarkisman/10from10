@@ -32,13 +32,13 @@ function App() {
               <Route path="/auth" element={<LoginPage />} />
               <Route path="/reg" element={<RegPage />} />
             </Route>
-            {/* <Route element={<PrivateRoute isAllowed={user?.id} />}> */}
-            <Route path="/lk/:id" element={<Lk />} />
-            <Route path="/club/:id" element={<ClubPage />} />
-            <Route path="/reg/:params" element={<RegPageClub />} />
-            <Route path="/event/new/:id" element={<NewClubEventPage />} />
-            {/* </Route> */}
-            <Route path="/events/club/:id" element={<EventPage />} />
+            <Route element={<PrivateRoute isAllowed={user?.id} />}>
+              <Route path="/lk/:id" element={<Lk />} />
+              <Route path="/club/:id" element={<ClubPage />} />
+              <Route path="/reg/:params" element={<RegPageClub />} />
+              <Route path="/events/club/:id" element={<EventPage />} />
+              <Route path="/event/new/:id" element={<NewClubEventPage />} />
+            </Route>
 
             {/* <Route element={<PrivateRoute isAllowed={!user?.id} />}>
 

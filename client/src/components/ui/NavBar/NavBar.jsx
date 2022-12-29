@@ -27,10 +27,10 @@ function NavBar() {
           <>
             <Nav style={{ width: '500px', justifyContent: 'space-between' }}>
               <NavItem>
-                <Link to={`/lk/${user.id}`}> Личный кабинет </Link>
+                <Link style={{ textDecoration: 'none', color: 'black' }} to={`/lk/${user.id}`}> Личный кабинет </Link>
               </NavItem>
               <NavItem>
-                <Link to="/" style={{ textDecoration: 'none', color: 'black' }} onClick={() => dispatch(logoutThunk())}> Выйти </Link>
+                <Link to="/" style={{ textDecoration: 'none', color: 'black' }} onClick={() => { dispatch(logoutThunk()); window.location.href = '/'; }}> Выйти </Link>
               </NavItem>
             </Nav>
             <NavbarText>
@@ -41,6 +41,25 @@ function NavBar() {
           </>
         )}
 
+        { user ? (
+          <div style={{
+            width: '100px',
+            height: '100px',
+            borderRadius: '50%',
+            overflow: 'hidden',
+            border: '3px solid',
+          }}
+          >
+            <img
+              src={`http://localhost:3001/${user?.avatar}`}
+              alt="avatar"
+              style={{
+                heigh: 'auto',
+                width: '100%',
+              }}
+            />
+          </div>
+        ) : ''}
       </Navbar>
 
     </div>

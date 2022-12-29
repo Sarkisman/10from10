@@ -51,7 +51,7 @@ clubRouter.post('/types', async (req, res) => {
     const [club, isCreated] = await Club.findOrCreate({
       where: { user_id },
       defaults: {
-        user_id, name: clubName, address, longitude, latitude,
+        user_id, name: clubName, address, longitude, latitude, avatar: 'ZaglushkaClub.jpeg',
       },
     });
     // await Club_Type.create({ club_id: club.id, type_id: el.id });
