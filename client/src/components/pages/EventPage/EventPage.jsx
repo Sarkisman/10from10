@@ -4,29 +4,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
 import { getEvents } from '../../../redux/actions/eventActions';
 import MemberAvatar from '../../ui/MemberAvatar';
+import { getEventCounter, submitCounter } from '../../../redux/actions/counterActions';
 
 function EventPage() {
-  const users = [
-    { name: 'Andrey', avatar: 'avatar-1672234659298-441446449.jpeg' },
-    { name: 'Jora', avatar: 'avatar-1672243327810-700265434.jpeg' },
-    { name: 'Pupa', avatar: 'Zaglushka.jpeg' },
-  ];
-
-  // const club = {
-  //   name: 'Navigator', phone: '666-66-66', email: 'jeppa@mail.ru', avatar: 'null', description: 'Стрелково-спортивные секции пулевой стрельбы для всех возрастов. Пневматика, лук и арбалет. Обучение безопасному обращению с оружием для граждан. Курсы обучения и профессиональной подготовки частных охранников и повышение квалификации. Отдельные курсы для руководителей стрелковых объектов, для инструкторов а также курсы по практической стрельбе.', adress: 'Poklonnaya Ulitsa, 11, стр.1А, Moscow, 121170',
-  // };
+  const counter = useSelector((store) => store.counter);
+  const eventUsers = counter.Users;
+  console.log(eventUsers);
 
   const { id } = useParams();
-  console.log('id:', id);
   const dispatch = useDispatch();
   const events = useSelector((store) => store.events); // .find((el) => el.id === id);
-  console.log(events);
   const event = events.find((el) => el.id === +id);
-  console.log(event);
 
   useEffect(() => {
+    dispatch(getEventCounter(id));
     dispatch(getEvents());
   }, []);
+
+  const submitHandler = () => {
+    dispatch(submitCounter(id));
+  };
 
   return (
     <div style={{
@@ -85,7 +82,7 @@ function EventPage() {
               alignItems: 'center',
             }}
             >
-              {users?.map((el) => <MemberAvatar user={el} key={el.id} />)}
+              {eventUsers?.map((el) => <MemberAvatar user={el} key={el.id} />)}
             </div>
 
           </div>
@@ -125,6 +122,7 @@ function EventPage() {
                 club info
               </Button>
               <Button
+                onClick={submitHandler}
                 style={{ marginLeft: '10px' }}
                 color="primary"
                 outline
