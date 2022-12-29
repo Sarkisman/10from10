@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import {
   ADD_EVENT, DELETE_EVENT, SET_EVENT, SET_EVENTS, UPDATE_EVENT,
 } from '../types';
@@ -31,7 +32,9 @@ export const getOneEvent = (id) => (dispatch) => {
 export const submitEvent = (e, payload, id) => (dispatch) => {
   e.preventDefault();
   axios.post(`/events/new/${id}`, payload)
-    .then((res) => dispatch(addEvent(res.data)))
+    .then((res) => {
+      dispatch(addEvent(res.data));
+    })
     .catch((er) => console.log('error in submitting Event', er));
 };
 
