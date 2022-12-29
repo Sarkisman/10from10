@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -33,6 +34,9 @@ export default function Map() {
     return myMap;
   }
 
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
+
   useEffect(() => {
     ymaps.ready(init);
   }, []);
@@ -43,6 +47,7 @@ export default function Map() {
       clubs?.forEach((el) => {
         const coordinates = [el.latitude, el.longitude];
         const clubEvents = events?.filter((item) => item.club_id === el.id);
+        const filteredClubEvents = clubEvents.filter((event) => new Date(event.date) >= today);
         const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {
           balloonContent: `
                 <div class="balloon">
@@ -52,10 +57,13 @@ export default function Map() {
                   <button type="button" class="btn sixth" id=${el.id}>Подробнее о клубе</button>
                   <br></br>
 
-                  
-                  <div class="balloon__title"><b>События:
-                  ${clubEvents?.map((e) => `<div><a href="/events/club/${e.id}">${e?.title}</div>`).join('')}
-                </b></div >
+                  ${filteredClubEvents?.length
+              // eslint-disable-next-line indent
+              ? `<div class="balloon__title"><b>События:
+                  ${filteredClubEvents?.map((e) => `<div><a href="/events/club/${e.id}">${e?.title}</div>`).join('')}
+                </b></div >` : 'нет предстоящих событий'
+            // eslint-disable-next-line indent
+            }
                 </div>
         `,
         }, {

@@ -9,22 +9,6 @@ module.exports = {
       num_of_members: 5,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }, {
-      title: 'paintball',
-      description: 'to play',
-      date: null,
-      club_id: 1,
-      num_of_members: 7,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    }, {
-      title: 'pdfdsfsf',
-      description: 'to play',
-      date: null,
-      club_id: 2,
-      num_of_members: 7,
-      createdAt: new Date(),
-      updatedAt: new Date(),
     }], {});
   },
 

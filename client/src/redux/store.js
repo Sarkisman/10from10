@@ -7,6 +7,7 @@ import oneClubReducer from './reducers/oneClubReducer';
 
 import eventsReducer from './reducers/eventsReducer';
 import myClubReducer from './reducers/myClubReducer';
+import counterReducer from './reducers/counterReducer';
 
 const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ const store = configureStore({
 
     events: eventsReducer,
     club: myClubReducer,
+    counter: counterReducer,
   },
 });
 
