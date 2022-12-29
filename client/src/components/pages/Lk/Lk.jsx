@@ -25,7 +25,6 @@ export default function Lk() {
     dispatch(checkHaveClub(user?.id));
   }, []);
 
-  console.log(club);
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };

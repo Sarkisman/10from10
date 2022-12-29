@@ -10,7 +10,7 @@ export default function Map() {
   const [map, setMap] = useState(null);
   const clubs = useSelector((store) => store.clubs);
   const events = useSelector((store) => store.events);
-  console.log(clubs);
+
   const dispatch = useDispatch();
   const { ymaps } = window;
   const center = [55.76, 37.64];
@@ -41,7 +41,6 @@ export default function Map() {
     dispatch(getEvents());
     setTimeout(() => {
       clubs?.forEach((el) => {
-        console.log(el, 'clubevents');
         const coordinates = [el.latitude, el.longitude];
         const clubEvents = events?.filter((item) => item.club_id === el.id);
         const myPlacemarkWithContent = new ymaps.Placemark(coordinates, {

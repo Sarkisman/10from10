@@ -51,7 +51,7 @@ export default function OneEventCard({ event }) {
         <CardText>
           дата проведения:
           {' '}
-          {(event.date).slice(0, 10) }
+          {event?.date?.slice(0, 10)}
         </CardText>
         {/* <button type="button" className="btn">❤️</button> */}
         <Button
