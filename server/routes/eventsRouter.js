@@ -29,6 +29,7 @@ eventsRouter.get('/club/:id', async (req, res) => {
 
 eventsRouter.route('/new/:id')
   .post(async (req, res) => {
+    console.log(req.body, 'REQBODY');
     try {
       const {
         title, description, date, num_of_members,
@@ -36,7 +37,7 @@ eventsRouter.route('/new/:id')
       const newEvent = await Event.create({
         title,
         description,
-        date: new Date(date),
+        date,
         club_id: req.params.id,
         num_of_members: +num_of_members,
       });
