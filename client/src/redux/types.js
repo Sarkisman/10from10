@@ -34,3 +34,9 @@ export const UPDATE_EVENT = 'UPDATE_EVENT';
 // COUNTER
 export const SET_COUNTER = 'SET_COUNTER';
 export const ADD_COUNTER = 'ADD_COUNTER';
+export const DELETE_COUNTER = 'DELETE_COUNTER';
+
+// EVENT_USERS
+export const SET_EVENT_USERS = 'SET_EVENT_USERS';
+export const ADD_EVENT_USER = 'ADD_EVENT_USER';
+export const DELETE_EVENT_USER = 'DELETE_EVENT_USER';

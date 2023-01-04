@@ -1,5 +1,5 @@
 const express = require('express');
-const { Event, Club } = require('../db/models');
+const { Event, User, Club } = require('../db/models');
 // const subscriber = require('../db/models/subscriber');
 
 const eventsRouter = express.Router();
@@ -29,7 +29,6 @@ eventsRouter.get('/club/:id', async (req, res) => {
 
 eventsRouter.route('/new/:id')
   .post(async (req, res) => {
-    console.log(req.body, 'REQBODY');
     try {
       const {
         title, description, date, num_of_members,
@@ -48,50 +47,9 @@ eventsRouter.route('/new/:id')
     }
   });
 
-// eventsRouter.route('/joiners')
-//   .get(async (req, res) => {
-//     const allJoiners = await Subscriber.findAll({ order: [['createdAt', 'DESC']], include: User });
-//     res.json(allJoiners);
-//   })
-//   .post(async (req, res) => {
-//     try {
-//       const newJoiner = await Subscriber.findOrCreate({
-//         userId: req.session.user.id, eventId: req.params,
-//       });
-//       res.json(newJoiner);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   });
-
-// eventsRouter.delete('/:id', async (req, res) => {
-//   try {
-//     const { id } = req.params;
-//     await Event.destroy({ where: { id } });
-//     // await Subscriber.destroy({ where: { eventId: req.params.id, userId: req.session.user.id } });
-//     res.sendStatus(200);
-//   } catch (error) {
-//     // console.log(error);
-//     res.sendStatus(500);
-//   }
-// });
-
-// eventsRouter.patch('/:id/edit', async (req, res) => {
-//   try {
-//     const {
-//       title, description, date, tgLink,
-//     } = req.body;
-//     const fin = {
-//       title, description, date: new Date(date), tgLink, userId: req.session.user.id,
-//     };
-//     // console.log(fin, ' fin');
-//     const { id } = req.params;
-//     await Event.update(fin, { where: { id } });
-//     res.sendStatus(200);
-//   } catch (error) {
-//     // console.log(error);
-//     res.sendStatus(500);
-//   }
-// });
-
+eventsRouter.route('/user/:id')
+  .get(async (req, res) => {
+    const userEvents = await User.findOne({ where: { id: +req.params.id }, include: { model: Event } });
+    res.json(userEvents.Events);
+  });
 module.exports = eventsRouter;

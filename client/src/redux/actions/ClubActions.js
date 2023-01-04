@@ -17,9 +17,8 @@ export const getTypesAction = () => (dispatch) => {
 };
 
 export const sendDataClub = (input) => (dispatch) => {
-  // console.log('input:', input);
   axios.post('/club/types', input)
-    .then((res) => dispatch(getTypes(res.data)));
+    .then((res) => dispatch(getMyClub(res.data))); // ??
 };
 
 export const sendClubAvatar = (data, id) => () => {

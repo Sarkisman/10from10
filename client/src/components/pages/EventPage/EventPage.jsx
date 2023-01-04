@@ -1,28 +1,39 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'reactstrap';
-import { getEvents } from '../../../redux/actions/eventActions';
+// import { getEvents } from '../../../redux/actions/eventActions';
 import MemberAvatar from '../../ui/MemberAvatar';
-import { getEventCounter, submitCounter } from '../../../redux/actions/counterActions';
+import { deleteCounter, getEventCounter, submitCounter } from '../../../redux/actions/counterActions';
 
 function EventPage() {
-  const counter = useSelector((store) => store.counter);
-  const eventUsers = counter.Users;
-  console.log(eventUsers);
-
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const events = useSelector((store) => store.events); // .find((el) => el.id === id);
-  const event = events.find((el) => el.id === +id);
-
   useEffect(() => {
     dispatch(getEventCounter(id));
-    dispatch(getEvents());
+    // dispatch(getEvents());
   }, []);
+  const counter = useSelector((store) => store.counter);
+  const eventUsers = useSelector((store) => store.eventUsers);
+
+  // const eventUsers = counter.Users;
+  // const events = useSelector((store) => store.events); // .find((el) => el.id === id);
+  // const event = events.find((el) => el.id === +id);
+  // console.log('MyCOUNTERRRRRRRRRRRR', counter);
+
+  const user = useSelector((store) => store.user);
 
   const submitHandler = () => {
     dispatch(submitCounter(id));
+  };
+
+  const deleteHandler = () => {
+    dispatch(deleteCounter(user.id, id));
+  };
+
+  const clubPageHandler = () => {
+    navigate(`/club/${counter.club_id}`);
   };
 
   return (
@@ -54,12 +65,12 @@ function EventPage() {
 
           }}
           >
-            <h1>{event?.title}</h1>
-            <h2>{event?.description}</h2>
+            <h1>{counter?.title}</h1>
+            <h2>{counter?.description}</h2>
             <h2>
               дата проведения:
               {' '}
-              {event?.date?.slice(0, 10)}
+              {counter?.date?.slice(0, 10)}
             </h2>
           </div>
           <div style={{
@@ -86,7 +97,8 @@ function EventPage() {
             </div>
 
           </div>
-          <div style={{
+          <div style={{ // const events = useSelector((store) => store.events); // .find((el) => el.id === id);
+            // const event = events.find((el) => el.id === +id);
             marginTop: '10px',
             height: '200px',
             display: 'flex',
@@ -98,7 +110,11 @@ function EventPage() {
 
           }}
           >
-            <h5>тут информация о клубе</h5>
+            <h5>
+              клуб:
+              {' '}
+              {counter?.Club?.name}
+            </h5>
             {/* <div>
               <h6>{club.name}</h6>
               <h6>{club.phone}</h6>
@@ -116,19 +132,34 @@ function EventPage() {
             >
               {' '}
               <Button
+                onClick={clubPageHandler}
                 color="primary"
                 outline
               >
-                club info
+                о клубе
               </Button>
-              <Button
-                onClick={submitHandler}
-                style={{ marginLeft: '10px' }}
-                color="primary"
-                outline
-              >
-                принять участие
-              </Button>
+              {/* {console.log(!eventUsers?.filter((el) => el.id === user.id))} */}
+              {!(eventUsers?.filter((el) => el.id === user.id).length)
+                ? (
+                  <Button
+                    onClick={submitHandler}
+                    style={{ marginLeft: '10px' }}
+                    color="primary"
+                    outline
+                  >
+                    принять участие
+                  </Button>
+                )
+                : (
+                  <Button
+                    onClick={deleteHandler}
+                    style={{ marginLeft: '10px' }}
+                    color="primary"
+                    outline
+                  >
+                    отменить участие
+                  </Button>
+                )}
 
             </div>
 

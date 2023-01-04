@@ -58,6 +58,7 @@ clubRouter.post('/types', async (req, res) => {
     await select.map(async (el) => await Club_Type.create(
       { club_id: club.id, type_id: el.id },
     ));
+    res.json(club);
   } catch {
     console.log('error');
   }

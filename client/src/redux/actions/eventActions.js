@@ -38,6 +38,11 @@ export const submitEvent = (e, payload, id) => (dispatch) => {
     .catch((er) => console.log('error in submitting Event', er));
 };
 
+export const getEventsByUser = (id) => (dispatch) => {
+  axios(`/events/user/${id}`)
+    .then((res) => dispatch(setEvents(res.data)));
+};
+
 // export const asyncDelete = (id) => (dispatch) => {
 //   axios.delete(`/events/${id}`)
 //     .then(() => dispatch(deleteEvent(id)))
