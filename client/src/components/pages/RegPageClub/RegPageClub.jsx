@@ -57,7 +57,7 @@ export default function ClubOrUser() {
       <Row>
         <Col md={{
           offset: 3,
-          size: 6,
+          size: 7,
         }}
         >
           <Label for="exampleEmail">

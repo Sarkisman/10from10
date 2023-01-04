@@ -33,6 +33,30 @@ export default function Lk() {
       <Row>
         <Col>
           <NewUserCard />
+          <Col>
+            {club ? (
+              <Button
+                color="primary"
+                outline
+                type="button"
+                onClick={() => navigate(`/club/${club?.id}`)}
+              >
+                Мой клуб:
+                {'  '}
+                {club?.name}
+              </Button>
+            ) : (
+              <Button
+                color="primary"
+                outline
+                type="button"
+                onClick={() => buttonHandler()}
+              >
+                Подать заявку на регистрацию клуба.
+              </Button>
+            )}
+
+          </Col>
         </Col>
         <Col>
           <div>моя фотогалерея</div>
@@ -68,32 +92,7 @@ export default function Lk() {
           Мои события
         </Col>
       </Row>
-      <Row>
-        <Col>
-          {club ? (
-            <Button
-              color="primary"
-              outline
-              type="button"
-              onClick={() => navigate(`/club/${club?.id}`)}
-            >
-              Мой клуб:
-              {'  '}
-              {club?.name}
-            </Button>
-          ) : (
-            <Button
-              color="primary"
-              outline
-              type="button"
-              onClick={() => buttonHandler()}
-            >
-              Подать заявку на регистрацию клуба.
-            </Button>
-          )}
-
-        </Col>
-      </Row>
+      <Row />
     </>
   );
 }
