@@ -7,8 +7,8 @@ export default function counterReducer(state = [], action) {
       return payload;
     case ADD_COUNTER:
       // console.log('payload', payload);
-      return [payload, ...state];
       // return [payload, ...state];
+      return [payload[0], ...state];
     default:
       return state;
   }

@@ -9,6 +9,14 @@ module.exports = {
       num_of_members: 5,
       createdAt: new Date(),
       updatedAt: new Date(),
+    }, {
+      title: 'стрельба по мишеням',
+      description: 'соревнования',
+      date: null,
+      club_id: 3,
+      num_of_members: 5,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }], {});
   },
 
