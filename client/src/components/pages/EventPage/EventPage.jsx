@@ -29,7 +29,6 @@ function EventPage() {
   };
 
   const deleteHandler = () => {
-    console.log(user.id, '77777777');
     dispatch(deleteCounter(user.id, id));
   };
 
