@@ -13,8 +13,6 @@ export default function eventsReducer(state = [], action) {
       return state.filter((event) => event.id !== payload);
     case UPDATE_EVENT:
       return state.map((event) => (event.id === payload.id ? payload : event));
-    // case EMPTY_E:
-    //   return [];
     default:
       return state;
   }

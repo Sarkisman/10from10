@@ -18,17 +18,15 @@ export const getEventCounter = (id) => (dispatch) => {
 };
 
 export const submitCounter = (id) => (dispatch) => {
-  //   e.preventDefault();
   axios.post(`/counter/event/${id}`)
     .then((res) => dispatch(addEventUser(res.data)))
     .catch((error) => console.log('error in submitting Counter', error));
 };
 
 export const deleteCounter = (userId, eventId) => (dispatch) => {
-  //   e.preventDefault();
   axios.delete(`/counter/event/${eventId}`)
-    .then(() => {
-      // console.log(res.data, 'res.data');
+    .then((res) => {
+      console.log(res.data, 'res.data');
       dispatch(delEventUser(userId));
     })
     .catch((error) => console.log('error in deleting', error));
