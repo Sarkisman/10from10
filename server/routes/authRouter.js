@@ -72,10 +72,9 @@ userRouter.post('/reg', async (req, res) => {
   return res.json(req.session.user);
 });
 
-userRouter.get('/check', (req, res) => {
+userRouter.get('/check', async (req, res) => {
   // try {
   if (req?.session?.user) {
-    // console.log(req?.session?.user);
     return res.json(req?.session?.user);
   }
   // } catch {

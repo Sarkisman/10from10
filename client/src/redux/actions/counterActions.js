@@ -13,7 +13,6 @@ export const getEventCounter = (id) => (dispatch) => {
     .then((res) => {
       dispatch(setCounter(res.data));
       dispatch(setEventUsers(res.data.Users));
-      console.log('RESDLlllllllll', res.data.Users);
     })
     .catch((e) => console.log('error in getting EventCounter', e));
 };
@@ -21,10 +20,7 @@ export const getEventCounter = (id) => (dispatch) => {
 export const submitCounter = (id) => (dispatch) => {
   //   e.preventDefault();
   axios.post(`/counter/event/${id}`)
-    .then((res) => {
-      console.log(res.data, 'res.data');
-      dispatch(addEventUser(res.data));
-    })
+    .then((res) => dispatch(addEventUser(res.data)))
     .catch((error) => console.log('error in submitting Counter', error));
 };
 
