@@ -30,6 +30,7 @@ function ClubPage() {
   // });
   console.log(club);
   const [fileData, setFileData] = useState(club);
+  console.log(club);
 
   const changeImg = (e) => {
     setFileData((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));

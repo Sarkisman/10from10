@@ -1,5 +1,5 @@
 const express = require('express');
-const { Event, Club, Event_User } = require('../db/models');
+const { Event, Club } = require('../db/models');
 // const subscriber = require('../db/models/subscriber');
 
 const eventsRouter = express.Router();
@@ -38,7 +38,7 @@ eventsRouter.route('/new/:id')
         title,
         description,
         date,
-        club_id: req.params.id,
+        club_id: +req.params.id,
         num_of_members: +num_of_members,
       });
       // const eventWithUser = await Event.findByPk(newEvent.id, { include: User });
