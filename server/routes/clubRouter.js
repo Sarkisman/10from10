@@ -58,6 +58,7 @@ clubRouter.post('/types', async (req, res) => {
     await select.map(async (el) => await Club_Type.create(
       { club_id: club.id, type_id: el.id },
     ));
+    res.json(club);
   } catch {
     console.log('error');
   }
@@ -75,15 +76,21 @@ clubRouter.get('/oneclub', async (req, res) => {
 
 clubRouter.patch('/:id', upload.single('avatar'), async (req, res) => {
   console.log(req.body);
-  // try {
-  const { id } = req.params;
-  console.log({
-    avatar: req.file.path,
-  });
-  await Club.update({
-    ...req.body, avatar: req.file.path.slice(7),
-  }, { where: { id } });
-  // } catch { console.log('err'); }
+  try {
+    const { id } = req.params;
+    // console.log({
+    //   avatar: req.file.path,
+    // });
+    if (req.file.path) {
+      await Club.update({
+        ...req.body, avatar: req.file.path.slice(7),
+      }, { where: { id } });
+    } else {
+      await Club.update({
+        ...req.body,
+      }, { where: { id } });
+    }
+  } catch { console.log('err'); }
 });
 
 clubRouter.get('/:id', async (req, res) => {

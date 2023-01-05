@@ -17,7 +17,6 @@ const store = configureStore({
     types: typesReducer,
     clubs: clubsReducer,
     oneClub: oneClubReducer,
-
     events: eventsReducer,
     club: myClubReducer,
     counter: counterReducer,

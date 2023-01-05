@@ -35,7 +35,6 @@ export default function ClubOrUser() {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log((Object.fromEntries(new FormData(e.target))).address);
     const myGeocoder = ymaps.geocode((Object.fromEntries(new FormData(e.target))).address);
     myGeocoder
       .then((res) => (setCoordinates(res.geoObjects.get(0).geometry.getCoordinates()).split(',')));
@@ -48,8 +47,6 @@ export default function ClubOrUser() {
         select,
       },
     ));
-    // dispatch(sendClubAvatar(formdata, params));
-    e.target.reset();
     navigate(`/lk/${user?.id}`);
   };
   return (
@@ -57,7 +54,7 @@ export default function ClubOrUser() {
       <Row>
         <Col md={{
           offset: 3,
-          size: 6,
+          size: 7,
         }}
         >
           <Label for="exampleEmail">

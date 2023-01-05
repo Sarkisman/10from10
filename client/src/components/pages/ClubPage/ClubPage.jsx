@@ -28,7 +28,6 @@ function ClubPage() {
   //   address: '',
   //   description: '',
   // });
-  console.log(club);
   const [fileData, setFileData] = useState(club);
 
   const changeImg = (e) => {

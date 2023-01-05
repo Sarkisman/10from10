@@ -64,16 +64,7 @@ export default function NewUserCard() {
           alignItems: 'center',
 
         }}
-        >
-          <div>
-            <h5 style={{ textAlign: 'center' }}>
-              {' '}
-              {user?.name}
-              {' '}
-            </h5>
-          </div>
-
-        </div>
+        />
 
         {isEdit ? (
           <div>
@@ -99,15 +90,23 @@ export default function NewUserCard() {
           </div>
         ) : (
           <Button
-            color="primary"
+            color="link"
             outline
             type="button"
             onClick={() => editHandler()}
+            style={{ color: 'blue' }}
           >
-            Change
+            Change Photo
 
           </Button>
         ) }
+        <div>
+          <h5 style={{ textAlign: 'center' }}>
+            {' '}
+            {user?.name}
+            {' '}
+          </h5>
+        </div>
 
       </CardBody>
     </Card>

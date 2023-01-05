@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button, Col, Row, UncontrolledCarousel,
-} from 'reactstrap';
+  Button, Col, Row,
+} from 'reactstrap'; // UncontrolledCarousel,
 import { useNavigate } from 'react-router-dom';
 import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getAvatar } from '../../../redux/actions/userAvatarAction';
 import NewUserCard from '../../ui/NewUserCard';
 import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
+import { getEventsByUser } from '../../../redux/actions/eventActions';
+import OneEventCard from '../../ui/OneEventCard/OneEventCard';
 
 export default function Lk() {
   const club = useSelector((store) => store.club);
@@ -18,13 +20,15 @@ export default function Lk() {
     dispatch(getSingleClub());
   }, []);
   const user = useSelector((store) => store.user);
+  const events = useSelector((store) => store.events);
   const navigate = useNavigate();
+
   useEffect(() => {
     dispatch(getCommentsAction());
     dispatch(getSingleClub());
     dispatch(checkHaveClub(user?.id));
+    dispatch(getEventsByUser(user?.id));
   }, []);
-
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
@@ -33,8 +37,32 @@ export default function Lk() {
       <Row>
         <Col>
           <NewUserCard />
+          <Col>
+            {club ? (
+              <Button
+                color="primary"
+                outline
+                type="button"
+                onClick={() => navigate(`/club/${club?.id}`)}
+              >
+                Мой клуб:
+                {'  '}
+                {club?.name}
+              </Button>
+            ) : (
+              <Button
+                color="primary"
+                outline
+                type="button"
+                onClick={() => buttonHandler()}
+              >
+                Подать заявку на регистрацию клуба.
+              </Button>
+            )}
+
+          </Col>
         </Col>
-        <Col>
+        {/* <Col>
           <div>моя фотогалерея</div>
           <UncontrolledCarousel
             items={[
@@ -58,42 +86,20 @@ export default function Lk() {
               },
             ]}
           />
+        </Col> */}
+        {' '}
+        <Col>
+          Мои события
+          {events?.map((event) => <OneEventCard key={event.id} event={event} />)}
         </Col>
       </Row>
       <Row>
         <Col>
           История комментариев
         </Col>
-        <Col>
-          Мои события
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          {club ? (
-            <Button
-              color="primary"
-              outline
-              type="button"
-              onClick={() => navigate(`/club/${club?.id}`)}
-            >
-              Мой клуб:
-              {'  '}
-              {club?.name}
-            </Button>
-          ) : (
-            <Button
-              color="primary"
-              outline
-              type="button"
-              onClick={() => buttonHandler()}
-            >
-              Подать заявку на регистрацию клуба.
-            </Button>
-          )}
 
-        </Col>
       </Row>
+      <Row />
     </>
   );
 }
