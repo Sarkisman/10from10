@@ -20,6 +20,11 @@ function ClubPage() {
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState(club?.avatar || 'ZaglushkaClub.jpeg');
   const [isEdit, setEdit] = useState(false);
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
+  const upcomingEvents = events.filter((event) => new Date(event.date) >= today);
+  const pastEvents = events.filter((event) => new Date(event.date) <= today);
   // const [fileData, setFileData] = useState({
   //   avatar: null,
   //   email: '',
@@ -107,9 +112,9 @@ function ClubPage() {
                 </div>
 
                 {user?.id === club?.user_id && (
-                <div>
-                  <Button onClick={() => clickHandler()} type="button"> Редактировать иформацию</Button>
-                </div>
+                  <div>
+                    <Button onClick={() => clickHandler()} type="button"> Редактировать иформацию</Button>
+                  </div>
                 )}
               </Card>
               {' '}
@@ -206,8 +211,15 @@ function ClubPage() {
           <div>
 
             <ul>
-              События клуба:
-              {events?.map((el) => <OneEventCard key={el.id} event={el} />)}
+              Предстоящие события клуба:
+              {upcomingEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
+            </ul>
+          </div>
+          <div>
+
+            <ul>
+              Прошедшие события клуба:
+              {pastEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
             </ul>
           </div>
         </Col>
