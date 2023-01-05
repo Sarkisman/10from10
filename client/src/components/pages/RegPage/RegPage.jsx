@@ -24,7 +24,7 @@ export default function AuthPage() {
       <div style={{
         padding: '50px',
         position: 'relative',
-        top: '200px',
+        top: '100px',
 
         width: '600px',
         height: '400px',
