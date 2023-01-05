@@ -85,7 +85,7 @@ function EventPage() {
 
           }}
           >
-            <h5>участники</h5>
+            <h5>участники:</h5>
             <div style={{
               display: 'flex',
               flexDirection: 'row',
@@ -111,10 +111,11 @@ function EventPage() {
           }}
           >
             <h5>
-              клуб:
+              место проведения:
               {' '}
-              {counter?.Club?.name}
+              <b>{counter?.Club?.name}</b>
             </h5>
+            <h5>{counter?.Club?.address}</h5>
             {/* <div>
               <h6>{club.name}</h6>
               <h6>{club.phone}</h6>
