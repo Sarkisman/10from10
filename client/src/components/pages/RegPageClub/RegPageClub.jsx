@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
 import { getTypesAction, sendDataClub } from '../../../redux/actions/ClubActions';
+import styles from './RegPageClub.module.css';
 
 export default function ClubOrUser() {
   const navigate = useNavigate();
@@ -50,65 +51,68 @@ export default function ClubOrUser() {
     navigate(`/lk/${user?.id}`);
   };
   return (
-    <Form onSubmit={(e) => submitHandler(e)}>
-      <Row>
-        <Col md={{
-          offset: 3,
-          size: 7,
-        }}
-        >
-          <Label for="exampleEmail">
-            Название клуба
-          </Label>
-          <Input
-            name="clubName"
-            placeholder="Как называется ваш клуб"
-            type="text"
-          />
-          <Label for="exampleAddress">
-            Address
-          </Label>
-          <Input
-            onChange={changeHandler}
-            id="exampleAddress"
-            name="address"
-            placeholder="1234 Main St"
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Row>
-          <Col md={{
-            offset: 3,
-            size: 7,
-          }}
-          >
-            <Label for="exampleEmail">
-              Выберите направление(я) вашего стрелкового клуба.
-            </Label>
-            <Multiselect
+    <div className={styles.container}>
+      <div className={styles.formContainer}>
+        <Form onSubmit={(e) => submitHandler(e)}>
+          <Row>
+            <Col md={{
+              offset: 3,
+              size: 6,
+            }}
+            >
+              <Label for="exampleEmail">
+                Название клуба
+              </Label>
+              <Input
+                name="clubName"
+                placeholder="Как называется ваш клуб"
+                type="text"
+              />
+              <Label for="exampleAddress">
+                Адрес
+              </Label>
+              <Input
+                onChange={changeHandler}
+                id="exampleAddress"
+                name="address"
+                placeholder="1234 Main St"
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Row>
+              <Col md={{
+                offset: 3,
+                size: 6,
+              }}
+              >
+                <Label for="exampleEmail">
+                  Выберите направление(я) вашего стрелкового клуба.
+                </Label>
+                <Multiselect
+                  styles={{ color: 'black' }}
               // name="types"
-              displayValue="club_type"
-              isObject
+                  displayValue="club_type"
+                  isObject
               // onKeyPressFn={noRefCheck()}
               // onRemove={noRefCheck()}
               // onSearch={noRefCheck()}
-              onSelect={(e) => setSelect(() => [...e])}
-              options={types}
-            />
-          </Col>
-        </Row>
-      </Row>
-      <Row>
-        <Col md={{
-          offset: 5,
-          size: 6,
-        }}
-        >
-          <Row>
-            <Label for="examplePassword" />
+                  onSelect={(e) => setSelect(() => [...e])}
+                  options={types}
+                />
+              </Col>
+            </Row>
           </Row>
-          {/* <Input
+          <Row>
+            <Col md={{
+              offset: 5,
+              size: 6,
+            }}
+            >
+              <Row>
+                <Label for="examplePassword" />
+              </Row>
+              {/* <Input
             name="avatar"
             type="file"
             accept="image/*"
@@ -117,18 +121,24 @@ export default function ClubOrUser() {
               setAvatar(file);
             }}
           /> */}
-          <Button type="submit">
-            Sign in
-          </Button>
-        </Col>
-        <Col md={{
-          offset: 5,
-          size: 6,
-        }}
-        >
-          {/* {err && (<div style={{ color: 'red' }}>{err.message}</div>)} */}
-        </Col>
-      </Row>
-    </Form>
+              <Button
+                color="primary"
+                outline
+                type="submit"
+              >
+                Отправить заявку
+              </Button>
+            </Col>
+            <Col md={{
+              offset: 5,
+              size: 6,
+            }}
+            >
+              {/* {err && (<div style={{ color: 'red' }}>{err.message}</div>)} */}
+            </Col>
+          </Row>
+        </Form>
+      </div>
+    </div>
   );
 }
