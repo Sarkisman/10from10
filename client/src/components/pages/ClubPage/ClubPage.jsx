@@ -25,14 +25,6 @@ function ClubPage() {
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
   const upcomingEvents = events.filter((event) => new Date(event.date) >= today);
   const pastEvents = events.filter((event) => new Date(event.date) <= today);
-  // const [fileData, setFileData] = useState({
-  //   avatar: null,
-  //   email: '',
-  //   phone: '',
-  //   title: '',
-  //   address: '',
-  //   description: '',
-  // });
   const [fileData, setFileData] = useState(club);
 
   const changeImg = (e) => {
@@ -59,12 +51,12 @@ function ClubPage() {
 
   const submitHandler = () => {
     const data = new FormData();
-    data.append('avatar', fileData.avatar);
-    data.append('name', fileData.name);
-    data.append('phone', fileData.phone);
-    data.append('email', fileData.email);
-    data.append('address', fileData.address);
-    data.append('description', fileData.description);
+    if (fileData.avatar) (data.append('avatar', fileData.avatar));
+    if (fileData.name) (data.append('name', fileData.name));
+    if (fileData.phone) (data.append('phone', fileData.phone));
+    if (fileData.address) (data.append('address', fileData.address));
+    if (fileData.email) (data.append('email', fileData.email));
+    if (fileData.description) (data.append('description', fileData.description));
     dispatch(changeClubThunk(club.id, data));
     clickHandler();
   };
