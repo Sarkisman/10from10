@@ -1,5 +1,7 @@
 const express = require('express');
-const { Event, User, Club } = require('../db/models');
+const {
+  Event, User, Club, UserSuggestedEvents,
+} = require('../db/models');
 // const subscriber = require('../db/models/subscriber');
 
 const eventsRouter = express.Router();
@@ -22,7 +24,6 @@ eventsRouter.get('/club/:id', async (req, res) => {
     const oneEvent = await Event.findOne({ where: { id } });
     res.json(oneEvent);
   } catch (error) {
-    // console.log(error);
     res.sendStatus(500);
   }
 });
@@ -42,6 +43,28 @@ eventsRouter.route('/new/:id')
       });
       // const eventWithUser = await Event.findByPk(newEvent.id, { include: User });
       res.json(newEvent);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+eventsRouter.route('/suggestedByUser/club/:id')
+  .post(async (req, res) => {
+    try {
+      const {
+        title, description, date, num_of_members,
+      } = req.body;
+      console.log('REQ', req.body);
+
+      await UserSuggestedEvents.create({
+        title,
+        description,
+        date,
+        club_id: Number(req.params.id),
+        user_id: req.session.user.id,
+        num_of_members: Number(num_of_members),
+      });
+      res.sendStatus(200);
     } catch (error) {
       console.log(error);
     }
