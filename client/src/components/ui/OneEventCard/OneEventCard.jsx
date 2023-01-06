@@ -22,23 +22,24 @@ export default function OneEventCard({ event }) {
       }}
     >
       <div style={{
-        width: '100px',
-        heigh: '100px',
+        width: '120px',
+        heigh: '120px',
         overflow: 'hidden',
-        margin: 'auto 15px',
+        margin: 'auto',
+        marginLeft: ' 15px',
       }}
       >
         <img
           src="http://localhost:3001/ZaglushkaEvent.png"
           alt="mishen"
           style={{
-            heigh: 'auto',
-            width: '100%',
+            heigh: '100px',
+            width: '100px',
           }}
         />
       </div>
 
-      <CardBody>
+      <CardBody style={{ width: '400px' }}>
         <CardTitle tag="h5">
           {event.title}
         </CardTitle>
@@ -65,7 +66,7 @@ export default function OneEventCard({ event }) {
           color="primary"
           outline
           style={{
-            marginLeft: '50px',
+            marginLeft: '5rem',
 
           }}
         >

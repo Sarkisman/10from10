@@ -125,7 +125,6 @@ function ClubPage() {
               {user?.id === club?.user_id && (
                 <Button
                   color="primary"
-                  outline
                   type="button"
                   onClick={() => buttonHandler()}
                   style={{
@@ -220,7 +219,7 @@ function ClubPage() {
           <div>
             <ul>
               <div className="eventbaner">
-                <h5>Предстоящие события клуба:</h5>
+                <h4>Предстоящие события клуба:</h4>
 
               </div>
               {upcomingEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
@@ -229,7 +228,7 @@ function ClubPage() {
           <div>
 
             <ul>
-              <div className="eventbaner"><h5>Прошедшие события клуба:</h5></div>
+              <div className="eventbaner"><h4>Прошедшие события клуба:</h4></div>
               {pastEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
             </ul>
           </div>

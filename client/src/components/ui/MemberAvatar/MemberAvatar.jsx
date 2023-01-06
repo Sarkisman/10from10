@@ -1,31 +1,14 @@
 import React from 'react';
+import classes from './MemberAvatar.module.css';
 
 export default function MemberAvatar({ user }) {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-    }}
-    >
-      <div style={{
-        width: '100px',
-        height: '100px',
-        borderRadius: '50%',
-        overflow: 'hidden',
-        border: '3px solid',
-        marginRight: '5px',
-
-      }}
-      >
+    <div className={classes.container}>
+      <div className={classes.secondContainer}>
         <img
           src={`http://localhost:3001/${user?.avatar}`}
           alt="avatar"
-          style={{
-            heigh: 'auto',
-            width: '100%',
-          }}
+          className={classes.img}
         />
 
       </div>
