@@ -1,27 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Button } from 'reactstrap';
-// import { getEvents } from '../../../redux/actions/eventActions';
+import {
+  Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form,
+} from 'reactstrap';
 import MemberAvatar from '../../ui/MemberAvatar';
 import { deleteCounter, getEventCounter, submitCounter } from '../../../redux/actions/counterActions';
+import { asyncAddComment, asyncSetComments, setComments } from '../../../redux/actions/CommentsActions';
 
 function EventPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [modal, setModal] = useState(false);
+  const [input, setInput] = useState('');
+  const comments = useSelector((store) => store.comments);
+  const filteredComments = comments?.filter((el) => el.event_id === +id);
+  console.log('filtered', filteredComments);
+  // const [eventComments, setEventComments] = useState(filteredComments);
+
+  const toggle = () => setModal(!modal);
+
   useEffect(() => {
     dispatch(getEventCounter(id));
-    // dispatch(getEvents());
+    dispatch(asyncSetComments());
   }, []);
   const counter = useSelector((store) => store.counter);
   const eventUsers = useSelector((store) => store.eventUsers);
-
-  // const eventUsers = counter.Users;
-  // const events = useSelector((store) => store.events); // .find((el) => el.id === id);
-  // const event = events.find((el) => el.id === +id);
-  // console.log('MyCOUNTERRRRRRRRRRRR', counter);
-
   const user = useSelector((store) => store.user);
 
   const submitHandler = () => {
@@ -97,8 +102,7 @@ function EventPage() {
             </div>
 
           </div>
-          <div style={{ // const events = useSelector((store) => store.events); // .find((el) => el.id === id);
-            // const event = events.find((el) => el.id === +id);
+          <div style={{
             marginTop: '10px',
             height: '200px',
             display: 'flex',
@@ -139,7 +143,6 @@ function EventPage() {
               >
                 о клубе
               </Button>
-              {/* {console.log(!eventUsers?.filter((el) => el.id === user.id))} */}
               {!(eventUsers?.filter((el) => el.id === user.id).length)
                 ? (
                   <Button
@@ -161,13 +164,88 @@ function EventPage() {
                     отменить участие
                   </Button>
                 )}
+              <Button
+                onClick={toggle}
+                style={{ marginLeft: '10px' }}
+                color="primary"
+                outline
+              >
+                добавить комментарий
+              </Button>
+
+              {modal && (
+                <div>
+
+                  <Modal
+                    isOpen={modal}
+                    modalTransition={{ timeout: 700 }}
+                    backdropTransition={{ timeout: 1300 }}
+                    toggle={toggle}
+                  // className={className}
+                  >
+                    <ModalHeader toggle={toggle}>Добавить комментарий:</ModalHeader>
+                    <ModalBody>
+                      <Form
+                        className="mb-3 mt-3"
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          dispatch(asyncAddComment(e, input, id));
+                          setInput('');
+                          toggle();
+                        }}
+                      >
+
+                        <Input
+                          value={input}
+                          onChange={(e) => setInput(e.target.value)}
+                          name="text"
+                          placeholder="Ваш комментарий"
+                          id="text"
+                        />
+                        <ModalFooter>
+                          <Button type="submit" color="primary">
+                            Добавить
+                          </Button>
+                          {' '}
+                          <Button color="secondary" onClick={toggle}>
+                            Отмена
+                          </Button>
+                        </ModalFooter>
+
+                      </Form>
+                    </ModalBody>
+
+                  </Modal>
+                </div>
+              )}
 
             </div>
 
           </div>
+          {filteredComments.length && (
+            <div style={{
+              marginTop: '30px',
+              height: '200px',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              border: '1px solid',
+            }}
+            >
+              <ul>
+                {filteredComments?.map((el) => (
+                  <li key={el.id}>
+                    {el.User.avatar}
+                    {el.text}
+                  </li>
+                ))}
+
+              </ul>
+            </div>
+          )}
 
         </div>
-
       </div>
     </div>
 

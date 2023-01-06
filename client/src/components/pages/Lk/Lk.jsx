@@ -4,7 +4,7 @@ import {
   Button, Col, Row,
 } from 'reactstrap'; // UncontrolledCarousel,
 import { useNavigate } from 'react-router-dom';
-import { getCommentsAction } from '../../../redux/actions/Comments';
+// import { getCommentsAction } from '../../../redux/actions/Comments';
 import { getAvatar } from '../../../redux/actions/userAvatarAction';
 import NewUserCard from '../../ui/NewUserCard';
 import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
@@ -16,7 +16,7 @@ export default function Lk() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAvatar());
-    dispatch(getCommentsAction());
+    // dispatch(getCommentsAction());
     dispatch(getSingleClub());
   }, []);
   const user = useSelector((store) => store.user);
@@ -24,7 +24,7 @@ export default function Lk() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    dispatch(getCommentsAction());
+    // dispatch(getCommentsAction());
     dispatch(getSingleClub());
     dispatch(checkHaveClub(user?.id));
     dispatch(getEventsByUser(user?.id));

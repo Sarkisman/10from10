@@ -209,7 +209,6 @@ function ClubPage() {
 
         <Col className="split right">
           <div>
-
             <ul>
               Предстоящие события клуба:
               {upcomingEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
