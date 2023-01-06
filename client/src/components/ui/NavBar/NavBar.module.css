@@ -1,0 +1,14 @@
+.textColor {
+    color: white;
+    text-decoration: none;
+    font-size: 25px;
+}
+
+.textColor:hover {
+    color: yellow
+}
+
+.navFlex {
+    width: 500px;
+    justify-content: space-between;
+}

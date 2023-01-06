@@ -5,6 +5,7 @@ import {
   Nav, Navbar, NavbarBrand, NavbarText, NavItem,
 } from 'reactstrap';
 import { logoutThunk } from '../../../redux/actions/UserActions';
+import styles from './NavBar.module.css';
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -13,27 +14,27 @@ function NavBar() {
   return (
     <div>
       <Navbar>
-        <NavbarBrand href="/">10/10</NavbarBrand>
+        <NavbarBrand className={styles.textColor} href="/">10/10</NavbarBrand>
         {!user ? (
-          <Nav style={{ width: '500px', justifyContent: 'space-between' }}>
+          <Nav className={styles.navFlex}>
             <NavItem>
-              <Link to="/auth" style={{ textDecoration: 'none', color: 'black' }}>Войти</Link>
+              <Link className={styles.textColor} to="/auth" style={{ textDecoration: 'none', color: 'white' }}>Войти</Link>
             </NavItem>
             <NavItem>
-              <Link to="/reg" style={{ textDecoration: 'none', color: 'black' }}> Зарегистрироваться </Link>
+              <Link className={styles.textColor} to="/reg" style={{ textDecoration: 'none', color: 'white' }}> Зарегистрироваться </Link>
             </NavItem>
           </Nav>
         ) : (
           <>
-            <Nav style={{ width: '500px', justifyContent: 'space-between' }}>
+            <Nav className={styles.navFlex}>
               <NavItem>
-                <Link style={{ textDecoration: 'none', color: 'black' }} to={`/lk/${user.id}`}> Личный кабинет </Link>
+                <Link className={styles.textColor} to={`/lk/${user.id}`}> Личный кабинет </Link>
               </NavItem>
               <NavItem>
-                <Link to="/" style={{ textDecoration: 'none', color: 'black' }} onClick={() => { dispatch(logoutThunk()); window.location.href = '/'; }}> Выйти </Link>
+                <Link className={styles.textColor} to="/" onClick={() => { dispatch(logoutThunk()); window.location.href = '/'; }}> Выйти </Link>
               </NavItem>
             </Nav>
-            <NavbarText>
+            <NavbarText className={styles.textColor}>
               Привет -
               {' '}
               {user?.name}
