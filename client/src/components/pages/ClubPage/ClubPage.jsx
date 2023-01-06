@@ -79,7 +79,9 @@ function ClubPage() {
         <Col className="split left">
           {!isEdit ? (
             <>
-              <Card className="sarkis">
+              <Card
+                className="sarkis"
+              >
                 <img
                   alt="Sample"
                   src={`http://localhost:3001/${avatar}`}
@@ -113,7 +115,17 @@ function ClubPage() {
 
                 {user?.id === club?.user_id && (
                   <div>
-                    <Button onClick={() => clickHandler()} type="button"> Редактировать иформацию</Button>
+                    <Button
+                      style={{ marginTop: '20px' }}
+                      color="primary"
+                      outline
+                      onClick={() => clickHandler()}
+                      type="button"
+                    >
+                      {' '}
+                      Редактировать иформацию
+
+                    </Button>
                   </div>
                 )}
               </Card>
@@ -124,6 +136,11 @@ function ClubPage() {
                   outline
                   type="button"
                   onClick={() => buttonHandler()}
+                  style={{
+                    width: '70%',
+                    marginTop: '20px',
+
+                  }}
                 >
                   Новое событие
                 </Button>
