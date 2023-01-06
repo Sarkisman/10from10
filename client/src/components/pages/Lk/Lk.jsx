@@ -10,6 +10,7 @@ import NewUserCard from '../../ui/NewUserCard';
 import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
 import { getEventsByUser } from '../../../redux/actions/eventActions';
 import OneEventCard from '../../ui/OneEventCard/OneEventCard';
+import styles from './LK.module.css';
 
 export default function Lk() {
   const club = useSelector((store) => store.club);
@@ -33,77 +34,42 @@ export default function Lk() {
     navigate(`/reg/${user.id}`);
   };
   return (
-    <>
-      <Row>
+    <Row>
+      <Col md={{ offset: 1, size: 5 }}>
+        <NewUserCard />
         <Col>
-          <NewUserCard />
-          <Col>
-            {club ? (
-              <Button
-                style={{
-                  width: '300px',
-                  marginTop: '20px',
-                  color: 'white',
-                }}
-                color="primary"
-                type="button"
-                onClick={() => navigate(`/club/${club?.id}`)}
-              >
-                Мой клуб:
-                {'  '}
-                {club?.name}
-              </Button>
-            ) : (
-              <Button
-                color="primary"
-                outline
-                type="button"
-                onClick={() => buttonHandler()}
-              >
-                Подать заявку на регистрацию клуба.
-              </Button>
-            )}
+          {club ? (
+            <Button
+              style={{
+                width: '300px',
+                marginTop: '20px',
+                color: 'white',
+              }}
+              color="primary"
+              type="button"
+              onClick={() => navigate(`/club/${club?.id}`)}
+            >
+              Мой клуб:
+              {'  '}
+              {club?.name}
+            </Button>
+          ) : (
+            <Button
+              color="primary"
+              outline
+              type="button"
+              onClick={() => buttonHandler()}
+            >
+              Подать заявку на регистрацию клуба.
+            </Button>
+          )}
 
-          </Col>
         </Col>
-        {/* <Col>
-          <div>моя фотогалерея</div>
-          <UncontrolledCarousel
-            items={[
-              {
-                altText: 'Slide 1',
-                caption: 'Slide 1',
-                key: 1,
-                src: 'https://picsum.photos/id/123/1200/600',
-              },
-              {
-                altText: 'Slide 2',
-                caption: 'Slide 2',
-                key: 2,
-                src: 'https://picsum.photos/id/456/1200/600',
-              },
-              {
-                altText: 'Slide 3',
-                caption: 'Slide 3',
-                key: 3,
-                src: 'https://picsum.photos/id/678/1200/600',
-              },
-            ]}
-          />
-        </Col> */}
-        {' '}
-        <Col>
-          Мои события
-          {events?.map((event) => <OneEventCard key={event.id} event={event} />)}
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          История комментариев
-        </Col>
-
-      </Row>
-      <Row />
-    </>
+      </Col>
+      <Col>
+        <div className={styles.eventbaner}>Мои события</div>
+        {events?.map((event) => <OneEventCard key={event.id} event={event} />)}
+      </Col>
+    </Row>
   );
 }

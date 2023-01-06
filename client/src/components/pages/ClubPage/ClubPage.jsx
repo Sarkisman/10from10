@@ -81,12 +81,12 @@ function ClubPage() {
 
   const submitHandler = () => {
     const data = new FormData();
-    data.append('avatar', fileData.avatar);
-    data.append('name', fileData.name);
-    data.append('phone', fileData.phone);
-    data.append('email', fileData.email);
-    data.append('address', fileData.address);
-    data.append('description', fileData.description);
+    if (fileData.avatar) (data.append('avatar', fileData.avatar));
+    if (fileData.name) (data.append('name', fileData.name));
+    if (fileData.phone) (data.append('phone', fileData.phone));
+    if (fileData.address) (data.append('address', fileData.address));
+    if (fileData.email) (data.append('email', fileData.email));
+    if (fileData.description) (data.append('description', fileData.description));
     dispatch(changeClubThunk(club.id, data));
     clickHandler();
   };
@@ -155,7 +155,6 @@ function ClubPage() {
               {user?.id === club?.user_id && (
                 <Button
                   color="primary"
-                  outline
                   type="button"
                   onClick={() => buttonHandler()}
                   style={{
@@ -250,7 +249,7 @@ function ClubPage() {
           <div>
             <ul>
               <div className="eventbaner">
-                <h5>Предстоящие события клуба:</h5>
+                <h4>Предстоящие события клуба:</h4>
 
               </div>
               {upcomingEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
@@ -259,7 +258,7 @@ function ClubPage() {
           <div>
 
             <ul>
-              <div className="eventbaner"><h5>Прошедшие события клуба:</h5></div>
+              <div className="eventbaner"><h4>Прошедшие события клуба:</h4></div>
               {pastEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
             </ul>
           </div>

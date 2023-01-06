@@ -54,7 +54,6 @@ clubRouter.post('/types', async (req, res) => {
         user_id, name: clubName, address, longitude, latitude, avatar: 'ZaglushkaClub.jpeg',
       },
     });
-    // await Club_Type.create({ club_id: club.id, type_id: el.id });
     await select.map(async (el) => await Club_Type.create(
       { club_id: club.id, type_id: el.id },
     ));
@@ -75,21 +74,22 @@ clubRouter.get('/oneclub', async (req, res) => {
 });
 
 clubRouter.patch('/:id', upload.single('avatar'), async (req, res) => {
-  console.log(req.body);
   try {
+    const {
+      name, phone, email, address, description,
+    } = req.body;
     const { id } = req.params;
-    // console.log({
-    //   avatar: req.file.path,
-    // });
-    if (req.file.path) {
+    // console.log(req.file.path);
+    if (req.body.avatar !== 'undefined') {
       await Club.update({
-        ...req.body, avatar: req.file.path.slice(7),
+        name, phone, email, address, description, avatar: req.file.path.slice(7),
       }, { where: { id } });
     } else {
       await Club.update({
-        ...req.body,
+        name, phone, email, address, description,
       }, { where: { id } });
     }
+    res.sendStatus(200);
   } catch { console.log('err'); }
 });
 
@@ -97,7 +97,6 @@ clubRouter.get('/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const club = await Club.findOne({ where: { user_id: id } });
-    console.log(club, '===========================');
     res.json(club);
   } catch { console.log('err'); }
 });

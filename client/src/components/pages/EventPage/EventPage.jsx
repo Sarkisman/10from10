@@ -2,11 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form,
+  Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, Card,
 } from 'reactstrap';
 import MemberAvatar from '../../ui/MemberAvatar';
 import { deleteCounter, getEventCounter, submitCounter } from '../../../redux/actions/counterActions';
 import { asyncAddComment, asyncSetComments, setComments } from '../../../redux/actions/CommentsActions';
+import classes from './EventPage.module.css';
 
 function EventPage() {
   const { id } = useParams();
@@ -52,42 +53,59 @@ function EventPage() {
 
         <div style={{
           width: '900px',
-          height: '700px',
-          border: '1px solid',
+          height: 'auto',
+          border: '3px solid',
           borderRadius: '20px',
+          padding: '0px 5px 30px 5px',
           boxShadow: '5px 5px 10px',
           backgroundColor: 'rgba(255,255,255,0.8)',
         }}
         >
           <div style={{
-            marginTop: '30px',
-            height: '200px',
+            marginTop: '10px',
+            height: 'auto',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-            border: '1px solid',
-            borderColor: 'red',
-
           }}
           >
             <h1>{counter?.title}</h1>
             <h2>{counter?.description}</h2>
-            <h2>
-              дата проведения:
-              {' '}
-              {counter?.date?.slice(0, 10)}
-            </h2>
+            <div style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+            >
+              <div>
+                {' '}
+                <h5>
+                  место проведения:
+                  {' '}
+                  <b>{counter?.Club?.name}</b>
+                </h5>
+                <h5>{counter?.Club?.address}</h5>
+
+              </div>
+              <div>
+                <h2>
+                  дата проведения:
+                  {' '}
+                  {counter?.date?.slice(0, 10)}
+                </h2>
+
+              </div>
+
+            </div>
           </div>
           <div style={{
             marginTop: '30px',
-            height: '200px',
+            height: 'auto',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-            border: '1px solid',
-            borderColor: 'red',
 
           }}
           >
@@ -105,22 +123,20 @@ function EventPage() {
           </div>
           <div style={{
             marginTop: '10px',
-            height: '200px',
+            height: 'auto',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-            border: '1px solid',
-            borderColor: 'red',
 
           }}
           >
-            <h5>
+            {/* <h5>
               место проведения:
               {' '}
               <b>{counter?.Club?.name}</b>
             </h5>
-            <h5>{counter?.Club?.address}</h5>
+            <h5>{counter?.Club?.address}</h5> */}
             {/* <div>
               <h6>{club.name}</h6>
               <h6>{club.phone}</h6>
@@ -173,14 +189,22 @@ function EventPage() {
               >
                 добавить комментарий
               </Button>
+              <Button
+                onClick={() => navigate(-1)}
+                style={{ marginLeft: '10px' }}
+                color="primary"
+                outline
+              >
+                назад
+              </Button>
 
               {modal && (
                 <div>
 
                   <Modal
                     isOpen={modal}
-                    modalTransition={{ timeout: 700 }}
-                    backdropTransition={{ timeout: 1300 }}
+                    modalTransition={{ timeout: 0 }}
+                    backdropTransition={{ timeout: 400 }}
                     toggle={toggle}
                   // className={className}
                   >
@@ -221,30 +245,47 @@ function EventPage() {
               )}
 
             </div>
+            {filteredComments && (
+              <div style={{
+                marginTop: '30px',
+                height: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}
+              >
+                  {filteredComments?.map((el) => (
+                    <Card className={classes.mainCard} key={el.id}>
+                      <div className={classes.card}>
+                        <div className={classes.container}>
+                          <div className={classes.secondContainer}>
+                            <img
+                              src={`http://localhost:3001/${el.User.avatar}`}
+                              alt="avatar"
+                              className={classes.img}
+                            />
+                          </div>
+                        </div>
+                        <div className={classes.content}>
+                          <p>
+                            {el?.User?.name}
+                            {' '}
+                            в
+                            {' '}
+                            {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
+                              .join(' ')}
+                          </p>
+                          {el?.text}
+                        </div>
+                      </div>
 
+                    </Card>
+                  ))}
+              </div>
+
+            )}
           </div>
-          {filteredComments.length && (
-            <div style={{
-              marginTop: '30px',
-              height: '200px',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              border: '1px solid',
-            }}
-            >
-              <ul>
-                {filteredComments?.map((el) => (
-                  <li key={el.id}>
-                    {el.User.avatar}
-                    {el.text}
-                  </li>
-                ))}
-
-              </ul>
-            </div>
-          )}
 
         </div>
       </div>
