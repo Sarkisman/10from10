@@ -45,6 +45,7 @@ export default function NewUserCard() {
         flexDirection: 'column',
         justifyContent: 'space-between',
         alignItems: 'center',
+        backgroundColor: 'rgba(255,255,255,0.9)',
       }}
     >
       <img

@@ -18,6 +18,7 @@ export default function OneEventCard({ event }) {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
+        backgroundColor: 'rgba(255,255,255,0.9)',
       }}
     >
       <div style={{

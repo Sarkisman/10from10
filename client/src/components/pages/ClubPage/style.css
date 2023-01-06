@@ -1,20 +1,19 @@
-
 .split {
-height: 100%;
+  height: 100%;
   position: sticky;
   top: 20px;
   overflow: hidden;
   padding-top: 20px;
 }
 
-.sarkis{
+.sarkis {
   padding: 2em;
   width: 70%;
 }
 
 .left {
   width: 30%;
-  
+
 }
 
 .right {
@@ -34,3 +33,11 @@ height: 100%;
   width: 150px;
   border-radius: 50%;
 } */
+
+.eventbaner {
+  color: rgb(255, 255, 255);
+  border: 1px rgb(255, 255, 255) solid;
+  border-radius: 10px;
+  width: 300px;
+  padding: 10px 5px 5px 5px;
+}
