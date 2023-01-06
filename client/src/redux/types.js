@@ -22,8 +22,10 @@ export const GET_ONE_CLUB = 'GET_ONE_CLUB';
 export const GET_MY_CLUB = 'GET_MY_CLUB';
 
 // COMMENTS
-export const GET_COMMENTS = 'GET_COMMENTS';
-
+export const SET_COMMENTS = 'SET_COMMENTS';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
+export const EDIT_COMMENT = 'EDIT_COMMENT';
 // EVENTS
 export const SET_EVENTS = 'SET_EVENTS';
 export const SET_EVENT = 'SET_EVENT';

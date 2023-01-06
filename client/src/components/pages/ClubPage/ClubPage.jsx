@@ -209,7 +209,6 @@ function ClubPage() {
 
         <Col className="split right">
           <div>
-
             <ul>
               <div className="eventbaner">
                 <h5>Предстоящие события клуба:</h5>
