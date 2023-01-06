@@ -4,7 +4,7 @@ module.exports = {
     await queryInterface.bulkInsert('Events', [{
       title: 'луковая стрельба',
       description: 'пострелять',
-      date: null,
+      date: '2022-04-17',
       club_id: 1,
       num_of_members: 5,
       createdAt: new Date(),
@@ -12,8 +12,16 @@ module.exports = {
     }, {
       title: 'стрельба по мишеням',
       description: 'соревнования',
-      date: null,
-      club_id: 3,
+      date: '2022-02-17',
+      club_id: 1,
+      num_of_members: 5,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    }, {
+      title: 'стрельбища',
+      description: 'соревнования',
+      date: '2022-02-17',
+      club_id: 2,
       num_of_members: 5,
       createdAt: new Date(),
       updatedAt: new Date(),

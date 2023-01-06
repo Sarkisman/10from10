@@ -6,7 +6,7 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 // const { Event_User } = require('./db/models');
 const {
-  authRouter, clubRouter, eventsRouter, counterRouter,
+  authRouter, clubRouter, eventsRouter, counterRouter, commentsRouter,
 } = require('./routes');
 require('dotenv').config();
 
@@ -37,6 +37,7 @@ app.use('/auth', authRouter);
 app.use('/club', clubRouter);
 app.use('/events', eventsRouter);
 app.use('/counter', counterRouter);
+app.use('/comments', commentsRouter);
 
 // app.get('/club/types', async (req, res) => {
 //   try {
