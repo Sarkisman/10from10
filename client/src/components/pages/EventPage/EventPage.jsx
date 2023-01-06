@@ -56,6 +56,7 @@ function EventPage() {
           border: '1px solid',
           borderRadius: '20px',
           boxShadow: '5px 5px 10px',
+          backgroundColor: 'rgba(255,255,255,0.8)',
         }}
         >
           <div style={{

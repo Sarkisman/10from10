@@ -19,18 +19,20 @@ export default function AuthPage() {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
+
     }}
     >
       <div style={{
         padding: '50px',
         position: 'relative',
-        top: '200px',
+        top: '100px',
 
         width: '600px',
         height: '400px',
         border: '1px solid black',
         borderRadius: '30px',
         boxShadow: '5px 5px 10px',
+        backgroundColor: 'rgba(255,255,255,0.8)',
 
       }}
       >
@@ -50,6 +52,7 @@ export default function AuthPage() {
                 style={{
                   position: 'relative',
                   top: '40px',
+
                 }}
 
               />

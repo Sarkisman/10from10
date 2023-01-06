@@ -210,14 +210,17 @@ function ClubPage() {
         <Col className="split right">
           <div>
             <ul>
-              Предстоящие события клуба:
+              <div className="eventbaner">
+                <h5>Предстоящие события клуба:</h5>
+
+              </div>
               {upcomingEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
             </ul>
           </div>
           <div>
 
             <ul>
-              Прошедшие события клуба:
+              <div className="eventbaner"><h5>Прошедшие события клуба:</h5></div>
               {pastEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
             </ul>
           </div>

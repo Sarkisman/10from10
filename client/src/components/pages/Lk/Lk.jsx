@@ -40,8 +40,12 @@ export default function Lk() {
           <Col>
             {club ? (
               <Button
+                style={{
+                  width: '300px',
+                  marginTop: '20px',
+                  color: 'white',
+                }}
                 color="primary"
-                outline
                 type="button"
                 onClick={() => navigate(`/club/${club?.id}`)}
               >

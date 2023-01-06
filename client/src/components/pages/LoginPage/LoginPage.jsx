@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Col, Form, Input, Row,
 } from 'reactstrap';
+import { useNavigate } from 'react-router-dom';
 import { errEmptyAction, loginAction } from '../../../redux/actions/UserActions';
 
 export default function AuthPage() {
   const dispatch = useDispatch();
   const err = useSelector((store) => store.err);
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(errEmptyAction());
@@ -22,13 +24,14 @@ export default function AuthPage() {
       <div style={{
         padding: '50px',
         position: 'relative',
-        top: '200px',
+        top: '100px',
 
         width: '600px',
         height: '400px',
         border: '1px solid black',
         borderRadius: '30px',
         boxShadow: '5px 5px 10px',
+        backgroundColor: 'rgba(255,255,255,0.8)',
       }}
       >
 
@@ -69,7 +72,7 @@ export default function AuthPage() {
               <Input
                 id="examplePassword"
                 name="password"
-                placeholder="123"
+                placeholder="password"
                 type="password"
                 style={{
                   position: 'relative',
@@ -97,6 +100,39 @@ export default function AuthPage() {
               </Button>
             </Col>
           </Row>
+          <Row>
+            <Col style={{
+              position: 'relative',
+              top: '160px',
+              left: '30px',
+            }}
+            >
+              <div style={{
+                // display: 'flex',
+                // flexDirection: 'row',
+                // justifyContent: 'space-around',
+
+              }}
+              >
+                <div>Если вы ещё не зарегестрированны</div>
+                <Button
+                  color="link"
+                  outline
+                  type="submit"
+                  style={{
+                    color: '#4370fd',
+                    position: 'relative',
+                    left: '265px',
+                    bottom: '30px',
+
+                  }}
+                  onClick={() => navigate('/reg')}
+                >
+                  зарегистрируйтесь.
+                </Button>
+              </div>
+            </Col>
+          </Row>
 
         </Form>
 
@@ -112,7 +148,12 @@ export default function AuthPage() {
           >
             {' '}
             {err && (
-            <div style={{ color: 'red' }}>
+            <div style={{
+              color: 'red',
+              position: 'relative',
+              bottom: '50px',
+            }}
+            >
               {err.message}
             </div>
             )}
