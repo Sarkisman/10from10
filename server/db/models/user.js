@@ -17,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_id',
       });
       this.belongsToMany(models.Event, { through: 'Event_User', foreignKey: 'user_id' });
+      this.hasMany(models.UserSuggestedEvents, {
+        foreignKey: 'user_id',
+      });
     }
   }
   User.init({

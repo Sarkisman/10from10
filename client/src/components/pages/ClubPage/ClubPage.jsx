@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import axios from 'axios';
 import {
   Button, Card, Col, Form, Row,
+  Modal, ModalHeader, ModalBody, ModalFooter, Input, Label,
 } from 'reactstrap';
 import { changeClubThunk, getAllClubs } from '../../../redux/actions/ClubActions';
 import { getEventsByClub } from '../../../redux/actions/eventActions';
@@ -20,12 +22,40 @@ function ClubPage() {
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState(club?.avatar || 'ZaglushkaClub.jpeg');
   const [isEdit, setEdit] = useState(false);
+  const [input, setInput] = useState({
+    title: '', description: '', date: '', num_of_members: '',
+  });
+  const [modal, setModal] = useState(false);
+  const [fileData, setFileData] = useState(club);
+  const toggle = () => setModal(!modal);
 
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
   const upcomingEvents = events.filter((event) => new Date(event.date) >= today);
   const pastEvents = events.filter((event) => new Date(event.date) <= today);
-  const [fileData, setFileData] = useState(club);
+  // const [fileData, setFileData] = useState({
+  //   avatar: null,
+  //   email: '',
+  //   phone: '',
+  //   title: '',
+  //   address: '',
+  //   description: '',
+  // });
+  const changeHandler = async (e) => {
+    setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+  const submitModalHandler = (e) => {
+    e.preventDefault();
+    axios.post(`/events/suggestedByUser/club/${id}`, input);
+    // .then((res) => {
+    //   dispatch(addComment(res.data));
+    // });
+    // dispatch(asyncAddComment(e, input, id));
+    // setInput({
+    //   title: '', description: '', date: '', num_of_members: '',
+    // });
+    toggle();
+  };
 
   const changeImg = (e) => {
     setFileData((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
@@ -232,9 +262,108 @@ function ClubPage() {
               {pastEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
             </ul>
           </div>
+          <div>
+
+            <Button
+              onClick={toggle}
+              style={{ marginLeft: '10px' }}
+              color="primary"
+              outline
+            >
+              Предложить событие
+
+            </Button>
+          </div>
+
+          {modal && (
+            <div>
+
+              <Modal
+                isOpen={modal}
+                modalTransition={{ timeout: 700 }}
+                backdropTransition={{ timeout: 1300 }}
+                toggle={toggle}
+              >
+                <ModalHeader toggle={toggle}>Предложить мероприятие:</ModalHeader>
+                <ModalBody>
+                  <Form
+                    className="mb-3 mt-3"
+                    onSubmit={submitModalHandler}
+                  >
+                    <Row>
+                      <Col md={{
+                        offset: 3,
+                        size: 6,
+                      }}
+                      >
+                        <Label for="exampleEmail">
+                          Название мероприятия
+                        </Label>
+                        <Input
+                          value={input.title}
+                          onChange={changeHandler}
+                          name="title"
+                          placeholder="Название мероприятия"
+                          id="text"
+                        />
+                        <Label for="exampleAddress">
+                          Описание
+                        </Label>
+                        <Input
+                          value={input.description}
+                          onChange={changeHandler}
+                          id="text"
+                          name="description"
+                          placeholder="описание мероприятия"
+                        />
+                        <Label for="exampleAddress">
+                          Количество участников
+                        </Label>
+                        <Input
+                          name="num_of_members"
+                          placeholder="количество участников"
+                          value={input.num_of_members}
+                          onChange={changeHandler}
+                          id="text"
+                        />
+                        <Label for="exampleAddress">
+                          Выберите дату
+                        </Label>
+                        <Input onChange={changeHandler} value={input.date} type="date" name="date" min="2023-01-13" max="2024-06-08" />
+                        <Button type="submit">
+                          Отправить
+                        </Button>
+                      </Col>
+                    </Row>
+
+                    {/* <Input
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      name="text"
+                      placeholder="Ваш комментарий"
+                      id="text"
+                    /> */}
+                    <ModalFooter>
+                      <Button type="submit" color="primary">
+                        Отправить
+                      </Button>
+                      {' '}
+                      <Button color="secondary" onClick={toggle}>
+                        Отмена
+                      </Button>
+                    </ModalFooter>
+
+                  </Form>
+                </ModalBody>
+
+              </Modal>
+            </div>
+          )}
+
         </Col>
       </Row>
       <Row>
+
         <Col />
       </Row>
     </div>
