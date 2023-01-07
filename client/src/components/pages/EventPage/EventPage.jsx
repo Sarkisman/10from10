@@ -17,8 +17,9 @@ function EventPage() {
   const [input, setInput] = useState('');
   const comments = useSelector((store) => store.comments);
   const filteredComments = comments?.filter((el) => el.event_id === +id);
-  console.log('filtered', filteredComments);
-  // const [eventComments, setEventComments] = useState(filteredComments);
+
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
 
   const toggle = () => setModal(!modal);
 
@@ -160,27 +161,31 @@ function EventPage() {
               >
                 о клубе
               </Button>
-              {!(eventUsers?.filter((el) => el.id === user.id).length)
-                ? (
-                  <Button
-                    onClick={submitHandler}
-                    style={{ marginLeft: '10px' }}
-                    color="primary"
-                    outline
-                  >
-                    принять участие
-                  </Button>
-                )
-                : (
-                  <Button
-                    onClick={deleteHandler}
-                    style={{ marginLeft: '10px' }}
-                    color="primary"
-                    outline
-                  >
-                    отменить участие
-                  </Button>
-                )}
+              {new Date(counter.date) >= today && (
+                <div>
+                  {!(eventUsers?.filter((el) => el.id === user.id).length)
+                    ? (
+                      <Button
+                        onClick={submitHandler}
+                        style={{ marginLeft: '10px' }}
+                        color="primary"
+                        outline
+                      >
+                        принять участие
+                      </Button>
+                    )
+                    : (
+                      <Button
+                        onClick={deleteHandler}
+                        style={{ marginLeft: '10px' }}
+                        color="primary"
+                        outline
+                      >
+                        отменить участие
+                      </Button>
+                    )}
+                </div>
+              )}
               <Button
                 onClick={toggle}
                 style={{ marginLeft: '10px' }}
@@ -255,33 +260,33 @@ function EventPage() {
                 alignItems: 'center',
               }}
               >
-                  {filteredComments?.map((el) => (
-                    <Card className={classes.mainCard} key={el.id}>
-                      <div className={classes.card}>
-                        <div className={classes.container}>
-                          <div className={classes.secondContainer}>
-                            <img
-                              src={`http://localhost:3001/${el.User.avatar}`}
-                              alt="avatar"
-                              className={classes.img}
-                            />
-                          </div>
-                        </div>
-                        <div className={classes.content}>
-                          <p>
-                            {el?.User?.name}
-                            {' '}
-                            в
-                            {' '}
-                            {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
-                              .join(' ')}
-                          </p>
-                          {el?.text}
+                {filteredComments?.map((el) => (
+                  <Card className={classes.mainCard} key={el.id}>
+                    <div className={classes.card}>
+                      <div className={classes.container}>
+                        <div className={classes.secondContainer}>
+                          <img
+                            src={`http://localhost:3001/${el.User.avatar}`}
+                            alt="avatar"
+                            className={classes.img}
+                          />
                         </div>
                       </div>
+                      <div className={classes.content}>
+                        <p>
+                          {el?.User?.name}
+                          {' '}
+                          в
+                          {' '}
+                          {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
+                            .join(' ')}
+                        </p>
+                        {el?.text}
+                      </div>
+                    </div>
 
-                    </Card>
-                  ))}
+                  </Card>
+                ))}
               </div>
 
             )}
