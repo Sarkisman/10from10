@@ -35,6 +35,7 @@ export default function NewClubEventPage() {
             Описание
           </Label>
           <Input
+            type="textarea"
             id="exampleAddress"
             name="description"
             placeholder="описание мероприятия"
