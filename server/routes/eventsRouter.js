@@ -1,8 +1,8 @@
 const express = require('express');
+// const nodemailer = require('nodemailer'); // nodemailer
 const {
-  Event, User, Club, UserSuggestedEvents,
+  Event, User, Club,
 } = require('../db/models');
-// const subscriber = require('../db/models/subscriber');
 
 const eventsRouter = express.Router();
 
@@ -43,28 +43,6 @@ eventsRouter.route('/new/:id')
       });
       // const eventWithUser = await Event.findByPk(newEvent.id, { include: User });
       res.json(newEvent);
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
-eventsRouter.route('/suggestedByUser/club/:id')
-  .post(async (req, res) => {
-    try {
-      const {
-        title, description, date, num_of_members,
-      } = req.body;
-      console.log('REQ', req.body);
-
-      await UserSuggestedEvents.create({
-        title,
-        description,
-        date,
-        club_id: Number(req.params.id),
-        user_id: req.session.user.id,
-        num_of_members: Number(num_of_members),
-      });
-      res.sendStatus(200);
     } catch (error) {
       console.log(error);
     }

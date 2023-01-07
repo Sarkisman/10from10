@@ -23,7 +23,7 @@ function ClubPage() {
   const [avatar, setAvatar] = useState(club?.avatar || 'ZaglushkaClub.jpeg');
   const [isEdit, setEdit] = useState(false);
   const [input, setInput] = useState({
-    title: '', description: '', date: '', num_of_members: '',
+    title: '', description: '', date: '', num_of_members: '', email: '',
   });
   const [modal, setModal] = useState(false);
   const [fileData, setFileData] = useState(club);
@@ -46,7 +46,7 @@ function ClubPage() {
   };
   const submitModalHandler = (e) => {
     e.preventDefault();
-    axios.post(`/events/suggestedByUser/club/${id}`, input);
+    axios.post(`/suggestedByUser/club/${id}`, input);
     // .then((res) => {
     //   dispatch(addComment(res.data));
     // });
@@ -310,6 +310,7 @@ function ClubPage() {
                           Описание
                         </Label>
                         <Input
+                          type="textarea"
                           value={input.description}
                           onChange={changeHandler}
                           id="text"
@@ -330,6 +331,16 @@ function ClubPage() {
                           Выберите дату
                         </Label>
                         <Input onChange={changeHandler} value={input.date} type="date" name="date" min="2023-01-13" max="2024-06-08" />
+                        <Label for="exampleEmail">
+                          Ваша почта
+                        </Label>
+                        <Input
+                          value={input.email}
+                          onChange={changeHandler}
+                          name="email"
+                          placeholder="Почта"
+                          id="text"
+                        />
                         <Button type="submit">
                           Отправить
                         </Button>
