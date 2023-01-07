@@ -4,9 +4,8 @@ const morgan = require('morgan');
 const cors = require('cors');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-// const { Event_User } = require('./db/models');
 const {
-  authRouter, clubRouter, eventsRouter, counterRouter, commentsRouter,
+  authRouter, clubRouter, eventsRouter, counterRouter, commentsRouter, userSuggestedEventsRouter,
 } = require('./routes');
 require('dotenv').config();
 
@@ -38,6 +37,7 @@ app.use('/club', clubRouter);
 app.use('/events', eventsRouter);
 app.use('/counter', counterRouter);
 app.use('/comments', commentsRouter);
+app.use('/suggestedByUser', userSuggestedEventsRouter);
 
 // app.get('/club/types', async (req, res) => {
 //   try {
@@ -46,16 +46,6 @@ app.use('/comments', commentsRouter);
 //     res.json(types);
 //   } catch {
 //     console.log('error');
-//   }
-// });
-
-// app.post('/counter/event/:id', async (req, res) => {
-//   console.log(req.params, ',,,,,,,,,,,,,,,,,,,,,,,,,,,,,');
-//   try {
-//     const newParticipant = await Event_User.findOrCreate({ where: { user_id: req.session.user.id, event_id: req.params.id } });
-//     res.json(newParticipant);
-//   } catch (error) {
-//     console.log(error);
 //   }
 // });
 

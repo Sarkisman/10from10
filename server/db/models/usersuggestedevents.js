@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     user_id: DataTypes.INTEGER,
     club_id: DataTypes.INTEGER,
     num_of_members: DataTypes.INTEGER,
+    email: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'UserSuggestedEvents',
