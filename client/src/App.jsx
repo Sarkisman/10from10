@@ -32,7 +32,7 @@ function App() {
               <Route path="/auth" element={<LoginPage />} />
               <Route path="/reg" element={<RegPage />} />
             </Route>
-            <Route element={<PrivateRoute isAllowed={user?.id} redirectPath="/reg" />}>
+            <Route element={<PrivateRoute isAllowed={user?.id} redirectPath="/auth" />}>
               <Route path="/lk/:id" element={<Lk />} />
               <Route path="/club/:id" element={<ClubPage />} />
               <Route path="/reg/:params" element={<RegPageClub />} />
