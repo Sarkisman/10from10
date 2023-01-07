@@ -32,7 +32,7 @@ function ClubPage() {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
   const upcomingEvents = events.filter((event) => new Date(event.date) >= today);
-  const pastEvents = events.filter((event) => new Date(event.date) <= today);
+  const pastEvents = events.filter((event) => new Date(event.date) < today);
   // const [fileData, setFileData] = useState({
   //   avatar: null,
   //   email: '',
@@ -270,7 +270,7 @@ function ClubPage() {
               color="primary"
               outline
             >
-              Предложить событие
+              Заявка на проведение мероприятия
 
             </Button>
           </div>
