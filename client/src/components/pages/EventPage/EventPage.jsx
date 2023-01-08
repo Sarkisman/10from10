@@ -22,7 +22,7 @@ function EventPage() {
   const comments = useSelector((store) => store.comments);
   const user = useSelector((store) => store.user);
   const filteredComments = comments?.filter((el) => el.event_id === +id);
-
+  console.log(filteredComments);
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
 
@@ -35,8 +35,8 @@ function EventPage() {
   const counter = useSelector((store) => store.counter);
   const eventUsers = useSelector((store) => store.eventUsers);
 
-  console.log(user.id);
-  console.log(counter);
+  // console.log(user.id);
+  // console.log(counter);
 
   const submitHandler = () => {
     dispatch(submitCounter(id));
