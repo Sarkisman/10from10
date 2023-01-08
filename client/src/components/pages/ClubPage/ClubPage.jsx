@@ -266,9 +266,12 @@ function ClubPage() {
 
             <Button
               onClick={toggle}
-              style={{ marginLeft: '10px' }}
+              style={{
+                marginLeft: '30px',
+                width: '500px',
+              }}
               color="primary"
-              outline
+
             >
               Заявка на проведение мероприятия
 

@@ -55,8 +55,8 @@ export default function Lk() {
             </Button>
           ) : (
             <Button
+              style={{ marginTop: '20px' }}
               color="primary"
-              outline
               type="button"
               onClick={() => buttonHandler()}
             >
