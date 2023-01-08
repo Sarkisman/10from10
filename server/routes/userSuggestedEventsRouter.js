@@ -3,20 +3,23 @@ const nodemailer = require('nodemailer');
 const {
   UserSuggestedEvents, Club,
 } = require('../db/models');
+require('dotenv').config();
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.yandex.ru',
   port: 465,
   secure: true,
   auth: {
-    user: 'Khmara2Khmara@yandex.ru',
-    pass: 'Wdwg2dinw5',
+    // user: 'shootingclubs@yandex.ru',
+    // pass: 'textPassword2',
+    user: process.env.MAIL_USERNAME,
+    pass: process.env.MAIL_PASSWORD,
   },
 });
 // Функция отправка данных на почту
 async function sendemail(email, text) {
   const mailOptions = {
-    from: 'Khmara2Khmara@yandex.ru',
+    from: 'shootingclubs@yandex.ru',
     to: email,
     subject: 'Новая заявка.',
     text,

@@ -280,8 +280,8 @@ function ClubPage() {
 
               <Modal
                 isOpen={modal}
-                modalTransition={{ timeout: 700 }}
-                backdropTransition={{ timeout: 1300 }}
+                modalTransition={{ timeout: 100 }}
+                backdropTransition={{ timeout: 300 }}
                 toggle={toggle}
               >
                 <ModalHeader toggle={toggle}>Предложить мероприятие:</ModalHeader>
@@ -297,7 +297,7 @@ function ClubPage() {
                       }}
                       >
                         <Label for="exampleEmail">
-                          Название мероприятия
+                          Название мероприятия:
                         </Label>
                         <Input
                           value={input.title}
@@ -307,7 +307,7 @@ function ClubPage() {
                           id="text"
                         />
                         <Label for="exampleAddress">
-                          Описание
+                          Описание:
                         </Label>
                         <Input
                           type="textarea"
@@ -318,7 +318,7 @@ function ClubPage() {
                           placeholder="описание мероприятия"
                         />
                         <Label for="exampleAddress">
-                          Количество участников
+                          Количество участников:
                         </Label>
                         <Input
                           name="num_of_members"
@@ -328,11 +328,11 @@ function ClubPage() {
                           id="text"
                         />
                         <Label for="exampleAddress">
-                          Выберите дату
+                          Выберите дату:
                         </Label>
                         <Input onChange={changeHandler} value={input.date} type="date" name="date" min="2023-01-13" max="2024-06-08" />
                         <Label for="exampleEmail">
-                          Ваша почта
+                          Ваша почта:
                         </Label>
                         <Input
                           value={input.email}
@@ -341,19 +341,11 @@ function ClubPage() {
                           placeholder="Почта"
                           id="text"
                         />
-                        <Button type="submit">
+                        {/* <Button type="submit">
                           Отправить
-                        </Button>
+                        </Button> */}
                       </Col>
                     </Row>
-
-                    {/* <Input
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      name="text"
-                      placeholder="Ваш комментарий"
-                      id="text"
-                    /> */}
                     <ModalFooter>
                       <Button type="submit" color="primary">
                         Отправить
