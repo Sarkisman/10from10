@@ -19,7 +19,7 @@ commentsRouter.post('/:id', async (req, res) => {
     where: {
       id: newComment.id,
     },
-    include: { model: User, attributes: ['id', 'name'] },
+    include: { model: User, attributes: ['id', 'name', 'avatar'] },
 
   });
   res.json(oneComment);

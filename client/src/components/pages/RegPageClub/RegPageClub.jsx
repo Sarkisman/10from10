@@ -77,6 +77,15 @@ export default function ClubOrUser() {
                 name="address"
                 placeholder="1234 Main St"
               />
+              <Label for="exampleAddress">
+                Почта
+              </Label>
+              <Input
+                onChange={changeHandler}
+                id="exampleAddress"
+                name="email"
+                placeholder="email@email.ru"
+              />
             </Col>
           </Row>
           <Row>

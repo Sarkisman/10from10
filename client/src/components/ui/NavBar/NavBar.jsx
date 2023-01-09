@@ -18,10 +18,10 @@ function NavBar() {
         {!user ? (
           <Nav className={styles.navFlex}>
             <NavItem>
-              <Link className={styles.textColor} to="/auth" style={{ textDecoration: 'none', color: 'white' }}>Войти</Link>
+              <Link className={styles.textColor} to="/auth">Войти</Link>
             </NavItem>
             <NavItem>
-              <Link className={styles.textColor} to="/reg" style={{ textDecoration: 'none', color: 'white' }}> Зарегистрироваться </Link>
+              <Link className={styles.textColor} to="/reg"> Зарегистрироваться </Link>
             </NavItem>
           </Nav>
         ) : (
@@ -35,14 +35,15 @@ function NavBar() {
               </NavItem>
             </Nav>
             <NavbarText className={styles.textColor}>
-              Привет -
+              Привет,
               {' '}
               {user?.name}
+              !
             </NavbarText>
           </>
         )}
 
-        { user ? (
+        {user ? (
           <div style={{
             width: '50px',
             height: '50px',

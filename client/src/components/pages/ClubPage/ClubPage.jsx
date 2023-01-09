@@ -23,7 +23,7 @@ function ClubPage() {
   const [avatar, setAvatar] = useState(club?.avatar || 'ZaglushkaClub.jpeg');
   const [isEdit, setEdit] = useState(false);
   const [input, setInput] = useState({
-    title: '', description: '', date: '', num_of_members: '',
+    title: '', description: '', date: '', num_of_members: '', email: '',
   });
   const [modal, setModal] = useState(false);
   const [fileData, setFileData] = useState(club);
@@ -32,7 +32,7 @@ function ClubPage() {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
   const upcomingEvents = events.filter((event) => new Date(event.date) >= today);
-  const pastEvents = events.filter((event) => new Date(event.date) <= today);
+  const pastEvents = events.filter((event) => new Date(event.date) < today);
   // const [fileData, setFileData] = useState({
   //   avatar: null,
   //   email: '',
@@ -46,7 +46,7 @@ function ClubPage() {
   };
   const submitModalHandler = (e) => {
     e.preventDefault();
-    axios.post(`/events/suggestedByUser/club/${id}`, input);
+    axios.post(`/suggestedByUser/club/${id}`, input);
     // .then((res) => {
     //   dispatch(addComment(res.data));
     // });
@@ -266,11 +266,14 @@ function ClubPage() {
 
             <Button
               onClick={toggle}
-              style={{ marginLeft: '10px' }}
+              style={{
+                marginLeft: '30px',
+                width: '500px',
+              }}
               color="primary"
-              outline
+
             >
-              Предложить событие
+              Заявка на проведение мероприятия
 
             </Button>
           </div>
@@ -280,8 +283,8 @@ function ClubPage() {
 
               <Modal
                 isOpen={modal}
-                modalTransition={{ timeout: 700 }}
-                backdropTransition={{ timeout: 1300 }}
+                modalTransition={{ timeout: 100 }}
+                backdropTransition={{ timeout: 300 }}
                 toggle={toggle}
               >
                 <ModalHeader toggle={toggle}>Предложить мероприятие:</ModalHeader>
@@ -297,7 +300,7 @@ function ClubPage() {
                       }}
                       >
                         <Label for="exampleEmail">
-                          Название мероприятия
+                          Название мероприятия:
                         </Label>
                         <Input
                           value={input.title}
@@ -307,9 +310,10 @@ function ClubPage() {
                           id="text"
                         />
                         <Label for="exampleAddress">
-                          Описание
+                          Описание:
                         </Label>
                         <Input
+                          type="textarea"
                           value={input.description}
                           onChange={changeHandler}
                           id="text"
@@ -317,7 +321,7 @@ function ClubPage() {
                           placeholder="описание мероприятия"
                         />
                         <Label for="exampleAddress">
-                          Количество участников
+                          Количество участников:
                         </Label>
                         <Input
                           name="num_of_members"
@@ -327,22 +331,24 @@ function ClubPage() {
                           id="text"
                         />
                         <Label for="exampleAddress">
-                          Выберите дату
+                          Выберите дату:
                         </Label>
                         <Input onChange={changeHandler} value={input.date} type="date" name="date" min="2023-01-13" max="2024-06-08" />
-                        <Button type="submit">
+                        <Label for="exampleEmail">
+                          Ваша почта:
+                        </Label>
+                        <Input
+                          value={input.email}
+                          onChange={changeHandler}
+                          name="email"
+                          placeholder="Почта"
+                          id="text"
+                        />
+                        {/* <Button type="submit">
                           Отправить
-                        </Button>
+                        </Button> */}
                       </Col>
                     </Row>
-
-                    {/* <Input
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      name="text"
-                      placeholder="Ваш комментарий"
-                      id="text"
-                    /> */}
                     <ModalFooter>
                       <Button type="submit" color="primary">
                         Отправить

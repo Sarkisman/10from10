@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {
   Col, Form, Input, Label, Row, Button,
 } from 'reactstrap';
+import classes from './NewClubEventPage.module.css';
 import { submitEvent } from '../../../redux/actions/eventActions';
 
 export default function NewClubEventPage() {
@@ -16,47 +17,59 @@ export default function NewClubEventPage() {
   };
 
   return (
-    <Form onSubmit={submitHandler}>
-      <Row>
-        <Col md={{
-          offset: 3,
-          size: 6,
-        }}
-        >
-          <Label for="exampleEmail">
-            Название мероприятия
-          </Label>
-          <Input
-            name="title"
-            placeholder="Название мероприятия"
-            type="text"
-          />
-          <Label for="exampleAddress">
-            Описание
-          </Label>
-          <Input
-            id="exampleAddress"
-            name="description"
-            placeholder="описание мероприятия"
-          />
-          <Label for="exampleAddress">
-            Количество участников
-          </Label>
-          <Input
-            id="exampleAddress"
-            name="num_of_members"
-            placeholder="количество участников"
-          />
-          <Label for="exampleAddress">
-            Выберите дату
-          </Label>
-          <Input type="date" name="date" min="2023-01-13" max="2024-06-08" />
-          {/* <Input name="date" type="date" /> */}
-          <Button type="submit">
-            Отправить
-          </Button>
-        </Col>
-      </Row>
-    </Form>
+    <div className={classes.container}>
+      <div className={classes.banerContainer}>
+
+        <Form onSubmit={submitHandler}>
+          <Row>
+            <Col md={{
+              offset: 2,
+              size: 8,
+            }}
+            >
+              {/* <Label for="exampleEmail">
+                Название мероприятия
+              </Label> */}
+              <Input
+                className={classes.inputs}
+                name="title"
+                placeholder="Название мероприятия"
+                type="text"
+              />
+              {/* <Label for="exampleAddress">
+                Описание
+              </Label> */}
+              <Input
+                className={classes.inputs}
+                type="textarea"
+                id="exampleAddress"
+                name="description"
+                placeholder="описание мероприятия"
+              />
+              {/* <Label for="exampleAddress">
+                Количество участников
+              </Label> */}
+              <Input
+                id="exampleAddress"
+                name="num_of_members"
+                placeholder="количество участников"
+              />
+              <Label for="exampleAddress">
+                Выберите дату
+              </Label>
+              <Input type="date" name="date" min="2023-01-13" max="2024-06-08" />
+              {/* <Input name="date" type="date" /> */}
+              <Button
+                color="primary"
+                outline
+                className={classes.button}
+              >
+                Отправить
+              </Button>
+            </Col>
+          </Row>
+        </Form>
+      </div>
+    </div>
   );
 }

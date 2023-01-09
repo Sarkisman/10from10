@@ -4,9 +4,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Modal, ModalHeader, ModalBody, ModalFooter, Input, Form, Card,
 } from 'reactstrap';
+import { IconButton } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import MemberAvatar from '../../ui/MemberAvatar';
 import { deleteCounter, getEventCounter, submitCounter } from '../../../redux/actions/counterActions';
-import { asyncAddComment, asyncSetComments, setComments } from '../../../redux/actions/CommentsActions';
+import {
+  asyncAddComment, asyncDeleteComment, asyncSetComments, setComments,
+} from '../../../redux/actions/CommentsActions';
 import classes from './EventPage.module.css';
 
 function EventPage() {
@@ -16,9 +20,11 @@ function EventPage() {
   const [modal, setModal] = useState(false);
   const [input, setInput] = useState('');
   const comments = useSelector((store) => store.comments);
+  const user = useSelector((store) => store.user);
   const filteredComments = comments?.filter((el) => el.event_id === +id);
-  console.log('filtered', filteredComments);
-  // const [eventComments, setEventComments] = useState(filteredComments);
+  console.log(filteredComments);
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
 
   const toggle = () => setModal(!modal);
 
@@ -28,7 +34,9 @@ function EventPage() {
   }, []);
   const counter = useSelector((store) => store.counter);
   const eventUsers = useSelector((store) => store.eventUsers);
-  const user = useSelector((store) => store.user);
+
+  // console.log(user.id);
+  // console.log(counter);
 
   const submitHandler = () => {
     dispatch(submitCounter(id));
@@ -78,23 +86,24 @@ function EventPage() {
               alignItems: 'center',
             }}
             >
-              <div>
-                {' '}
-                <h5>
-                  место проведения:
+              <div className={classes.placeContainer}>
+                <div>
                   {' '}
-                  <b>{counter?.Club?.name}</b>
-                </h5>
-                <h5>{counter?.Club?.address}</h5>
+                  <h5>
+                    место проведения:
+                    {' '}
+                    <b>{counter?.Club?.name}</b>
+                  </h5>
+                  <h5>{counter?.Club?.address}</h5>
 
-              </div>
-              <div>
-                <h2>
-                  дата проведения:
-                  {' '}
-                  {counter?.date?.slice(0, 10)}
-                </h2>
-
+                </div>
+                <div style={{ alignSelf: 'flex-end' }}>
+                  <h5>
+                    дата проведения:
+                    {' '}
+                    {counter?.date?.slice(0, 10)}
+                  </h5>
+                </div>
               </div>
 
             </div>
@@ -160,27 +169,31 @@ function EventPage() {
               >
                 о клубе
               </Button>
-              {!(eventUsers?.filter((el) => el.id === user.id).length)
-                ? (
-                  <Button
-                    onClick={submitHandler}
-                    style={{ marginLeft: '10px' }}
-                    color="primary"
-                    outline
-                  >
-                    принять участие
-                  </Button>
-                )
-                : (
-                  <Button
-                    onClick={deleteHandler}
-                    style={{ marginLeft: '10px' }}
-                    color="primary"
-                    outline
-                  >
-                    отменить участие
-                  </Button>
-                )}
+              {new Date(counter.date) >= today && (
+                <div>
+                  {!(eventUsers?.filter((el) => el.id === user.id).length)
+                    ? (
+                      <Button
+                        onClick={submitHandler}
+                        style={{ marginLeft: '10px' }}
+                        color="primary"
+                        outline
+                      >
+                        принять участие
+                      </Button>
+                    )
+                    : (
+                      <Button
+                        onClick={deleteHandler}
+                        style={{ marginLeft: '10px' }}
+                        color="primary"
+                        outline
+                      >
+                        отменить участие
+                      </Button>
+                    )}
+                </div>
+              )}
               <Button
                 onClick={toggle}
                 style={{ marginLeft: '10px' }}
@@ -255,33 +268,44 @@ function EventPage() {
                 alignItems: 'center',
               }}
               >
-                  {filteredComments?.map((el) => (
-                    <Card className={classes.mainCard} key={el.id}>
-                      <div className={classes.card}>
-                        <div className={classes.container}>
-                          <div className={classes.secondContainer}>
-                            <img
-                              src={`http://localhost:3001/${el.User.avatar}`}
-                              alt="avatar"
-                              className={classes.img}
-                            />
-                          </div>
-                        </div>
-                        <div className={classes.content}>
-                          <p>
-                            {el?.User?.name}
-                            {' '}
-                            в
-                            {' '}
-                            {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
-                              .join(' ')}
-                          </p>
-                          {el?.text}
+                {filteredComments?.map((el) => (
+                  <Card className={classes.mainCard} key={el.id}>
+                    <div className={classes.card}>
+                      <div className={classes.container}>
+                        <div className={classes.secondContainer}>
+                          <img
+                            src={`http://localhost:3001/${el.User.avatar}`}
+                            alt="avatar"
+                            className={classes.img}
+                          />
                         </div>
                       </div>
+                      <div className={classes.content}>
+                        <p className={classes.userComent}>
+                          {el?.User?.name}
+                          {' '}
+                          в
+                          {' '}
+                          {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
+                            .join(' ')}
+                        </p>
+                        <div style={{ width: '400px' }}>{el?.text}</div>
 
-                    </Card>
-                  ))}
+                      </div>
+                      {((user.id === el.user_id) || (user.id === counter.Club.user_id)) && (
+                        <div className={classes.iconButton}>
+                          <IconButton
+                            color="inherit"
+                            onClick={() => dispatch(asyncDeleteComment(el.id))}
+                          >
+                            <DeleteForeverIcon fontSize="large" />
+                          </IconButton>
+                        </div>
+                      )}
+                    </div>
+
+                  </Card>
+                ))}
               </div>
 
             )}
