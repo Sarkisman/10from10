@@ -64,7 +64,7 @@ clubRouter.post('/types', async (req, res) => {
 });
 // все клубы
 clubRouter.get('/clubs', async (req, res) => {
-  const allClubs = await Club.findAll();
+  const allClubs = await Club.findAll({ include: { model: Type } });
   res.json(allClubs);
 });
 // один клуб
