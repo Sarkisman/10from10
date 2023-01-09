@@ -26,8 +26,15 @@
     left: 100px;
 }
 
-.discription{
+.discription {
     margin-bottom: 20px;
     height: 60px;
     resize: none;
+}
+
+.closeButton {
+    position: relative;
+    left: 580px;
+    bottom: 60px;
+    z-index: 1;
 }

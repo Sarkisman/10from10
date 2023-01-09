@@ -16,3 +16,10 @@
     box-shadow: 5px 5px 10px;
     background-color: rgba(255, 255, 255, 0.8);
 }
+
+.closeButton {
+    position: relative;
+    left: 870px;
+    bottom: 80px;
+    z-index: 1;
+}

@@ -4,6 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {
   Col, Form, Input, Label, Row, Button,
 } from 'reactstrap';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import classes from './NewClubEventPage.module.css';
 import { submitEvent } from '../../../redux/actions/eventActions';
 
@@ -19,6 +21,14 @@ export default function NewClubEventPage() {
   const date = today.toISOString();
   return (
     <div className={classes.container}>
+      <div className={classes.closeButton}>
+        <IconButton
+          color="inherit"
+          onClick={() => navigate(-1)}
+        >
+          <CloseIcon fontSize="large" />
+        </IconButton>
+      </div>
       <div className={classes.banerContainer}>
 
         <Form onSubmit={submitHandler}>
