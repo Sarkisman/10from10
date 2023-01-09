@@ -5,7 +5,7 @@ import {
   Nav, Navbar, NavbarBrand, NavbarText, NavItem,
 } from 'reactstrap';
 import { logoutThunk } from '../../../redux/actions/UserActions';
-import styles from './NavBar.module.css';
+import classes from './NavBar.module.css';
 
 function NavBar() {
   const dispatch = useDispatch();
@@ -14,54 +14,56 @@ function NavBar() {
   return (
     <div>
       <Navbar>
-        <NavbarBrand className={styles.textColor} href="/">10/10</NavbarBrand>
         {!user ? (
-          <Nav className={styles.navFlex}>
+          <Nav className={classes.navFlex}>
+            <NavbarBrand className={classes.textColor} href="/">10/10</NavbarBrand>
             <NavItem>
-              <Link className={styles.textColor} to="/auth">Войти</Link>
+              <Link className={classes.textColor} to="/auth">Войти</Link>
             </NavItem>
+
             <NavItem>
-              <Link className={styles.textColor} to="/reg"> Зарегистрироваться </Link>
+              <Link className={classes.textColor} to="/reg"> Зарегистрироваться </Link>
             </NavItem>
+
           </Nav>
         ) : (
           <>
-            <Nav className={styles.navFlex}>
+            <Nav className={classes.navFlex}>
+              <NavbarBrand className={classes.textColor} href="/">10/10</NavbarBrand>
               <NavItem>
-                <Link className={styles.textColor} to={`/lk/${user.id}`}> Личный кабинет </Link>
+                <Link className={classes.textColor} to={`/lk/${user.id}`}> Личный кабинет </Link>
               </NavItem>
-              <NavItem>
-                <Link className={styles.textColor} to="/" onClick={() => { dispatch(logoutThunk()); window.location.href = '/'; }}> Выйти </Link>
-              </NavItem>
+
+              <div className={classes.exitAvatarFlex}>
+                {' '}
+                {user ? (
+                  <div style={{ marginRight: '25px' }}>
+                    <div className={classes.navAvatar}>
+                      <img
+                        className={classes.navAvatarImg}
+                        src={`http://localhost:3001/${user?.avatar}`}
+                        alt="avatar"
+                      />
+                    </div>
+                    <div style={{ color: 'white' }}>{user?.name}</div>
+                  </div>
+                ) : ''}
+                <div>
+                  <NavItem>
+                    <Link className={classes.textColor} to="/" onClick={() => { dispatch(logoutThunk()); window.location.href = '/'; }}> Выйти </Link>
+                  </NavItem>
+                </div>
+              </div>
             </Nav>
-            <NavbarText className={styles.textColor}>
+            {/* <NavbarText className={classes.textColor}>
               Привет,
               {' '}
               {user?.name}
               !
-            </NavbarText>
+            </NavbarText> */}
           </>
         )}
 
-        {user ? (
-          <div style={{
-            width: '50px',
-            height: '50px',
-            borderRadius: '50%',
-            overflow: 'hidden',
-            border: '3px solid',
-          }}
-          >
-            <img
-              src={`http://localhost:3001/${user?.avatar}`}
-              alt="avatar"
-              style={{
-                heigh: 'auto',
-                width: '100%',
-              }}
-            />
-          </div>
-        ) : ''}
       </Navbar>
 
     </div>

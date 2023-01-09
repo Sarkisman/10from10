@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 import { IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import CloseIcon from '@mui/icons-material/Close';
 import MemberAvatar from '../../ui/MemberAvatar';
 import { deleteCounter, getEventCounter, submitCounter } from '../../../redux/actions/counterActions';
 import {
@@ -70,7 +71,20 @@ function EventPage() {
         }}
         >
           <div style={{
-            marginTop: '10px',
+            position: 'relative',
+            left: '800px',
+            top: '30px',
+          }}
+          >
+            <IconButton
+              color="inherit"
+              onClick={() => navigate('/')}
+            >
+              <CloseIcon fontSize="large" />
+            </IconButton>
+          </div>
+          <div style={{
+            marginTop: '0px',
             height: 'auto',
             display: 'flex',
             flexDirection: 'column',
@@ -78,6 +92,7 @@ function EventPage() {
             alignItems: 'center',
           }}
           >
+
             <h1>{counter?.title}</h1>
             <h2>{counter?.description}</h2>
             <div style={{
@@ -102,6 +117,8 @@ function EventPage() {
                     дата проведения:
                     {' '}
                     {counter?.date?.slice(0, 10)}
+                    {counter?.time?.slice(0, 5)}
+
                   </h5>
                 </div>
               </div>
