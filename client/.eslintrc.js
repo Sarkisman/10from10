@@ -29,5 +29,6 @@ module.exports = {
     'max-len': 0,
     'import/no-cycle': 0,
     'no-unused-vars': 0,
+    'react/jsx-no-useless-fragment': 0,
   },
 };
