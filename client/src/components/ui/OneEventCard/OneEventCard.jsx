@@ -10,6 +10,7 @@ export default function OneEventCard({ event }) {
   const buttonHandler = () => {
     navigate(`/events/club/${event.id}`);
   };
+  const data = event?.date?.slice(0, 10).split('-').reverse().join('.');
   return (
     <Card
       style={{
@@ -56,9 +57,16 @@ export default function OneEventCard({ event }) {
           {event.description}
         </CardText>
         <CardText>
-          дата проведения:
+          Когда:
           {' '}
-          {event?.date?.slice(0, 10)}
+          <b>{data}</b>
+          <p>
+            Во сколько:
+            {' '}
+            <b>{event?.time?.slice(0, 5)}</b>
+          </p>
+          {' '}
+
         </CardText>
         {/* <button type="button" className="btn">❤️</button> */}
         <Button
