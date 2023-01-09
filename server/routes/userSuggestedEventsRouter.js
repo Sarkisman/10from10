@@ -10,8 +10,6 @@ const transporter = nodemailer.createTransport({
   port: 465,
   secure: true,
   auth: {
-    // user: 'shootingclubs@yandex.ru',
-    // pass: 'textPassword2',
     user: process.env.MAIL_USERNAME,
     pass: process.env.MAIL_PASSWORD,
   },
@@ -52,11 +50,11 @@ userSuggestedEventsRouter.route('/club/:id')
         num_of_members: Number(num_of_members),
         email,
       });
+      res.status(200).json({ message: 'Ваша заявка отправлена! Ожидайте подтверждения заказа на Email!' });
 
       const club = await Club.findOne({ where: { id: req.params.id } });
       const clubEmail = club.email;
       await sendemail(clubEmail, textEmail(title, description, date, num_of_members, email));
-      res.status(200).json({ message: 'Ваша заявка отправлена! Ожидайте подтверждения заказа на Email!' });
     } catch (error) {
       console.log(error);
     }
