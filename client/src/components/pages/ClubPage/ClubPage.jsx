@@ -29,6 +29,9 @@ function ClubPage() {
   const [fileData, setFileData] = useState(club);
   const toggle = () => setModal(!modal);
 
+  const [modalConfirmation, setModalConfirmation] = useState(false);
+  const toggleAgain = () => setModalConfirmation(!modalConfirmation);
+
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
   const upcomingEvents = events.filter((event) => new Date(event.date) >= today);
@@ -47,15 +50,23 @@ function ClubPage() {
   const submitModalHandler = (e) => {
     e.preventDefault();
     axios.post(`/suggestedByUser/club/${id}`, input);
-    // .then((res) => {
-    //   dispatch(addComment(res.data));
+    // .then(() => {
+    //   toggleAgain();
     // });
-    // dispatch(asyncAddComment(e, input, id));
-    // setInput({
-    //   title: '', description: '', date: '', num_of_members: '',
-    // });
+    setInput({
+      title: '', description: '', date: '', num_of_members: '', email: '',
+    });
+    toggleAgain();
+
     toggle();
   };
+  useEffect(() => {
+    if (modalConfirmation) {
+      setTimeout(() => {
+        setModalConfirmation(false);
+      }, 2000);
+    }
+  }, [modalConfirmation]);
 
   const changeImg = (e) => {
     setFileData((prev) => ({ ...prev, [e.target.name]: e.target.files[0] }));
@@ -115,15 +126,15 @@ function ClubPage() {
                   }}
                 />
                 <div>
-                  <b>название клуба: </b>
+                  <b>Название клуба: </b>
                   {club?.name}
                 </div>
                 <div>
-                  <b>телефон: </b>
+                  <b>Телефон: </b>
                   {club?.phone}
                 </div>
                 <div>
-                  <b>электронная почта: </b>
+                  <b>Электронная почта: </b>
                   {club?.email}
                 </div>
                 <div>
@@ -131,7 +142,7 @@ function ClubPage() {
                   {club?.address}
                 </div>
                 <div>
-                  <b>о клубе: </b>
+                  <b>О клубе: </b>
                   {club?.description}
                 </div>
 
@@ -264,18 +275,19 @@ function ClubPage() {
           </div>
           <div>
 
-            <Button
-              onClick={toggle}
-              style={{
-                marginLeft: '30px',
-                width: '500px',
-              }}
-              color="primary"
+            {user?.id !== club?.user_id && (
+              <Button
+                onClick={toggle}
+                style={{
+                  marginLeft: '30px',
+                  width: '500px',
+                }}
+                color="primary"
+              >
+                Заявка на проведение мероприятия
 
-            >
-              Заявка на проведение мероприятия
-
-            </Button>
+              </Button>
+            )}
           </div>
 
           {modal && (
@@ -344,9 +356,6 @@ function ClubPage() {
                           placeholder="Почта"
                           id="text"
                         />
-                        {/* <Button type="submit">
-                          Отправить
-                        </Button> */}
                       </Col>
                     </Row>
                     <ModalFooter>
@@ -361,6 +370,26 @@ function ClubPage() {
 
                   </Form>
                 </ModalBody>
+
+              </Modal>
+            </div>
+          )}
+          {modalConfirmation && (
+            <div>
+
+              <Modal
+                isOpen={modalConfirmation}
+                modalTransition={{ timeout: 100 }}
+                backdropTransition={{ timeout: 300 }}
+                toggle={toggleAgain}
+              >
+                {/* <ModalHeader toggle={toggleAgain}>Подтверждение:</ModalHeader> */}
+                <ModalBody>Ваша заявка отправлена! Ожидайте подтверждения заказа на Email!</ModalBody>
+                <ModalFooter>
+                  <Button color="secondary" onClick={toggleAgain}>
+                    Закрыть
+                  </Button>
+                </ModalFooter>
 
               </Modal>
             </div>
