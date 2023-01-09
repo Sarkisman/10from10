@@ -24,10 +24,11 @@ async function sendemail(email, text) {
   };
   await transporter.sendMail(mailOptions);
 }
-const textEmail = (title, description, date, num_of_members, email) => `Заявка на проведение мероприятия:
+const textEmail = (title, description, date, time, num_of_members, email) => `Заявка на проведение мероприятия:
   Название: ${title}
   Описание: ${description}
   Дата: ${date}
+  Время начала: ${time}
   Кол-во участников: ${num_of_members}
   Почта заявителя: ${email}`;
 
@@ -37,14 +38,15 @@ userSuggestedEventsRouter.route('/club/:id')
   .post(async (req, res) => {
     try {
       const {
-        email, title, description, date, num_of_members,
+        email, title, description, date, num_of_members, time,
       } = req.body;
-      if (!email || !description || !date || !num_of_members) return res.status(400).json({ message: 'Для отправки заявки необходимо заполнить все поля формы' });
-
+      if (!email || !description || !date || !time || !num_of_members) return res.status(400).json({ message: 'Для отправки заявки необходимо заполнить все поля формы' });
+      console.log(time, 'timeeeee');
       await UserSuggestedEvents.create({
         title,
         description,
         date,
+        time,
         club_id: Number(req.params.id),
         user_id: req.session.user.id,
         num_of_members: Number(num_of_members),
@@ -54,7 +56,7 @@ userSuggestedEventsRouter.route('/club/:id')
 
       const club = await Club.findOne({ where: { id: req.params.id } });
       const clubEmail = club.email;
-      await sendemail(clubEmail, textEmail(title, description, date, num_of_members, email));
+      await sendemail(clubEmail, textEmail(title, description, date, time, num_of_members, email));
     } catch (error) {
       console.log(error);
     }

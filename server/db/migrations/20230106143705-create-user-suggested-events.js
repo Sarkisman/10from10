@@ -20,6 +20,9 @@ module.exports = {
       date: {
         type: Sequelize.DATEONLY,
       },
+      time: {
+        type: Sequelize.STRING,
+      },
       user_id: {
         type: Sequelize.INTEGER,
         references: {
