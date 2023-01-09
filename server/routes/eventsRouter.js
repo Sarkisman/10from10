@@ -1,5 +1,4 @@
 const express = require('express');
-// const nodemailer = require('nodemailer'); // nodemailer
 const {
   Event, User, Club,
 } = require('../db/models');
@@ -32,16 +31,17 @@ eventsRouter.route('/new/:id')
   .post(async (req, res) => {
     try {
       const {
-        title, description, date, num_of_members,
+        title, description, date, num_of_members, time,
       } = req.body;
+      console.log(typeof time);
       const newEvent = await Event.create({
         title,
         description,
         date,
+        time,
         club_id: +req.params.id,
         num_of_members: +num_of_members,
       });
-      // const eventWithUser = await Event.findByPk(newEvent.id, { include: User });
       res.json(newEvent);
     } catch (error) {
       console.log(error);

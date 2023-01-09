@@ -4,6 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 import {
   Col, Form, Input, Label, Row, Button,
 } from 'reactstrap';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import classes from './NewClubEventPage.module.css';
 import { submitEvent } from '../../../redux/actions/eventActions';
 
@@ -15,9 +17,18 @@ export default function NewClubEventPage() {
     dispatch(submitEvent(e, Object.fromEntries(new FormData(e.target)), id));
     navigate(`/club/${id}`);
   };
-
+  const today = new Date();
+  const date = today.toISOString();
   return (
     <div className={classes.container}>
+      <div className={classes.closeButton}>
+        <IconButton
+          color="inherit"
+          onClick={() => navigate(-1)}
+        >
+          <CloseIcon fontSize="large" />
+        </IconButton>
+      </div>
       <div className={classes.banerContainer}>
 
         <Form onSubmit={submitHandler}>
@@ -27,38 +38,32 @@ export default function NewClubEventPage() {
               size: 8,
             }}
             >
-              {/* <Label for="exampleEmail">
-                Название мероприятия
-              </Label> */}
               <Input
                 className={classes.inputs}
                 name="title"
                 placeholder="Название мероприятия"
                 type="text"
               />
-              {/* <Label for="exampleAddress">
-                Описание
-              </Label> */}
               <Input
-                className={classes.inputs}
+                className={classes.discription}
                 type="textarea"
                 id="exampleAddress"
                 name="description"
-                placeholder="описание мероприятия"
+                placeholder="Описание мероприятия"
               />
-              {/* <Label for="exampleAddress">
-                Количество участников
-              </Label> */}
               <Input
                 id="exampleAddress"
                 name="num_of_members"
-                placeholder="количество участников"
+                placeholder="Количество участников"
               />
               <Label for="exampleAddress">
                 Выберите дату
               </Label>
-              <Input type="date" name="date" min="2023-01-13" max="2024-06-08" />
-              {/* <Input name="date" type="date" /> */}
+              <Input type="date" name="date" min={date.slice(0, 10)} max="2025-01-10" />
+              <Label for="exampleAddress">
+                Время начала мероприятия
+              </Label>
+              <Input type="time" name="time" />
               <Button
                 color="primary"
                 outline

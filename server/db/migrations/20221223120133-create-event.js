@@ -17,6 +17,9 @@ module.exports = {
       date: {
         type: Sequelize.DATE,
       },
+      time: {
+        type: Sequelize.STRING,
+      },
       club_id: {
         type: Sequelize.INTEGER,
         references: {
