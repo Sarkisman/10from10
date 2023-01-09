@@ -45,7 +45,14 @@ function NavBar() {
                         alt="avatar"
                       />
                     </div>
-                    <div style={{ color: 'white' }}>{user?.name}</div>
+                    <div style={{
+                      color: 'white',
+                      textAlign: 'center',
+                    }}
+                    >
+                      {user?.name}
+
+                    </div>
                   </div>
                 ) : ''}
                 <div>
