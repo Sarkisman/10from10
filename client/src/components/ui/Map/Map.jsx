@@ -10,6 +10,11 @@ export default function Map() {
   const navigate = useNavigate();
   const [map, setMap] = useState(null);
   const clubs = useSelector((store) => store.clubs);
+  // console.log('CLUBBBBS', clubs);
+  const selectedClubId = useSelector((store) => store.selectedClubId);
+  // console.log('SELECSTED', selectedClubId);
+
+  // const selectedClubs = clubs.filter((club) => )
   const events = useSelector((store) => store.events);
 
   const dispatch = useDispatch();

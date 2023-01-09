@@ -15,6 +15,7 @@ import EventPage from './components/pages/EventPage';
 import ClubPage from './components/pages/ClubPage/ClubPage';
 import NewClubEventPage from './components/pages/NewClubEventPage';
 import Err from './components/pages/Err/Err';
+import SelectMUI from './components/ui/SelectMUI/SelectMUI';
 
 function App() {
   const user = useSelector((store) => store.user);
