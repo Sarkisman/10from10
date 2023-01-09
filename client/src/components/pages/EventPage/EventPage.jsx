@@ -19,6 +19,7 @@ function EventPage() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
+  const [isAdditing, setIsAdditing] = useState(false);
   const [input, setInput] = useState('');
   const comments = useSelector((store) => store.comments);
   const user = useSelector((store) => store.user);
@@ -46,7 +47,10 @@ function EventPage() {
   const clubPageHandler = () => {
     navigate(`/club/${counter.club_id}`);
   };
-
+  const addPhotos = () => {};
+  const addingFoto = () => {
+    setIsAdditing(!isAdditing);
+  };
   return (
     <div style={{
       display: 'flex',
@@ -55,7 +59,6 @@ function EventPage() {
     }}
     >
       <div>
-
         <div style={{
           width: '900px',
           height: 'auto',
@@ -88,7 +91,6 @@ function EventPage() {
             alignItems: 'center',
           }}
           >
-
             <h1>{counter?.title}</h1>
             <h2>{counter?.description}</h2>
             <div style={{
@@ -128,7 +130,6 @@ function EventPage() {
                   </h5>
                 </div>
               </div>
-
             </div>
           </div>
           <div style={{
@@ -153,6 +154,7 @@ function EventPage() {
             </div>
 
           </div>
+
           <div style={{
             marginTop: '10px',
             height: 'auto',
@@ -163,19 +165,7 @@ function EventPage() {
 
           }}
           >
-            {/* <h5>
-              место проведения:
-              {' '}
-              <b>{counter?.Club?.name}</b>
-            </h5>
-            <h5>{counter?.Club?.address}</h5> */}
-            {/* <div>
-              <h6>{club.name}</h6>
-              <h6>{club.phone}</h6>
-              <h6>{club.email}</h6>
-              <h6>{club.description}</h6>
-              <h6>{club.adress}</h6>
-            </div> */}
+
             <div style={{
               display: 'flex',
               flexDirection: 'row',
@@ -184,55 +174,77 @@ function EventPage() {
               marginBottom: '20px',
             }}
             >
-              {' '}
-              <Button
-                onClick={clubPageHandler}
-                color="primary"
-                outline
-              >
-                о клубе
-              </Button>
-              {new Date(counter.date) >= today && (
-                <div>
-                  {!(eventUsers?.filter((el) => el.id === user.id).length)
-                    ? (
+              <div>
+                {!isAdditing
+                  ? (
+                    <div>
                       <Button
-                        onClick={submitHandler}
+                        onClick={clubPageHandler}
+                        color="primary"
+                        outline
+                      >
+                        о клубе
+                      </Button>
+                      {/* <div> */}
+                      { new Date(counter.date) >= today ? (
+                        <div>
+                          {!(eventUsers?.filter((el) => el.id === user.id).length)
+                            ? (
+                              <Button
+                                onClick={submitHandler}
+                                style={{ marginLeft: '10px' }}
+                                color="primary"
+                                outline
+                              >
+                                принять участие
+                              </Button>
+                            )
+                            : (
+                              <Button
+                                onClick={deleteHandler}
+                                style={{ marginLeft: '10px' }}
+                                color="primary"
+                                outline
+                              >
+                                отменить участие
+                              </Button>
+                            )}
+                        </div>
+                      ) : (
+                        <>
+                          {(eventUsers?.find((el) => el.id === user.id)) && (
+                            <Button
+                              onClick={addingFoto}
+                              style={{ marginLeft: '10px' }}
+                              color="primary"
+                              outline
+                            >
+                              добавить фото с события
+                            </Button>
+                          )}
+                        </>
+                      )}
+                      {/* </div> */}
+                      <Button
+                        onClick={toggle}
                         style={{ marginLeft: '10px' }}
                         color="primary"
                         outline
                       >
-                        принять участие
+                        добавить комментарий
                       </Button>
-                    )
-                    : (
                       <Button
-                        onClick={deleteHandler}
+                        onClick={() => navigate(-1)}
                         style={{ marginLeft: '10px' }}
                         color="primary"
                         outline
                       >
-                        отменить участие
+                        назад
                       </Button>
-                    )}
-                </div>
-              )}
-              <Button
-                onClick={toggle}
-                style={{ marginLeft: '10px' }}
-                color="primary"
-                outline
-              >
-                добавить комментарий
-              </Button>
-              <Button
-                onClick={() => navigate(-1)}
-                style={{ marginLeft: '10px' }}
-                color="primary"
-                outline
-              >
-                назад
-              </Button>
+                    </div>
+                  )
+                  : (<div>wertyui</div>)}
+              </div>
 
               {modal && (
                 <div>
