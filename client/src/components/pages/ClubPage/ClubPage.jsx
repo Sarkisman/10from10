@@ -115,15 +115,15 @@ function ClubPage() {
                   }}
                 />
                 <div>
-                  <b>название клуба: </b>
+                  <b>Название клуба: </b>
                   {club?.name}
                 </div>
                 <div>
-                  <b>телефон: </b>
+                  <b>Телефон: </b>
                   {club?.phone}
                 </div>
                 <div>
-                  <b>электронная почта: </b>
+                  <b>Электронная почта: </b>
                   {club?.email}
                 </div>
                 <div>
@@ -131,7 +131,7 @@ function ClubPage() {
                   {club?.address}
                 </div>
                 <div>
-                  <b>о клубе: </b>
+                  <b>О клубе: </b>
                   {club?.description}
                 </div>
 
@@ -264,6 +264,7 @@ function ClubPage() {
           </div>
           <div>
 
+            {user?.id !== club?.user_id && (
             <Button
               onClick={toggle}
               style={{
@@ -271,11 +272,11 @@ function ClubPage() {
                 width: '500px',
               }}
               color="primary"
-
             >
               Заявка на проведение мероприятия
 
             </Button>
+            )}
           </div>
 
           {modal && (
