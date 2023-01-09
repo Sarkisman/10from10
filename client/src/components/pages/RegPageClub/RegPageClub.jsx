@@ -5,6 +5,8 @@ import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
 import Multiselect from 'multiselect-react-dropdown';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { getTypesAction, sendDataClub } from '../../../redux/actions/ClubActions';
 import styles from './RegPageClub.module.css';
 
@@ -52,7 +54,16 @@ export default function ClubOrUser() {
   };
   return (
     <div className={styles.container}>
+      <div className={styles.closeButton}>
+        <IconButton
+          color="inherit"
+          onClick={() => navigate(-1)}
+        >
+          <CloseIcon fontSize="large" />
+        </IconButton>
+      </div>
       <div className={styles.formContainer}>
+
         <Form onSubmit={(e) => submitHandler(e)}>
           <Row>
             <Col md={{
