@@ -18,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
   ClubPhoto.init({
     img: DataTypes.STRING,
     club_id: DataTypes.INTEGER,
+    isAllowed: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'ClubPhoto',

@@ -54,7 +54,7 @@ export default function Map() {
                   <div class="balloon__title">клуб: ${el?.name}</div>
                   <div class="balloon__title">почта: ${el?.email}</div>
                   <div class="balloon__title">телефон: ${el?.phone}</div>
-                  <button type="button" class="btn sixth" id=${el.id}>Подробнее о клубе</button>
+                  <button type="button" class="btn" id=${el.id}>Подробнее о клубе</button>
                   <br></br>
 
                   ${filteredClubEvents?.length

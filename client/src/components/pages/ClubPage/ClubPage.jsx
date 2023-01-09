@@ -105,7 +105,8 @@ function ClubPage() {
   const buttonHandler = () => {
     navigate(`/event/new/${club.id}`);
   };
-
+  const day = new Date();
+  const date = day.toISOString();
   return (
     <div>
       <Row>
@@ -253,6 +254,21 @@ function ClubPage() {
             </Card>
 
           )}
+          <div>
+            {user?.id !== club?.user_id && (
+            <Button
+              onClick={toggle}
+              style={{
+                marginTop: '15px',
+                width: '445px',
+              }}
+              color="primary"
+            >
+              Заявка на проведение мероприятия
+            </Button>
+            )}
+
+          </div>
 
         </Col>
 
@@ -273,23 +289,6 @@ function ClubPage() {
               {pastEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
             </ul>
           </div>
-          <div>
-
-            {user?.id !== club?.user_id && (
-              <Button
-                onClick={toggle}
-                style={{
-                  marginLeft: '30px',
-                  width: '500px',
-                }}
-                color="primary"
-              >
-                Заявка на проведение мероприятия
-
-              </Button>
-            )}
-          </div>
-
           {modal && (
             <div>
 
@@ -307,8 +306,8 @@ function ClubPage() {
                   >
                     <Row>
                       <Col md={{
-                        offset: 3,
-                        size: 6,
+                        offset: 2,
+                        size: 8,
                       }}
                       >
                         <Label for="exampleEmail">
@@ -331,6 +330,7 @@ function ClubPage() {
                           id="text"
                           name="description"
                           placeholder="описание мероприятия"
+                          style={{ resize: 'none' }}
                         />
                         <Label for="exampleAddress">
                           Количество участников:
@@ -345,7 +345,11 @@ function ClubPage() {
                         <Label for="exampleAddress">
                           Выберите дату:
                         </Label>
-                        <Input onChange={changeHandler} value={input.date} type="date" name="date" min="2023-01-13" max="2024-06-08" />
+                        <Input onChange={changeHandler} value={input.date} type="date" name="date" min={date.slice(0, 10)} max="2025-01-10" />
+                        <Label for="exampleAddress">
+                          Время начала мероприятия
+                        </Label>
+                        <Input onChange={changeHandler} value={input.time} type="time" name="time" />
                         <Label for="exampleEmail">
                           Ваша почта:
                         </Label>
@@ -367,42 +371,34 @@ function ClubPage() {
                         Отмена
                       </Button>
                     </ModalFooter>
-
                   </Form>
                 </ModalBody>
-
               </Modal>
             </div>
           )}
           {modalConfirmation && (
             <div>
-
               <Modal
                 isOpen={modalConfirmation}
                 modalTransition={{ timeout: 100 }}
                 backdropTransition={{ timeout: 300 }}
                 toggle={toggleAgain}
               >
-                {/* <ModalHeader toggle={toggleAgain}>Подтверждение:</ModalHeader> */}
                 <ModalBody>Ваша заявка отправлена! Ожидайте подтверждения заказа на Email!</ModalBody>
                 <ModalFooter>
                   <Button color="secondary" onClick={toggleAgain}>
                     Закрыть
                   </Button>
                 </ModalFooter>
-
               </Modal>
             </div>
           )}
-
         </Col>
       </Row>
       <Row>
-
         <Col />
       </Row>
     </div>
   );
 }
-
 export default ClubPage;

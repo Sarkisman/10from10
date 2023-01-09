@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Button, Col, Row,
-} from 'reactstrap'; // UncontrolledCarousel,
-import { useNavigate } from 'react-router-dom';
-// import { getCommentsAction } from '../../../redux/actions/Comments';
+} from 'reactstrap';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getAvatar } from '../../../redux/actions/userAvatarAction';
 import NewUserCard from '../../ui/NewUserCard';
 import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
@@ -13,19 +12,19 @@ import OneEventCard from '../../ui/OneEventCard/OneEventCard';
 import styles from './LK.module.css';
 
 export default function Lk() {
+  const { id } = useParams();
   const club = useSelector((store) => store.club);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getAvatar());
-    // dispatch(getCommentsAction());
     dispatch(getSingleClub());
   }, []);
   const user = useSelector((store) => store.user);
+
   const events = useSelector((store) => store.events);
   const navigate = useNavigate();
-
+  if (user.id === id) (navigate(`http://localhost:3000/lk/${user.id}`));
   useEffect(() => {
-    // dispatch(getCommentsAction());
     dispatch(getSingleClub());
     dispatch(checkHaveClub(user?.id));
     dispatch(getEventsByUser(user?.id));
