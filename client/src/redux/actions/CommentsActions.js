@@ -11,7 +11,6 @@ export const editComment = (editedComment) => ({ type: EDIT_COMMENT, payload: ed
 export const asyncSetComments = () => (dispatch) => {
   axios.get('/comments')
     .then((res) => {
-      console.log(res.data);
       dispatch(setComments(res.data));
     })
     .catch(() => dispatch(setComments([])));

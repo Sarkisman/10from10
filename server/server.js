@@ -39,14 +39,4 @@ app.use('/counter', counterRouter);
 app.use('/comments', commentsRouter);
 app.use('/suggestedByUser', userSuggestedEventsRouter);
 
-// app.get('/club/types', async (req, res) => {
-//   try {
-//     let types = await Type.findAll();
-//     types = types.map((el) => el.club_type);
-//     res.json(types);
-//   } catch {
-//     console.log('error');
-//   }
-// });
-
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

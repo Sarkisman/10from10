@@ -14,6 +14,7 @@ import RegPageClub from './components/pages/RegPageClub';
 import EventPage from './components/pages/EventPage';
 import ClubPage from './components/pages/ClubPage/ClubPage';
 import NewClubEventPage from './components/pages/NewClubEventPage';
+import Err from './components/pages/Err/Err';
 
 function App() {
   const user = useSelector((store) => store.user);
@@ -22,11 +23,15 @@ function App() {
     dispatch(checkAuth());
   }, []);
   return (
+
     <Container>
+
       {!user?.isFetching ? (
         <div>
+
           <NavBar />
           <Routes>
+            <Route path="*" element={<Err />} />
             <Route path="/" element={<MainPage />} />
             <Route element={<PrivateRoute isAllowed={!user?.id} redirectPath="/" />}>
               <Route path="/auth" element={<LoginPage />} />
@@ -39,10 +44,6 @@ function App() {
               <Route path="/events/club/:id" element={<EventPage />} />
               <Route path="/event/new/:id" element={<NewClubEventPage />} />
             </Route>
-
-            {/* <Route element={<PrivateRoute isAllowed={!user?.id} />}>
-
-            </Route> */}
           </Routes>
         </div>
       ) : (<div>LOADING</div>)}
