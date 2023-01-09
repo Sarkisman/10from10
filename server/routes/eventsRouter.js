@@ -32,12 +32,14 @@ eventsRouter.route('/new/:id')
   .post(async (req, res) => {
     try {
       const {
-        title, description, date, num_of_members,
+        title, description, date, num_of_members, time,
       } = req.body;
+      console.log(typeof time);
       const newEvent = await Event.create({
         title,
         description,
         date,
+        time,
         club_id: +req.params.id,
         num_of_members: +num_of_members,
       });
