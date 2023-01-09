@@ -1,9 +1,8 @@
 import React from 'react';
+import classes from './Err.module.css';
 
-export default function Lk() {
+export default function Err() {
   return (
-    <div>
-      404
-    </div>
+    <h1 className={classes.main}>OOOUPS</h1>
   );
 }

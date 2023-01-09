@@ -23,7 +23,6 @@ function EventPage() {
   const comments = useSelector((store) => store.comments);
   const user = useSelector((store) => store.user);
   const filteredComments = comments?.filter((el) => el.event_id === +id);
-  console.log(filteredComments);
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
 
@@ -35,9 +34,6 @@ function EventPage() {
   }, []);
   const counter = useSelector((store) => store.counter);
   const eventUsers = useSelector((store) => store.eventUsers);
-
-  // console.log(user.id);
-  // console.log(counter);
 
   const submitHandler = () => {
     dispatch(submitCounter(id));
@@ -105,19 +101,29 @@ function EventPage() {
                 <div>
                   {' '}
                   <h5>
-                    место проведения:
+                    Место проведения:
                     {' '}
                     <b>{counter?.Club?.name}</b>
                   </h5>
-                  <h5>{counter?.Club?.address}</h5>
+                  <b>{counter?.Club?.address}</b>
 
                 </div>
                 <div style={{ alignSelf: 'flex-end' }}>
                   <h5>
-                    дата проведения:
+                    Дата проведения:
                     {' '}
-                    {counter?.date?.slice(0, 10)}
-                    {counter?.time?.slice(0, 5)}
+                    <b>
+                      {' '}
+                      {counter?.date?.slice(0, 10).split('-').reverse().join('.')}
+                    </b>
+                    <p>
+                      Время проведения:
+                      {' '}
+                      <b>
+                        {' '}
+                        {counter?.time?.slice(0, 5)}
+                      </b>
+                    </p>
 
                   </h5>
                 </div>
