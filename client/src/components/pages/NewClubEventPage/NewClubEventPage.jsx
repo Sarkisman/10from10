@@ -60,7 +60,7 @@ export default function NewClubEventPage() {
                 Выберите дату
               </Label>
               <Input type="date" name="date" min={date.slice(0, 10)} max="2025-01-10" />
-              {/* "2022-01-10" */}
+              {/* "2022-01-10" {date.slice(0, 10)} */}
               <Label for="exampleAddress">
                 Время начала мероприятия
               </Label>
