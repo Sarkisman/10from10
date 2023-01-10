@@ -5,9 +5,10 @@ import {
   Nav, Navbar, NavbarBrand, NavbarText, NavItem,
 } from 'reactstrap';
 import { logoutThunk } from '../../../redux/actions/UserActions';
+import SelectMUI from '../SelectMUI/SelectMUI';
 import classes from './NavBar.module.css';
 
-function NavBar() {
+function NavBar({ isRender, setIsRender }) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
 
@@ -33,6 +34,8 @@ function NavBar() {
               <NavItem>
                 <Link className={classes.textColor} to={`/lk/${user.id}`}> Личный кабинет </Link>
               </NavItem>
+
+              <SelectMUI isRender={isRender} setIsRender={setIsRender} />
 
               <div className={classes.exitAvatarFlex}>
                 {' '}

@@ -6,10 +6,12 @@ import { getAllClubs } from '../../../redux/actions/ClubActions';
 import { getEvents } from '../../../redux/actions/eventActions';
 import './style.css';
 
-export default function Map() {
+export default function Map({ isRender }) {
   const navigate = useNavigate();
   const [map, setMap] = useState(null);
   const clubs = useSelector((store) => store.clubs);
+
+  const filteredClubs = useSelector((store) => store.selectedClubId);
   const events = useSelector((store) => store.events);
 
   const dispatch = useDispatch();
@@ -39,12 +41,20 @@ export default function Map() {
 
   useEffect(() => {
     ymaps.ready(init);
+    // dispatch(getAllClubs());///////////////////////
   }, []);
 
   useEffect(() => {
     dispatch(getEvents());
     setTimeout(() => {
-      clubs?.forEach((el) => {
+      let displayedClubs = [];
+      if (!isRender) {
+        displayedClubs = filteredClubs;
+      } else {
+        displayedClubs = clubs;
+      }
+      // displayedClubs = filteredClubs.length ? filteredClubs : clubs;
+      displayedClubs?.forEach((el) => {
         const coordinates = [el.latitude, el.longitude];
         const clubEvents = events?.filter((item) => item.club_id === el.id);
         const filteredClubEvents = clubEvents.filter((event) => new Date(event.date) >= today);
@@ -73,7 +83,9 @@ export default function Map() {
           iconImageOffset: [-24, -24], // Смещение левого верхнего угла иконки относительно, её "ножки"
           iconContentOffset: [15, 15], // Смещение слоя с содержимым относительно слоя с картинкой.
         });
-        map?.geoObjects.add(myPlacemarkWithContent);
+        const myCollection = new ymaps.GeoObjectCollection();
+        myCollection.add(myPlacemarkWithContent);
+        map?.geoObjects.add(myCollection);
         map?.geoObjects.events.add('balloonopen', () => {
           document.getElementById(`${el.id}`)?.addEventListener('click', () => {
             navigate(`/club/${el.id}`);
@@ -82,7 +94,11 @@ export default function Map() {
         });
       });
     }, 250);
-  }, [clubs]);
+    return () => {
+      map?.geoObjects.removeAll();
+      // map.geoObjects.update();
+    };
+  }, [clubs, filteredClubs]);
 
   return (
     <div id="map-test" className="map-test" />
