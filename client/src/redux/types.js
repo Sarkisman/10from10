@@ -42,3 +42,8 @@ export const DELETE_COUNTER = 'DELETE_COUNTER';
 export const SET_EVENT_USERS = 'SET_EVENT_USERS';
 export const ADD_EVENT_USER = 'ADD_EVENT_USER';
 export const DELETE_EVENT_USER = 'DELETE_EVENT_USER';
+
+// CLUB_FOTOS
+
+// MY CLUB
+export const GET_ALL_FOTOS = 'GET_ALL_FOTOS';

@@ -13,6 +13,8 @@ import {
   asyncAddComment, asyncDeleteComment, asyncSetComments, setComments,
 } from '../../../redux/actions/CommentsActions';
 import classes from './EventPage.module.css';
+import { asyncSendFotos, asyncGetFotos } from '../../../redux/actions/ClubFotoAction';
+import Carouselka from '../../ui/Carouselka';
 
 function EventPage() {
   const { id } = useParams();
@@ -22,17 +24,19 @@ function EventPage() {
   const [isAdditing, setIsAdditing] = useState(false);
   const [input, setInput] = useState('');
   const comments = useSelector((store) => store.comments);
+  const photos = useSelector((store) => store.photos);
   const user = useSelector((store) => store.user);
   const filteredComments = comments?.filter((el) => el.event_id === +id);
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
-
   const toggle = () => setModal(!modal);
 
   useEffect(() => {
     dispatch(getEventCounter(id));
+    dispatch(asyncGetFotos(id));
     dispatch(asyncSetComments());
   }, []);
+  console.log(photos);
   const counter = useSelector((store) => store.counter);
   const eventUsers = useSelector((store) => store.eventUsers);
 
@@ -45,13 +49,32 @@ function EventPage() {
   };
 
   const clubPageHandler = () => {
-    navigate(`/club/${counter.club_id}`);
+    navigate(`/club/${counter?.club_id}`);
   };
-  const addPhotos = () => {};
-  const addingFoto = () => {
+
+  const [files, setFiles] = useState([]);
+  const [info, setInfo] = useState(null);
+  const addPhotos = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const newArr = [];
+    for (let i = 0; i < files.length; i += 1) {
+      formData.append('img', files[i]);
+    }
+    setInfo('Как только ваши фотографии пройдут модерацию, они появтся на странице события');
+    setTimeout(() => {
+      setInfo('');
+    }, 5000);
+    dispatch(asyncSendFotos(id, formData));
     setIsAdditing(!isAdditing);
   };
+
+  const isAddingFoto = () => {
+    setIsAdditing(!isAdditing);
+  };
+
   return (
+
     <div style={{
       display: 'flex',
       justifyContent: 'center',
@@ -187,7 +210,7 @@ function EventPage() {
                       </Button>
                       {/* <div> */}
                       { new Date(counter.date) >= today ? (
-                        <div>
+                        <>
                           {!(eventUsers?.filter((el) => el.id === user.id).length)
                             ? (
                               <Button
@@ -209,18 +232,18 @@ function EventPage() {
                                 отменить участие
                               </Button>
                             )}
-                        </div>
+                        </>
                       ) : (
                         <>
                           {(eventUsers?.find((el) => el.id === user.id)) && (
-                            <Button
-                              onClick={addingFoto}
-                              style={{ marginLeft: '10px' }}
-                              color="primary"
-                              outline
-                            >
-                              добавить фото с события
-                            </Button>
+                          <Button
+                            onClick={isAddingFoto}
+                            style={{ marginLeft: '10px' }}
+                            color="primary"
+                            outline
+                          >
+                            добавить фото с события
+                          </Button>
                           )}
                         </>
                       )}
@@ -243,108 +266,142 @@ function EventPage() {
                       </Button>
                     </div>
                   )
-                  : (<div>wertyui</div>)}
+                  : (
+                    <form onSubmit={addPhotos}>
+                      <div>
+                        <div>
+                          <Button
+                            variant="contained"
+                            component="label"
+                          >
+                            <input
+                              type="file"
+                              name="img"
+                              onChange={(e) => setFiles(e.target.files)}
+                              style={{ width: '200px' }}
+                              multiple
+                            />
+                          </Button>
+                        </div>
+                        <div>
+                          <Button type="submit" style={{ marginLeft: '0.8em', marginTop: '0.8em' }}>Отправить</Button>
+                          <Button type="button" style={{ marginLeft: '0.8em', marginTop: '0.8em' }} onClick={isAddingFoto}>Закрыть</Button>
+                        </div>
+                      </div>
+                    </form>
+                  )}
+                {info && (
+                <p>
+                  <b style={{ color: 'red' }}>
+                    {info}
+                  </b>
+                </p>
+                )}
               </div>
 
               {modal && (
-                <div>
+              <div>
 
-                  <Modal
-                    isOpen={modal}
-                    modalTransition={{ timeout: 0 }}
-                    backdropTransition={{ timeout: 400 }}
-                    toggle={toggle}
-                  // className={className}
-                  >
-                    <ModalHeader toggle={toggle}>Добавить комментарий:</ModalHeader>
-                    <ModalBody>
-                      <Form
-                        className="mb-3 mt-3"
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          dispatch(asyncAddComment(e, input, id));
-                          setInput('');
-                          toggle();
-                        }}
-                      >
+                <Modal
+                  isOpen={modal}
+                  modalTransition={{ timeout: 0 }}
+                  backdropTransition={{ timeout: 400 }}
+                  toggle={toggle}
+                >
+                  <ModalHeader toggle={toggle}>Добавить комментарий:</ModalHeader>
+                  <ModalBody>
+                    <Form
+                      className="mb-3 mt-3"
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        dispatch(asyncAddComment(e, input, id));
+                        setInput('');
+                        toggle();
+                      }}
+                    >
 
-                        <Input
-                          value={input}
-                          onChange={(e) => setInput(e.target.value)}
-                          name="text"
-                          placeholder="Ваш комментарий"
-                          id="text"
-                        />
-                        <ModalFooter>
-                          <Button type="submit" color="primary">
-                            Добавить
-                          </Button>
-                          {' '}
-                          <Button color="secondary" onClick={toggle}>
-                            Отмена
-                          </Button>
-                        </ModalFooter>
+                      <Input
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        name="text"
+                        placeholder="Ваш комментарий"
+                        id="text"
+                      />
+                      <ModalFooter>
+                        <Button type="submit" color="primary">
+                          Добавить
+                        </Button>
+                        {' '}
+                        <Button color="secondary" onClick={toggle}>
+                          Отмена
+                        </Button>
+                      </ModalFooter>
 
-                      </Form>
-                    </ModalBody>
+                    </Form>
+                  </ModalBody>
 
-                  </Modal>
-                </div>
+                </Modal>
+              </div>
               )}
 
             </div>
             {filteredComments && (
-              <div style={{
-                marginTop: '30px',
-                height: 'auto',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}
-              >
-                {filteredComments?.map((el) => (
-                  <Card className={classes.mainCard} key={el.id}>
-                    <div className={classes.card}>
-                      <div className={classes.container}>
-                        <div className={classes.secondContainer}>
-                          <img
-                            src={`http://localhost:3001/${el.User.avatar}`}
-                            alt="avatar"
-                            className={classes.img}
-                          />
-                        </div>
+            <div style={{
+              marginTop: '30px',
+              height: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+            >
+              {filteredComments?.map((el) => (
+                <Card className={classes.mainCard} key={el.id}>
+                  <div className={classes.card}>
+                    <div className={classes.container}>
+                      <div className={classes.secondContainer}>
+                        <img
+                          src={`http://localhost:3001/${el.User.avatar}`}
+                          alt="avatar"
+                          className={classes.img}
+                        />
                       </div>
-                      <div className={classes.content}>
-                        <p className={classes.userComent}>
-                          {el?.User?.name}
-                          {' '}
-                          в
-                          {' '}
-                          {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
-                            .join(' ')}
-                        </p>
-                        <div style={{ width: '400px' }}>{el?.text}</div>
-
-                      </div>
-                      {((user.id === el.user_id) || (user.id === counter.Club.user_id)) && (
-                        <div className={classes.iconButton}>
-                          <IconButton
-                            color="inherit"
-                            onClick={() => dispatch(asyncDeleteComment(el.id))}
-                          >
-                            <DeleteForeverIcon fontSize="large" />
-                          </IconButton>
-                        </div>
-                      )}
                     </div>
+                    <div className={classes.content}>
+                      <p className={classes.userComent}>
+                        {el?.User?.name}
+                        {' '}
+                        в
+                        {' '}
+                        {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
+                          .join(' ')}
+                      </p>
+                      <div style={{ width: '400px' }}>{el?.text}</div>
 
-                  </Card>
-                ))}
-              </div>
+                    </div>
+                    {((user?.id === el?.user_id) || (user?.id === counter?.Club?.user_id)) && (
+                    <div className={classes.iconButton}>
+                      <IconButton
+                        color="inherit"
+                        onClick={() => dispatch(asyncDeleteComment(el.id))}
+                      >
+                        <DeleteForeverIcon fontSize="large" />
+                      </IconButton>
+                    </div>
+                    )}
+                  </div>
 
+                </Card>
+              ))}
+            </div>
             )}
           </div>
+        </div>
+        <div style={{
+          textAlign: 'center', marginBottom: '50px', maxWidth: '500px', maxHeight: '500px',
+        }}
+        >
+          {(user?.id === counter?.Club?.user_id) && (<Carouselka photos={photos} />)}
 
         </div>
       </div>
