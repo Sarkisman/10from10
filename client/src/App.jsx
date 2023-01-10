@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from 'reactstrap';
@@ -18,6 +18,7 @@ import Err from './components/pages/Err/Err';
 import SelectMUI from './components/ui/SelectMUI/SelectMUI';
 
 function App() {
+  const [isRender, setIsRender] = useState(true);
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -30,10 +31,10 @@ function App() {
       {!user?.isFetching ? (
         <div>
 
-          <NavBar />
+          <NavBar isRender={isRender} setIsRender={setIsRender} />
           <Routes>
             <Route path="*" element={<Err />} />
-            <Route path="/" element={<MainPage />} />
+            <Route path="/" element={<MainPage isRender={isRender} setIsRender={setIsRender} />} />
             <Route element={<PrivateRoute isAllowed={!user?.id} redirectPath="/" />}>
               <Route path="/auth" element={<LoginPage />} />
               <Route path="/reg" element={<RegPage />} />

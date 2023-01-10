@@ -5,7 +5,7 @@ import { getAvatar } from '../../../redux/actions/userAvatarAction';
 import Map from '../../ui/Map/Map';
 // import './style.css';
 
-export default function MainPage() {
+export default function MainPage({ isRender, setIsRender }) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   useEffect(() => {
@@ -14,6 +14,6 @@ export default function MainPage() {
     dispatch(checkHaveClub(user?.id));
   }, []);
   return (
-    <Map />
+    <Map isRender={isRender} setIsRender={setIsRender} />
   );
 }

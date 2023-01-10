@@ -12,8 +12,9 @@ export const SET_EMPTY_ERR = 'SET_EMPTY_ERR';
 // TYPE
 export const GET_TYPES = 'GET_TYPES';
 
-// SELECTEDCLUBIDREDUCER
+// SelectedClubIdReducer
 export const SET_CLUBID = 'SET_CLUBID';
+export const SET_FILTERED_CLUBS = 'SET_FILTERED_CLUBS';
 
 // CLUBS
 export const GET_CLUBS = 'GET_CLUBS';
