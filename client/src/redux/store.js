@@ -10,7 +10,7 @@ import myClubReducer from './reducers/myClubReducer';
 import counterReducer from './reducers/counterReducer';
 import eventUsersReducer from './reducers/eventUsersReducer';
 import commentsReducer from './reducers/commentsReducer';
-import selectedClubIdReducer from './reducers/selectedClubIfReducer';
+import selectedClubIdReducer from './reducers/selectedClubIdReducer';
 
 const store = configureStore({
   reducer: {

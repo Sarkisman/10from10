@@ -5,37 +5,26 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { useDispatch, useSelector } from 'react-redux';
-import { createTheme } from '@mui/material/styles';
-import { getTypes, getTypesAction } from '../../../redux/actions/ClubActions';
-import { setClubId } from '../../../redux/actions/selectedClubIdActions';
+// import { createTheme } from '@mui/material/styles';
+// import { getTypes, getTypesAction } from '../../../redux/actions/ClubActions';
+import { setFilteredClubs } from '../../../redux/actions/selectedClubIdActions';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#757ce8',
-      main: '#3f50b5',
-      dark: '#002884',
-      contrastText: '#fff',
-    },
-    secondary: {
-      light: '#ff7961',
-      main: '#f44336',
-      dark: '#ba000d',
-      contrastText: '#000',
-    },
-  },
-});
-
-export default function SelectMUI() {
+export default function SelectMUI({ isRender, setIsRender }) {
+  const clubs = useSelector((store) => store.clubs);
   const dispatch = useDispatch();
-
-  const [type, setType] = useState(null);
+  const [type, setType] = useState('');
   const handleChange = (event) => {
-    setType(1);
-    console.log('TYPE', event.target.value, type);
-    // dispatch(setClubId(type));
-    console.log('AGAINTYPE', type);
+    setIsRender(false);
+    setType(event.target.value);
+    if (event.target.value === 0) {
+      dispatch(setFilteredClubs(clubs));
+    } else {
+      const selectedClubs = clubs?.filter((club) => club?.Types[0]?.id === event.target.value);
+      console.log('CHOSEN', selectedClubs);
+      dispatch(setFilteredClubs(selectedClubs));
+    }
   };
+  console.log(',,,,,,,,,,,,,,,,,,,', isRender);
 
   return (
     <Box sx={{
@@ -53,13 +42,14 @@ export default function SelectMUI() {
           label="Направление"
           onChange={handleChange}
         >
-          {/* {types?.map((el) => <MenuItem value={el.club_type}>{el.club_type}</MenuItem>)} */}
+
           <MenuItem value={1}>Пулевая стрельба</MenuItem>
           <MenuItem value={2}>Практическая стрельба</MenuItem>
           <MenuItem value={3}>Стрельба из лука</MenuItem>
           <MenuItem value={4}>Стендовая стрельба</MenuItem>
           <MenuItem value={5}>Пейнтбол</MenuItem>
           <MenuItem value={6}>Пулевая стрельба для детей</MenuItem>
+          <MenuItem value={0}>Все типы</MenuItem>
         </Select>
       </FormControl>
     </Box>
