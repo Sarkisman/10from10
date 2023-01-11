@@ -83,7 +83,8 @@ function EventPage() {
     >
       <div>
         <div style={{
-          width: '900px',
+          width: '1000px',
+          minHeight: '600px',
           height: 'auto',
           border: '3px solid',
           borderRadius: '20px',
@@ -94,7 +95,8 @@ function EventPage() {
         >
           <div style={{
             position: 'relative',
-            left: '800px',
+            display: 'inline-block',
+            left: '900px',
             top: '30px',
           }}
           >
@@ -355,6 +357,14 @@ function EventPage() {
               alignItems: 'center',
             }}
             >
+              {photos?.length > 0 && (
+              <div style={{
+                textAlign: 'center', margin: '2rem auto', maxWidth: '400px', maxHeight: '400px', width: '500px', height: '500px',
+              }}
+              >
+                {(user?.id === counter?.Club?.user_id) && (<Carouselka photos={photos} />)}
+              </div>
+              )}
               {filteredComments?.map((el) => (
                 <Card className={classes.mainCard} key={el.id}>
                   <div className={classes.card}>
@@ -377,7 +387,6 @@ function EventPage() {
                           .join(' ')}
                       </p>
                       <div style={{ width: '400px' }}>{el?.text}</div>
-
                     </div>
                     {((user?.id === el?.user_id) || (user?.id === counter?.Club?.user_id)) && (
                     <div className={classes.iconButton}>
@@ -390,19 +399,11 @@ function EventPage() {
                     </div>
                     )}
                   </div>
-
                 </Card>
               ))}
             </div>
             )}
           </div>
-        </div>
-        <div style={{
-          textAlign: 'center', marginBottom: '50px', maxWidth: '500px', maxHeight: '500px',
-        }}
-        >
-          {(user?.id === counter?.Club?.user_id) && (<Carouselka photos={photos} />)}
-
         </div>
       </div>
     </div>
