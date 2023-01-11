@@ -11,7 +11,6 @@ import classes from './NavBar.module.css';
 function NavBar({ isRender, setIsRender }) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-
   return (
     <div>
       <Navbar>
@@ -21,11 +20,9 @@ function NavBar({ isRender, setIsRender }) {
             <NavItem>
               <Link className={classes.textColor} to="/auth">Войти</Link>
             </NavItem>
-
             <NavItem>
               <Link className={classes.textColor} to="/reg"> Зарегистрироваться </Link>
             </NavItem>
-
           </Nav>
         ) : (
           <>
@@ -34,9 +31,7 @@ function NavBar({ isRender, setIsRender }) {
               <NavItem>
                 <Link className={classes.textColor} to={`/lk/${user.id}`}> Личный кабинет </Link>
               </NavItem>
-
-              <SelectMUI isRender={isRender} setIsRender={setIsRender} />
-
+              {(window.location.pathname === '/') && <SelectMUI isRender={isRender} setIsRender={setIsRender} />}
               <div className={classes.exitAvatarFlex}>
                 {' '}
                 {user ? (
@@ -54,7 +49,6 @@ function NavBar({ isRender, setIsRender }) {
                     }}
                     >
                       {user?.name}
-
                     </div>
                   </div>
                 ) : ''}
@@ -65,12 +59,6 @@ function NavBar({ isRender, setIsRender }) {
                 </div>
               </div>
             </Nav>
-            {/* <NavbarText className={classes.textColor}>
-              Привет,
-              {' '}
-              {user?.name}
-              !
-            </NavbarText> */}
           </>
         )}
 
