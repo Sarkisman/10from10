@@ -95,7 +95,8 @@ function EventPage() {
         >
           <div style={{
             position: 'relative',
-            left: '800px',
+            display: 'inline-block',
+            left: '900px',
             top: '30px',
           }}
           >
