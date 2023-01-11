@@ -11,6 +11,7 @@ import { getEventsByClub } from '../../../redux/actions/eventActions';
 import OneEventCard from '../../ui/OneEventCard/OneEventCard';
 
 import './style.css';
+import { asyncAddUserSuggestedEvent, asyncSetUserSuggestedEvents } from '../../../redux/actions/userSuggestedEventsActions';
 
 function ClubPage() {
   const { id } = useParams();
@@ -18,6 +19,11 @@ function ClubPage() {
   const clubs = useSelector((store) => store.clubs);
   const club = clubs.find((el) => el.id === +id);
   const events = useSelector((store) => store.events);
+  const userSuggestedEvents = useSelector((store) => store.userSuggestedEvents);
+  const necessaryEvents = userSuggestedEvents?.filter((el) => el.club_id === id);
+
+  console.log('ONESUGGESTEDEVENT', necessaryEvents);
+
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
   const [avatar, setAvatar] = useState(club?.avatar || 'ZaglushkaClub.jpeg');
@@ -32,27 +38,33 @@ function ClubPage() {
   const [modalConfirmation, setModalConfirmation] = useState(false);
   const toggleAgain = () => setModalConfirmation(!modalConfirmation);
 
+  const [modalIncomingEventRequest, setModalIncomingEventRequest] = useState(false);
+  const toggleIncoming = () => setModalIncomingEventRequest(!modalIncomingEventRequest);
+
+  const [incomingInput, setIncomingInput] = useState({
+    title: userSuggestedEvents[0]?.title,
+    description: userSuggestedEvents[0]?.description,
+    date: userSuggestedEvents[0]?.date,
+    num_of_members: userSuggestedEvents[0]?.num_of_members,
+    email: userSuggestedEvents[0]?.email,
+    time: userSuggestedEvents[0]?.time,
+  });
+
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
   const upcomingEvents = events.filter((event) => new Date(event.date) >= today);
   const pastEvents = events.filter((event) => new Date(event.date) < today);
-  // const [fileData, setFileData] = useState({
-  //   avatar: null,
-  //   email: '',
-  //   phone: '',
-  //   title: '',
-  //   address: '',
-  //   description: '',
-  // });
+
   const changeHandler = async (e) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
+
+  const incomingModalHandler = (e) => {
+    toggleIncoming();
+  };
+
   const submitModalHandler = (e) => {
-    e.preventDefault();
-    axios.post(`/suggestedByUser/club/${id}`, input);
-    // .then(() => {
-    //   toggleAgain();
-    // });
+    dispatch(asyncAddUserSuggestedEvent(e, input, id));
     setInput({
       title: '', description: '', date: '', num_of_members: '', email: '',
     });
@@ -88,6 +100,7 @@ function ClubPage() {
   useEffect(() => {
     dispatch(getAllClubs());
     dispatch(getEventsByClub(id));
+    dispatch(asyncSetUserSuggestedEvents());
   }, []);
 
   const submitHandler = () => {
@@ -256,19 +269,122 @@ function ClubPage() {
           )}
           <div>
             {user?.id !== club?.user_id && (
-            <Button
-              onClick={toggle}
-              style={{
-                marginTop: '15px',
-                width: '445px',
-              }}
-              color="primary"
-            >
-              Заявка на проведение мероприятия
-            </Button>
+              <Button
+                onClick={toggle}
+                style={{
+                  marginTop: '15px',
+                  width: '445px',
+                }}
+                color="primary"
+              >
+                Заявка на проведение мероприятия
+              </Button>
             )}
 
           </div>
+
+          <div>
+            {necessaryEvents?.length !== 0 && (
+              <Button
+                onClick={toggleIncoming}
+                style={{
+                  marginTop: '15px',
+                  width: '445px',
+                }}
+                color="primary"
+              >
+                Входящая заявка
+              </Button>
+            )}
+
+          </div>
+
+          {modalIncomingEventRequest && (
+            <div>
+
+              <Modal
+                isOpen={modalIncomingEventRequest}
+                modalTransition={{ timeout: 100 }}
+                backdropTransition={{ timeout: 300 }}
+                toggle={toggleIncoming}
+              >
+                <ModalHeader toggle={toggleIncoming}>Входящая заявка:</ModalHeader>
+                <ModalBody>
+                  <Form
+                    className="mb-3 mt-3"
+                  // onSubmit={submitModalHandler}
+                  >
+                    <Row>
+                      <Col md={{
+                        offset: 2,
+                        size: 8,
+                      }}
+                      >
+                        <Label for="exampleEmail">
+                          Название мероприятия:
+                        </Label>
+                        <Input
+                          value={userSuggestedEvents[0]?.title}
+                          onChange={changeHandler}
+                          name="title"
+                          placeholder="Название мероприятия"
+                          id="text"
+                        />
+                        <Label for="exampleAddress">
+                          Описание:
+                        </Label>
+                        <Input
+                          type="textarea"
+                          value={userSuggestedEvents[0]?.description}
+                          onChange={changeHandler}
+                          id="text"
+                          name="description"
+                          placeholder="описание мероприятия"
+                          style={{ resize: 'none' }}
+                        />
+                        <Label for="exampleAddress">
+                          Количество участников:
+                        </Label>
+                        <Input
+                          name="num_of_members"
+                          placeholder="количество участников"
+                          value={userSuggestedEvents[0]?.num_of_members}
+                          id="text"
+                        />
+                        <Label for="exampleAddress">
+                          Выберите дату:
+                        </Label>
+                        <Input value={userSuggestedEvents[0]?.date} type="date" name="date" min={date.slice(0, 10)} max="2025-01-10" />
+                        <Label for="exampleAddress">
+                          Время начала мероприятия
+                        </Label>
+                        <Input value={userSuggestedEvents[0]?.time} type="time" name="time" />
+                        <Label for="exampleEmail">
+                          Ваша почта:
+                        </Label>
+                        <Input
+                          value={userSuggestedEvents[0]?.email}
+                          onChange={changeHandler}
+                          name="email"
+                          placeholder="Почта"
+                          id="text"
+                        />
+                      </Col>
+                    </Row>
+                    <ModalFooter>
+                      <Button type="submit" color="primary">
+                        Одобрить
+                      </Button>
+                      {' '}
+                      <Button color="secondary" onClick={toggleIncoming}>
+                        Отклонить
+                      </Button>
+                    </ModalFooter>
+                  </Form>
+                </ModalBody>
+              </Modal>
+            </div>
+          )}
 
         </Col>
 

@@ -12,6 +12,7 @@ import eventUsersReducer from './reducers/eventUsersReducer';
 import commentsReducer from './reducers/commentsReducer';
 import eventPhotoReducer from './reducers/eventPhotoReducer';
 import selectedClubIdReducer from './reducers/selectedClubIdReducer';
+import userSuggestedEventsReducer from './reducers/userSuggestedEventsReducer';
 
 const store = configureStore({
   reducer: {
@@ -27,6 +28,7 @@ const store = configureStore({
     comments: commentsReducer,
     photos: eventPhotoReducer,
     selectedClubId: selectedClubIdReducer,
+    userSuggestedEvents: userSuggestedEventsReducer,
   },
 });
 
