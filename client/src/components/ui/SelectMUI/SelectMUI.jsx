@@ -24,17 +24,17 @@ export default function SelectMUI({ isRender, setIsRender }) {
       dispatch(setFilteredClubs(selectedClubs));
     }
   };
-  console.log(',,,,,,,,,,,,,,,,,,,', isRender);
 
   return (
     <Box sx={{
-      minWidth: 120,
+      minWidth: 200,
+
       color: 'theme.palette.primary.light',
       borderColor: 'theme.palette.primary.light',
     }}
     >
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Направление</InputLabel>
+      <FormControl fullWidth error>
+        <InputLabel id="demo-simple-error-label">Направление</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
