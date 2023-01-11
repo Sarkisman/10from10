@@ -87,7 +87,7 @@ export default function AuthPage() {
               <Input
                 id="examplePassword"
                 name="password"
-                placeholder="123"
+                placeholder="password"
                 type="password"
                 style={{
                   position: 'relative',
