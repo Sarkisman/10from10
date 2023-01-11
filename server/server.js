@@ -7,6 +7,7 @@ const FileStore = require('session-file-store')(session);
 const {
   authRouter, clubRouter, eventsRouter, counterRouter, commentsRouter, userSuggestedEventsRouter,
 } = require('./routes');
+const eventFotoRouter = require('./routes/eventFotoRouter');
 require('dotenv').config();
 
 const app = express();
@@ -38,5 +39,6 @@ app.use('/events', eventsRouter);
 app.use('/counter', counterRouter);
 app.use('/comments', commentsRouter);
 app.use('/suggestedByUser', userSuggestedEventsRouter);
+app.use('/fotos', eventFotoRouter);
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

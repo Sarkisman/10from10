@@ -10,7 +10,8 @@ import myClubReducer from './reducers/myClubReducer';
 import counterReducer from './reducers/counterReducer';
 import eventUsersReducer from './reducers/eventUsersReducer';
 import commentsReducer from './reducers/commentsReducer';
-import selectedClubIdReducer from './reducers/selectedClubIfReducer';
+import eventPhotoReducer from './reducers/eventPhotoReducer';
+import selectedClubIdReducer from './reducers/selectedClubIdReducer';
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     counter: counterReducer,
     eventUsers: eventUsersReducer,
     comments: commentsReducer,
+    photos: eventPhotoReducer,
     selectedClubId: selectedClubIdReducer,
   },
 });

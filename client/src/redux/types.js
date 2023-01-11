@@ -12,8 +12,9 @@ export const SET_EMPTY_ERR = 'SET_EMPTY_ERR';
 // TYPE
 export const GET_TYPES = 'GET_TYPES';
 
-// SELECTEDCLUBIDREDUCER
+// SelectedClubIdReducer
 export const SET_CLUBID = 'SET_CLUBID';
+export const SET_FILTERED_CLUBS = 'SET_FILTERED_CLUBS';
 
 // CLUBS
 export const GET_CLUBS = 'GET_CLUBS';
@@ -45,3 +46,8 @@ export const DELETE_COUNTER = 'DELETE_COUNTER';
 export const SET_EVENT_USERS = 'SET_EVENT_USERS';
 export const ADD_EVENT_USER = 'ADD_EVENT_USER';
 export const DELETE_EVENT_USER = 'DELETE_EVENT_USER';
+
+// CLUB_FOTOS
+
+// MY CLUB
+export const GET_ALL_FOTOS = 'GET_ALL_FOTOS';

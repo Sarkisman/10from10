@@ -8,7 +8,6 @@ commentsRouter.get('/', async (req, res) => {
     order: [['createdAt', 'DESC']],
     include: { model: User },
   });
-  console.log('AAALLLCOMMMMENTS', allComments);
   res.json(allComments);
 });
 
