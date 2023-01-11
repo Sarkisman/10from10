@@ -132,12 +132,10 @@ function EventPage() {
                     <b>{counter?.Club?.name}</b>
                   </h5>
                   <b>{counter?.Club?.address}</b>
-
                 </div>
                 <div style={{ alignSelf: 'flex-end' }}>
                   <h5>
                     Дата проведения:
-                    {' '}
                     <b>
                       {' '}
                       {counter?.date?.slice(0, 10).split('-').reverse().join('.')}
@@ -150,7 +148,6 @@ function EventPage() {
                         {counter?.time?.slice(0, 5)}
                       </b>
                     </p>
-
                   </h5>
                 </div>
               </div>
@@ -163,7 +160,6 @@ function EventPage() {
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-
           }}
           >
             <h5>участники:</h5>
@@ -176,9 +172,7 @@ function EventPage() {
             >
               {eventUsers?.map((el) => <MemberAvatar user={el} key={el.id} />)}
             </div>
-
           </div>
-
           <div style={{
             marginTop: '10px',
             height: 'auto',
@@ -186,10 +180,8 @@ function EventPage() {
             flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center',
-
           }}
           >
-
             <div style={{
               display: 'flex',
               flexDirection: 'row',
@@ -299,10 +291,8 @@ function EventPage() {
                 </p>
                 )}
               </div>
-
               {modal && (
               <div>
-
                 <Modal
                   isOpen={modal}
                   modalTransition={{ timeout: 0 }}
@@ -320,7 +310,6 @@ function EventPage() {
                         toggle();
                       }}
                     >
-
                       <Input
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
@@ -344,11 +333,10 @@ function EventPage() {
                 </Modal>
               </div>
               )}
-
             </div>
             {filteredComments && (
             <div style={{
-              marginTop: '30px',
+              marginTop: '10px',
               height: 'auto',
               display: 'flex',
               flexDirection: 'column',
@@ -358,7 +346,7 @@ function EventPage() {
             >
               {photos?.length > 0 && (
               <div style={{
-                textAlign: 'center', margin: '2rem auto', maxWidth: '400px', maxHeight: '400px', width: '500px', height: '500px',
+                textAlign: 'center', marginBottom: '2rem', maxWidth: '400px', maxHeight: '400px', width: '500px', height: '500px',
               }}
               >
                 {(user?.id === counter?.Club?.user_id) && (<Carouselka photos={photos} />)}
@@ -406,7 +394,6 @@ function EventPage() {
         </div>
       </div>
     </div>
-
   );
 }
 
