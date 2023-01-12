@@ -285,8 +285,8 @@ function EventPage() {
                   )}
                 {info && (
                 <p>
-                  <b style={{ color: 'red' }}>
-                    {info}
+                  <b style={{ color: 'green' }}>
+                    Ваши фото добавлены!
                   </b>
                 </p>
                 )}

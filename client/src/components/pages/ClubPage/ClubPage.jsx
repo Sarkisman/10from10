@@ -40,15 +40,6 @@ function ClubPage() {
   const [modalIncomingEventRequest, setModalIncomingEventRequest] = useState(false);
   const toggleIncoming = () => setModalIncomingEventRequest(!modalIncomingEventRequest);
 
-  const [incomingInput, setIncomingInput] = useState({
-    title: userSuggestedEvents[0]?.title,
-    description: userSuggestedEvents[0]?.description,
-    date: userSuggestedEvents[0]?.date,
-    num_of_members: userSuggestedEvents[0]?.num_of_members,
-    email: userSuggestedEvents[0]?.email,
-    time: userSuggestedEvents[0]?.time,
-  });
-
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
   const upcomingEvents = events.filter((event) => new Date(event.date) >= today);
@@ -284,7 +275,7 @@ function ClubPage() {
           </div>
 
           <div>
-            {userSuggestedEvents?.length && (
+            {(userSuggestedEvents?.length && club.user_id === user.id) && (
               <Button
                 onClick={toggleIncoming}
                 style={{
@@ -378,7 +369,13 @@ function ClubPage() {
                         Одобрить
                       </Button>
                       {' '}
-                      <Button color="secondary" onClick={toggleIncoming}>
+                      <Button
+                        color="secondary"
+                        onClick={() => {
+                          dispatch(asyncDeleteUserSuggestedEvent(userSuggestedEvents[0].id));
+                          toggleIncoming();
+                        }}
+                      >
                         Отклонить
                       </Button>
                     </ModalFooter>
