@@ -55,13 +55,13 @@ eventsRouter.route('/user/:id')
   });
 
 eventsRouter.delete('/:id', async (req, res) => {
-  // try {
-  const { id } = req.params;
-  await Event.destroy({ where: { id } });
-  res.sendStatus(200);
-  // } catch (error) {
-  //   res.sendStatus(500);
-  // }
+  try {
+    const { id } = req.params;
+    await Event.destroy({ where: { id } });
+    res.sendStatus(200);
+  } catch (error) {
+    res.sendStatus(500);
+  }
 });
 
 module.exports = eventsRouter;
