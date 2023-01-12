@@ -101,12 +101,12 @@ module.exports = {
       type_id: 3,
       createdAt: new Date(),
       updatedAt: new Date(),
-    },{
+    }, {
       club_id: 14,
-      type_id: 5,
+      type_id: 1,
       createdAt: new Date(),
       updatedAt: new Date(),
-    },{
+    }, {
       club_id: 15,
       type_id: 5,
       createdAt: new Date(),
