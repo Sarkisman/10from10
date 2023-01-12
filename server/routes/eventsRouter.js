@@ -39,7 +39,7 @@ eventsRouter.route('/new/:id')
         description,
         date,
         time,
-        club_id: +req.params.id,
+        club_id: Number(req.params.id),
         num_of_members: +num_of_members,
       });
       res.json(newEvent);

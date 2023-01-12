@@ -1,7 +1,7 @@
 const express = require('express');
 const nodemailer = require('nodemailer');
 const {
-  UserSuggestedEvents, Club,
+  UserSuggestedEvents, Club, User,
 } = require('../db/models');
 require('dotenv').config();
 
@@ -35,14 +35,23 @@ const textEmail = (title, description, date, time, num_of_members, email) => `З
 const userSuggestedEventsRouter = express.Router();
 
 userSuggestedEventsRouter.route('/club/:id')
+  .get(async (req, res) => {
+    const allEventsSuggestedByUser = await UserSuggestedEvents.findAll({
+      where: { club_id: Number(req.params.id) },
+      order: [['createdAt', 'DESC']],
+      include: { model: User },
+    });
+    res.json(allEventsSuggestedByUser);
+  })
   .post(async (req, res) => {
     try {
       const {
-        email, title, description, date, num_of_members, time,
+        title, description, date, time, num_of_members, email,
       } = req.body;
+
       if (!email || !description || !date || !time || !num_of_members) return res.status(400).json({ message: 'Для отправки заявки необходимо заполнить все поля формы' });
-      console.log(time, 'timeeeee');
-      await UserSuggestedEvents.create({
+      console.log('WHERE?', req.body);
+      const userSuggestedEvent = await UserSuggestedEvents.create({
         title,
         description,
         date,
@@ -52,7 +61,7 @@ userSuggestedEventsRouter.route('/club/:id')
         num_of_members: Number(num_of_members),
         email,
       });
-      res.status(200).json({ message: 'Ваша заявка отправлена! Ожидайте подтверждения заказа на Email!' });
+      res.json(userSuggestedEvent);
 
       const club = await Club.findOne({ where: { id: req.params.id } });
       const clubEmail = club.email;
@@ -61,5 +70,16 @@ userSuggestedEventsRouter.route('/club/:id')
       console.log(error);
     }
   });
+
+userSuggestedEventsRouter.delete('/event/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await UserSuggestedEvents.destroy({ where: { id } });
+    return res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    return res.sendStatus(500);
+  }
+});
 
 module.exports = userSuggestedEventsRouter;
