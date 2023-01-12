@@ -18,8 +18,10 @@ export default function Err() {
       <div className={classes.container}>
         <h1 className={classes.main}>OOOUPS</h1>
         <img className={classes.errorImg} src="http://localhost:3001/404error.png" alt="" />
-        <h3 className={classes.main}>Произошло недоразумение.</h3>
-        <h3 className={classes.main}> Подумайте, кого за это надо уволить?</h3>
+        <p>
+          <h3 className={classes.main}>Произошло недоразумение, но эти ребята не виноваты!!!!</h3>
+        </p>
+        {' '}
         <div className={classes.avatarFlex}>
 
           {isDevelopers?.map((el) => <ErrCard deleteHandler={deleteHandler} el={el} key={el.id} />)}

@@ -50,14 +50,10 @@ function ClubPage() {
   const submitModalHandler = (e) => {
     e.preventDefault();
     axios.post(`/suggestedByUser/club/${id}`, input);
-    // .then(() => {
-    //   toggleAgain();
-    // });
     setInput({
       title: '', description: '', date: '', num_of_members: '', email: '',
     });
     toggleAgain();
-
     toggle();
   };
   useEffect(() => {

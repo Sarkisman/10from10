@@ -74,8 +74,8 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
-      title: 'Стрельба из лука',
-      description: 'Стрельба из лука. Турнир от 10 игроков',
+      title: 'Стрельба из пистолета пневматического',
+      description: 'Тренировка для старожилов',
       date: '2022-09-20',
       time: '10:00',
       club_id: 8,
