@@ -70,7 +70,6 @@ function ClubPage() {
       title: '', description: '', date: '', num_of_members: '', email: '',
     });
     toggleAgain();
-
     toggle();
   };
   useEffect(() => {
