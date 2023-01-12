@@ -36,6 +36,10 @@ export default function SelectMUI({ isRender, setIsRender }) {
       <FormControl fullWidth error>
         <InputLabel id="demo-simple-error-label">Направление</InputLabel>
         <Select
+          style={{
+            color: 'white',
+            fontSize: '20px',
+          }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           value={type}
