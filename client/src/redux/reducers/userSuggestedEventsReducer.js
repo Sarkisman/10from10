@@ -8,7 +8,7 @@ export default function userSuggestedEventsReducer(state = [], action) {
     case ADD_USER_SUGGESTED_EVENT:
       return [payload, ...state]; // payload === newComment
     case DELETE_USER_SUGGESTED_EVENT:
-      return state.filter((post) => post.id !== payload); // payload === id
+      return state.filter((el) => el.id !== payload); // payload === id
 
     default:
       return state;

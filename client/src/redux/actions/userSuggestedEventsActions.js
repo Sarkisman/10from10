@@ -23,7 +23,7 @@ export const asyncAddUserSuggestedEvent = (e, input, id) => (dispatch) => {
 };
 
 export const asyncDeleteUserSuggestedEvent = (id) => (dispatch) => {
-  axios.delete(`/comments/${id}`)
+  axios.delete(`/suggestedByUser/event/${id}`)
     .then(() => dispatch((deleteUserSuggestedEvent(id))))
     .catch(console.log);
 };

@@ -7,11 +7,11 @@ import {
   Modal, ModalHeader, ModalBody, ModalFooter, Input, Label,
 } from 'reactstrap';
 import { changeClubThunk, getAllClubs } from '../../../redux/actions/ClubActions';
-import { getEventsByClub } from '../../../redux/actions/eventActions';
+import { getEventsByClub, submitEvent } from '../../../redux/actions/eventActions';
 import OneEventCard from '../../ui/OneEventCard/OneEventCard';
 
 import './style.css';
-import { asyncAddUserSuggestedEvent, asyncSetUserSuggestedEvents } from '../../../redux/actions/userSuggestedEventsActions';
+import { asyncAddUserSuggestedEvent, asyncDeleteUserSuggestedEvent, asyncSetUserSuggestedEvents } from '../../../redux/actions/userSuggestedEventsActions';
 
 function ClubPage() {
   const { id } = useParams();
@@ -20,9 +20,8 @@ function ClubPage() {
   const club = clubs.find((el) => el.id === +id);
   const events = useSelector((store) => store.events);
   const userSuggestedEvents = useSelector((store) => store.userSuggestedEvents);
-  const necessaryEvents = userSuggestedEvents?.filter((el) => el.club_id === id);
-
-  console.log('ONESUGGESTEDEVENT', necessaryEvents);
+  console.log('userSuggestedEvents', userSuggestedEvents);
+  // const necessaryEvents = userSuggestedEvents?.find((el) => el.club_id === Number(id));
 
   const user = useSelector((store) => store.user);
   const navigate = useNavigate();
@@ -60,6 +59,8 @@ function ClubPage() {
   };
 
   const incomingModalHandler = (e) => {
+    dispatch(submitEvent(e, userSuggestedEvents[0], id));
+    dispatch(asyncDeleteUserSuggestedEvent(userSuggestedEvents[0].id));
     toggleIncoming();
   };
 
@@ -100,7 +101,7 @@ function ClubPage() {
   useEffect(() => {
     dispatch(getAllClubs());
     dispatch(getEventsByClub(id));
-    dispatch(asyncSetUserSuggestedEvents());
+    dispatch(asyncSetUserSuggestedEvents(id));
   }, []);
 
   const submitHandler = () => {
@@ -284,7 +285,7 @@ function ClubPage() {
           </div>
 
           <div>
-            {necessaryEvents?.length !== 0 && (
+            {userSuggestedEvents?.length && (
               <Button
                 onClick={toggleIncoming}
                 style={{
@@ -294,6 +295,8 @@ function ClubPage() {
                 color="primary"
               >
                 Входящая заявка
+                {' '}
+                {userSuggestedEvents?.length}
               </Button>
             )}
 
@@ -312,7 +315,7 @@ function ClubPage() {
                 <ModalBody>
                   <Form
                     className="mb-3 mt-3"
-                  // onSubmit={submitModalHandler}
+                    onSubmit={incomingModalHandler}
                   >
                     <Row>
                       <Col md={{

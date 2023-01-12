@@ -31,7 +31,6 @@ export const getOneEvent = (id) => (dispatch) => {
 
 export const submitEvent = (e, payload, id) => (dispatch) => {
   e.preventDefault();
-  console.log(payload, '555555555555');
   axios.post(`/events/new/${id}`, payload)
     .then((res) => {
       dispatch(addEvent(res.data));

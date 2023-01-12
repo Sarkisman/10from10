@@ -37,6 +37,7 @@ const userSuggestedEventsRouter = express.Router();
 userSuggestedEventsRouter.route('/club/:id')
   .get(async (req, res) => {
     const allEventsSuggestedByUser = await UserSuggestedEvents.findAll({
+      where: { club_id: Number(req.params.id) },
       order: [['createdAt', 'DESC']],
       include: { model: User },
     });
@@ -69,5 +70,16 @@ userSuggestedEventsRouter.route('/club/:id')
       console.log(error);
     }
   });
+
+userSuggestedEventsRouter.delete('/event/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    await UserSuggestedEvents.destroy({ where: { id } });
+    return res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    return res.sendStatus(500);
+  }
+});
 
 module.exports = userSuggestedEventsRouter;
