@@ -1,14 +1,22 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Card, CardBody, CardTitle, CardSubtitle, CardText, Button,
 } from 'reactstrap';
 import './OneCard.css';
 import { useNavigate } from 'react-router-dom';
+import { asyncDelete } from '../../../redux/actions/eventActions';
 
-export default function OneEventCard({ event }) {
+export default function OneEventCard({ event, club }) {
+  const user = useSelector((store) => store.user);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const buttonHandler = () => {
     navigate(`/events/club/${event.id}`);
+  };
+
+  const deleteHandler = () => {
+    dispatch(asyncDelete(event.id));
   };
   const data = event?.date?.slice(0, 10).split('-').reverse().join('.');
   return (
@@ -74,12 +82,25 @@ export default function OneEventCard({ event }) {
           color="primary"
           outline
           style={{
-            marginLeft: '5rem',
+            // marginLeft: '1rem',
 
           }}
         >
           Подробнее
         </Button>
+        {user?.id === club?.user_id && (
+          <Button
+            onClick={() => deleteHandler()}
+            color="danger"
+            outline
+            style={{
+              marginLeft: '5rem',
+
+            }}
+          >
+            Удалить
+          </Button>
+        )}
       </CardBody>
 
     </Card>

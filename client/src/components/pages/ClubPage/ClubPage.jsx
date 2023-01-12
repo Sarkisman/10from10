@@ -394,14 +394,14 @@ function ClubPage() {
                 <h4>Предстоящие события клуба:</h4>
 
               </div>
-              {upcomingEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
+              {upcomingEvents?.map((el) => <OneEventCard key={el.id} club={club} event={el} />)}
             </ul>
           </div>
           <div>
 
             <ul>
               <div className="eventbaner"><h4>Прошедшие события клуба:</h4></div>
-              {pastEvents?.map((el) => <OneEventCard key={el.id} event={el} />)}
+              {pastEvents?.map((el) => <OneEventCard key={el.id} club={club} event={el} />)}
             </ul>
           </div>
           {modal && (

@@ -19,7 +19,12 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.ClubPhoto, {
         foreignKey: 'event_id',
       });
-      this.belongsToMany(models.User, { through: 'Event_User', foreignKey: 'event_id' });
+      this.belongsToMany(models.User, {
+        through: 'Event_User',
+        foreignKey: 'event_id',
+        onDelete: 'cascade',
+        hooks: true,
+      });
     }
   }
   Event.init({
