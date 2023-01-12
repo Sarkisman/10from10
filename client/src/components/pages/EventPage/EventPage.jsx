@@ -30,15 +30,15 @@ function EventPage() {
   const now = new Date();
   const today = new Date(now.getFullYear(), now.getMonth(), now.getDate()).valueOf();
   const toggle = () => setModal(!modal);
-
   useEffect(() => {
     dispatch(getEventCounter(id));
     dispatch(asyncGetFotos(id));
     dispatch(asyncSetComments());
   }, []);
-  console.log(photos);
   const counter = useSelector((store) => store.counter);
   const eventUsers = useSelector((store) => store.eventUsers);
+  console.log(counter?.Club?.user_id, '000');
+  console.log(user?.id);
 
   const submitHandler = () => {
     dispatch(submitCounter(id));
@@ -72,7 +72,6 @@ function EventPage() {
   const isAddingFoto = () => {
     setIsAdditing(!isAdditing);
   };
-
   return (
 
     <div style={{
@@ -229,7 +228,7 @@ function EventPage() {
                         </>
                       ) : (
                         <>
-                          {(eventUsers?.find((el) => el.id === user.id)) && (
+                          {(eventUsers?.find((el) => el?.id === user?.id) || counter?.Club?.user_id === user.id) && (
                           <Button
                             onClick={isAddingFoto}
                             style={{ marginLeft: '10px' }}
@@ -350,7 +349,7 @@ function EventPage() {
                 textAlign: 'center', marginBottom: '2rem', maxWidth: '400px', maxHeight: '400px', width: '500px', height: '500px',
               }}
               >
-                {(user?.id === counter?.Club?.user_id) && (<Carouselka photos={photos} />)}
+                <Carouselka photos={photos} />
               </div>
               )}
               {filteredComments?.map((el) => (

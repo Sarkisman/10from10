@@ -10,7 +10,7 @@ import {
 function Carouselka({ photos }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
-
+  console.log(photos, 'fromCarousel');
   const next = () => {
     if (animating) return;
     const nextIndex = activeIndex === photos.length - 1 ? 0 : activeIndex + 1;
@@ -28,7 +28,7 @@ function Carouselka({ photos }) {
     setActiveIndex(newIndex);
   };
 
-  const slides = photos.map((item) => (
+  const slides = photos?.map((item) => (
     <CarouselItem
       onExiting={() => setAnimating(true)}
       onExited={() => setAnimating(false)}
@@ -38,7 +38,7 @@ function Carouselka({ photos }) {
         style={{
           backgroundRepeat: 'no-repeat', maxWidth: '400px', maxHeight: '400px',
         }}
-        src={`http://localhost:3001/${item.img}`}
+        src={`http://localhost:3001/${item?.img}`}
         alt={item.altText}
       />
       <CarouselCaption
