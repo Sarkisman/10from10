@@ -26,7 +26,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
-      name: 'ПейнтБол Клуб',
+      name: 'Лук Клуб',
       phone: '+7 (985) 230-00-05',
       email: 'sarkis_strelok@mail.ru',
       avatar: '',
