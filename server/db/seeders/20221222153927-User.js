@@ -63,7 +63,7 @@ module.exports = {
       email: 'juliya@mail.ru',
       password: '$2b$10$hGZwt5FyjNTuf1J5CjJe/OqKUOmD4HdQbX/2JSuLyS0WHzgagh5X2',
       description: 'Я фронтенд разработчик',
-      avatar: '',
+      avatar: 'DrawingOFaGirl.jpeg',
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {

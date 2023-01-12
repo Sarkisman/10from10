@@ -28,7 +28,6 @@ export default function SelectMUI({ isRender, setIsRender }) {
   return (
     <Box sx={{
       minWidth: 200,
-
       color: 'theme.palette.primary.light',
       borderColor: 'theme.palette.primary.light',
     }}
@@ -46,7 +45,6 @@ export default function SelectMUI({ isRender, setIsRender }) {
           label="Направление"
           onChange={handleChange}
         >
-
           <MenuItem value={1}>Пулевая стрельба</MenuItem>
           <MenuItem value={2}>Практическая стрельба</MenuItem>
           <MenuItem value={3}>Стрельба из лука</MenuItem>
