@@ -20,7 +20,6 @@ export default function SelectMUI({ isRender, setIsRender }) {
       dispatch(setFilteredClubs(clubs));
     } else {
       const selectedClubs = clubs?.filter((club) => club?.Types[0]?.id === event.target.value);
-      console.log('CHOSEN', selectedClubs);
       dispatch(setFilteredClubs(selectedClubs));
     }
   };
