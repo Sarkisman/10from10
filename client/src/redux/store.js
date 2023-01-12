@@ -13,7 +13,6 @@ import commentsReducer from './reducers/commentsReducer';
 import eventPhotoReducer from './reducers/eventPhotoReducer';
 import selectedClubIdReducer from './reducers/selectedClubIdReducer';
 import userSuggestedEventsReducer from './reducers/userSuggestedEventsReducer';
-import mySuggestedEventsReducer from './reducers/mySuggestedEventsReducer';
 
 const store = configureStore({
   reducer: {
@@ -30,7 +29,6 @@ const store = configureStore({
     photos: eventPhotoReducer,
     selectedClubId: selectedClubIdReducer,
     userSuggestedEvents: userSuggestedEventsReducer,
-    mySuggestedEvents: mySuggestedEventsReducer,
   },
 });
 
