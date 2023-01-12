@@ -37,8 +37,6 @@ function EventPage() {
   }, []);
   const counter = useSelector((store) => store.counter);
   const eventUsers = useSelector((store) => store.eventUsers);
-  console.log(counter?.Club?.user_id, '000');
-  console.log(user?.id);
 
   const submitHandler = () => {
     dispatch(submitCounter(id));
@@ -202,7 +200,7 @@ function EventPage() {
                         о клубе
                       </Button>
                       {/* <div> */}
-                      { new Date(counter.date) >= today ? (
+                      {new Date(counter.date) >= today ? (
                         <>
                           {!(eventUsers?.filter((el) => el.id === user.id).length)
                             ? (
@@ -229,14 +227,14 @@ function EventPage() {
                       ) : (
                         <>
                           {(eventUsers?.find((el) => el?.id === user?.id) || counter?.Club?.user_id === user.id) && (
-                          <Button
-                            onClick={isAddingFoto}
-                            style={{ marginLeft: '10px' }}
-                            color="primary"
-                            outline
-                          >
-                            добавить фото с события
-                          </Button>
+                            <Button
+                              onClick={isAddingFoto}
+                              style={{ marginLeft: '10px' }}
+                              color="primary"
+                              outline
+                            >
+                              добавить фото с события
+                            </Button>
                           )}
                         </>
                       )}
@@ -284,111 +282,111 @@ function EventPage() {
                     </form>
                   )}
                 {info && (
-                <p>
-                  <b style={{ color: 'green' }}>
-                    Ваши фото добавлены!
-                  </b>
-                </p>
+                  <p>
+                    <b style={{ color: 'green' }}>
+                      Ваши фото добавлены!
+                    </b>
+                  </p>
                 )}
               </div>
               {modal && (
-              <div>
-                <Modal
-                  isOpen={modal}
-                  modalTransition={{ timeout: 0 }}
-                  backdropTransition={{ timeout: 400 }}
-                  toggle={toggle}
-                >
-                  <ModalHeader toggle={toggle}>Добавить комментарий:</ModalHeader>
-                  <ModalBody>
-                    <Form
-                      className="mb-3 mt-3"
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        dispatch(asyncAddComment(e, input, id));
-                        setInput('');
-                        toggle();
-                      }}
-                    >
-                      <Input
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        name="text"
-                        placeholder="Ваш комментарий"
-                        id="text"
-                      />
-                      <ModalFooter>
-                        <Button type="submit" color="primary">
-                          Добавить
-                        </Button>
-                        {' '}
-                        <Button color="secondary" onClick={toggle}>
-                          Отмена
-                        </Button>
-                      </ModalFooter>
+                <div>
+                  <Modal
+                    isOpen={modal}
+                    modalTransition={{ timeout: 0 }}
+                    backdropTransition={{ timeout: 400 }}
+                    toggle={toggle}
+                  >
+                    <ModalHeader toggle={toggle}>Добавить комментарий:</ModalHeader>
+                    <ModalBody>
+                      <Form
+                        className="mb-3 mt-3"
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          dispatch(asyncAddComment(e, input, id));
+                          setInput('');
+                          toggle();
+                        }}
+                      >
+                        <Input
+                          value={input}
+                          onChange={(e) => setInput(e.target.value)}
+                          name="text"
+                          placeholder="Ваш комментарий"
+                          id="text"
+                        />
+                        <ModalFooter>
+                          <Button type="submit" color="primary">
+                            Добавить
+                          </Button>
+                          {' '}
+                          <Button color="secondary" onClick={toggle}>
+                            Отмена
+                          </Button>
+                        </ModalFooter>
 
-                    </Form>
-                  </ModalBody>
+                      </Form>
+                    </ModalBody>
 
-                </Modal>
-              </div>
+                  </Modal>
+                </div>
               )}
             </div>
             {filteredComments && (
-            <div style={{
-              marginTop: '10px',
-              height: 'auto',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-            >
-              {photos?.length > 0 && (
               <div style={{
-                textAlign: 'center', marginBottom: '2rem', maxWidth: '400px', maxHeight: '400px', width: '500px', height: '500px',
+                marginTop: '10px',
+                height: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                alignItems: 'center',
               }}
               >
-                <Carouselka photos={photos} />
-              </div>
-              )}
-              {filteredComments?.map((el) => (
-                <Card className={classes.mainCard} key={el.id}>
-                  <div className={classes.card}>
-                    <div className={classes.container}>
-                      <div className={classes.secondContainer}>
-                        <img
-                          src={`http://localhost:3001/${el.User.avatar}`}
-                          alt="avatar"
-                          className={classes.img}
-                        />
-                      </div>
-                    </div>
-                    <div className={classes.content}>
-                      <p className={classes.userComent}>
-                        {el?.User?.name}
-                        {' '}
-                        в
-                        {' '}
-                        {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
-                          .join(' ')}
-                      </p>
-                      <div style={{ width: '400px' }}>{el?.text}</div>
-                    </div>
-                    {((user?.id === el?.user_id) || (user?.id === counter?.Club?.user_id)) && (
-                    <div className={classes.iconButton}>
-                      <IconButton
-                        color="inherit"
-                        onClick={() => dispatch(asyncDeleteComment(el.id))}
-                      >
-                        <DeleteForeverIcon fontSize="large" />
-                      </IconButton>
-                    </div>
-                    )}
+                {photos?.length > 0 && (
+                  <div style={{
+                    textAlign: 'center', marginBottom: '2rem', maxWidth: '400px', maxHeight: '400px', width: '500px', height: '500px',
+                  }}
+                  >
+                    <Carouselka photos={photos} />
                   </div>
-                </Card>
-              ))}
-            </div>
+                )}
+                {filteredComments?.map((el) => (
+                  <Card className={classes.mainCard} key={el.id}>
+                    <div className={classes.card}>
+                      <div className={classes.container}>
+                        <div className={classes.secondContainer}>
+                          <img
+                            src={`http://localhost:3001/${el.User.avatar}`}
+                            alt="avatar"
+                            className={classes.img}
+                          />
+                        </div>
+                      </div>
+                      <div className={classes.content}>
+                        <p className={classes.userComent}>
+                          {el?.User?.name}
+                          {' '}
+                          в
+                          {' '}
+                          {el?.createdAt.slice(0, 16).replace('T', ' ').split(' ').reverse()
+                            .join(' ')}
+                        </p>
+                        <div style={{ width: '400px' }}>{el?.text}</div>
+                      </div>
+                      {((user?.id === el?.user_id) || (user?.id === counter?.Club?.user_id)) && (
+                        <div className={classes.iconButton}>
+                          <IconButton
+                            color="inherit"
+                            onClick={() => dispatch(asyncDeleteComment(el.id))}
+                          >
+                            <DeleteForeverIcon fontSize="large" />
+                          </IconButton>
+                        </div>
+                      )}
+                    </div>
+                  </Card>
+                ))}
+              </div>
             )}
           </div>
         </div>

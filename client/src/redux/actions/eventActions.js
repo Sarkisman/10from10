@@ -43,11 +43,11 @@ export const getEventsByUser = (id) => (dispatch) => {
     .then((res) => dispatch(setEvents(res.data)));
 };
 
-// export const asyncDelete = (id) => (dispatch) => {
-//   axios.delete(`/events/${id}`)
-//     .then(() => dispatch(deleteEvent(id)))
-//     .catch((err) => console.log('error in deleting Event', err));
-// };
+export const asyncDelete = (id) => (dispatch) => {
+  axios.delete(`/events/${id}`)
+    .then(() => dispatch(deleteEvent(id)))
+    .catch((err) => console.log('error in deleting Event', err));
+};
 
 // export const asyncEdit = (id, event, value) => (dispatch) => {
 //   console.log({

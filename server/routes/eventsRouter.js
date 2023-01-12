@@ -53,4 +53,15 @@ eventsRouter.route('/user/:id')
     const userEvents = await User.findOne({ where: { id: +req.params.id }, include: { model: Event } });
     res.json(userEvents.Events);
   });
+
+eventsRouter.delete('/:id', async (req, res) => {
+  // try {
+  const { id } = req.params;
+  await Event.destroy({ where: { id } });
+  res.sendStatus(200);
+  // } catch (error) {
+  //   res.sendStatus(500);
+  // }
+});
+
 module.exports = eventsRouter;
