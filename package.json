@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && cd client && npm run build",
+    "build": "cd client && npm install && npm run build",
     "start": "nodemon server/server.js"
   },
   "repository": {
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/Sarkisman/10from10/issues"
   },
-  "homepage": "https://github.com/Sarkisman/10from10#readme"
+  "homepage": "https://github.com/Sarkisman/10from10#readme",
+  "dependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
