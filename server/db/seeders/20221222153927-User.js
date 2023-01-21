@@ -19,11 +19,11 @@ module.exports = {
       updatedAt: new Date(),
     },
     {
-      name: 'Максим',
+      name: 'Антон',
       email: 'max@mail.ru',
       password: '$2b$10$hGZwt5FyjNTuf1J5CjJe/OqKUOmD4HdQbX/2JSuLyS0WHzgagh5X2',
       description: 'Фронтенд разработчик',
-      avatar: 'adult-man-face.jpg',
+      avatar: 'Anton.jpeg',
       createdAt: new Date(),
       updatedAt: new Date(),
     }, {
