@@ -1,99 +1,142 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Button, Col, Form, Input, Label, Row,
 } from 'reactstrap';
 // import { useNavigate } from 'react-router-dom';
-import { regAction } from '../../../redux/actions/UserActions';
+import { errEmptyAction, regAction } from '../../../redux/actions/UserActions';
 // import { getSingleClub } from '../../../redux/actions/ClubActions';
 
 export default function AuthPage() {
   // const navigate = useNavigate();
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   dispatch(getSingleClub());
-  // });
+  useEffect(() => {
+    dispatch(errEmptyAction());
+  }, []);
   const err = useSelector((store) => store.err);
   return (
-    <>
-      <Form onSubmit={(e) => dispatch(regAction(e, Object.fromEntries(new FormData(e.target))))}>
-        <Row>
-          <Col md={{
-            offset: 3,
-            size: 6,
-          }}
-          >
-            <Label for="examplePassword">
-              Name
-            </Label>
-            <Input
-              id="exampleEmail"
-              name="name"
-              placeholder="Username"
-              type="text"
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col md={{
-            offset: 3,
-            size: 6,
-          }}
-          >
-            <Label for="examplePassword">
-              Mail
-            </Label>
-            <Input
-              id="exampleEmail"
-              name="email"
-              placeholder="Email"
-              type="mail"
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col md={{
-            offset: 3,
-            size: 6,
-          }}
-          >
-            <Label
-              className="visually"
-            >
-              Password
-            </Label>
-            <Input
-              id="examplePassword"
-              name="password"
-              placeholder="123"
-              type="password"
-            />
-          </Col>
-        </Row>
-        {' '}
-        <Label
-          className="visually"
-        />
-        <Col
-          sm={{
-            offset: 5,
-          }}
-        >
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
 
-          <Button type="submit">
-            Submit
-          </Button>
-        </Col>
-      </Form>
-      <Row>
-        <Col
-          sm={{
-            offset: 3,
-          }}
-        >
-          {err && (<div style={{ color: 'red' }}>{err.message}</div>)}
-        </Col>
-      </Row>
-    </>
+    }}
+    >
+      <div style={{
+        padding: '50px',
+        position: 'relative',
+        top: '100px',
+
+        width: '600px',
+        height: '400px',
+        border: '1px solid black',
+        borderRadius: '30px',
+        boxShadow: '5px 5px 10px',
+        backgroundColor: 'rgba(255,255,255,0.8)',
+
+      }}
+      >
+        <Form onSubmit={(e) => dispatch(regAction(e, Object.fromEntries(new FormData(e.target))))}>
+          <Row>
+            <Col md={{
+              offset: 2,
+              size: 8,
+            }}
+            >
+
+              <Input
+                id="exampleEmail"
+                name="name"
+                placeholder="Username"
+                type="text"
+                style={{
+                  position: 'relative',
+                  top: '40px',
+
+                }}
+
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col md={{
+              offset: 2,
+              size: 8,
+            }}
+            >
+
+              <Input
+                id="exampleEmail"
+                name="email"
+                placeholder="Email"
+                type="mail"
+                style={{
+                  position: 'relative',
+                  top: '80px',
+                }}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col md={{
+              offset: 2,
+              size: 8,
+            }}
+            >
+
+              <Input
+                id="examplePassword"
+                name="password"
+                placeholder="password"
+                type="password"
+                style={{
+                  position: 'relative',
+                  top: '120px',
+                }}
+              />
+            </Col>
+          </Row>
+          <Col
+            sm={{
+              offset: 3,
+            }}
+          >
+            {err && (
+            <div style={{
+              color: 'red',
+              position: 'relative',
+              top: '130px',
+            }}
+            >
+              {err.message}
+            </div>
+            )}
+          </Col>
+
+          {' '}
+          <Label
+            className="visually"
+          />
+          <Col
+            sm={{
+              offset: 4,
+            }}
+          >
+            <Button
+              color="primary"
+              outline
+              type="submit"
+              style={{
+                position: 'relative',
+                top: '120px',
+              }}
+            >
+              Зарегистрироваться
+            </Button>
+          </Col>
+        </Form>
+        <Row />
+      </div>
+    </div>
   );
 }

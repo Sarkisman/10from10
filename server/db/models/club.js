@@ -20,16 +20,22 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_id',
       });
       this.belongsToMany(models.Type, { through: 'Club_Type', foreignKey: 'club_id' });
+      this.hasMany(models.UserSuggestedEvents, {
+        foreignKey: 'club_id',
+      });
     }
   }
   Club.init({
     name: DataTypes.STRING,
+    phone: DataTypes.STRING,
     email: DataTypes.STRING,
     password: DataTypes.TEXT,
     avatar: DataTypes.STRING,
     description: DataTypes.TEXT,
     address: DataTypes.STRING,
     user_id: DataTypes.INTEGER,
+    latitude: DataTypes.FLOAT,
+    longitude: DataTypes.FLOAT,
   }, {
     sequelize,
     modelName: 'Club',

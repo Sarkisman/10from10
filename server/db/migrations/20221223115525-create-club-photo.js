@@ -11,6 +11,18 @@ module.exports = {
       img: {
         type: Sequelize.STRING,
       },
+      isAllowed: {
+        type: Sequelize.BOOLEAN,
+      },
+      event_id: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: {
+            tableName: 'Events',
+          },
+          key: 'id',
+        },
+      },
       club_id: {
         type: Sequelize.INTEGER,
         references: {

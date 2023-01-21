@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formContainer {
+    padding: 50px;
+    position: relative;
+    top: 100px;
+
+    width: 900px;
+    height: auto;
+    border: 1px solid black;
+    border-radius: 30px;
+    box-shadow: 5px 5px 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.closeButton {
+    position: relative;
+    left: 870px;
+    bottom: 80px;
+    z-index: 1;
+}

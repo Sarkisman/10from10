@@ -1,0 +1,38 @@
+.post-dog-card-container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 100px;
+  border: solid wheat 2px;
+  background-color: rgb(208, 215, 222);
+  width: 500px;
+  height: 500px;
+}
+
+.posted-dog-Img>img {
+  padding: 20px;
+  width: 460px;
+  height: 380px;
+}
+
+.text {
+  font-size: 26px;
+}
+
+/* .buttons {
+  margin-top: 20px;
+  display: flex;
+  text-align: center;
+} */
+
+
+/* .btn {
+  margin-left: 30px;
+  border-radius: 15px;
+  margin-right: 25px;
+  width: 100px;
+  height: 40px;
+  background-color: antiquewhite;
+} */

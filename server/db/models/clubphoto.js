@@ -13,11 +13,16 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Club, {
         foreignKey: 'club_id',
       });
+      this.belongsTo(models.Event, {
+        foreignKey: 'event_id',
+      });
     }
   }
   ClubPhoto.init({
     img: DataTypes.STRING,
     club_id: DataTypes.INTEGER,
+    event_id: DataTypes.INTEGER,
+    isAllowed: DataTypes.BOOLEAN,
   }, {
     sequelize,
     modelName: 'ClubPhoto',

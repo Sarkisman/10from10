@@ -1,11 +1,13 @@
 const express = require('express');
 const morgan = require('morgan');
-const multer = require('multer'); // мультер
+// const multer = require('multer'); // мультер
 const cors = require('cors');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
-// const { Type } = require('./db/models');
-const { authRouter, clubRouter } = require('./routes');
+const {
+  authRouter, clubRouter, eventsRouter, counterRouter, commentsRouter, userSuggestedEventsRouter,
+} = require('./routes');
+const eventFotoRouter = require('./routes/eventFotoRouter');
 require('dotenv').config();
 
 const app = express();
@@ -18,7 +20,7 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use(express.static('images'));
 app.use(session({
   name: 'user_sid',
   secret: process.env.SESSION_SECRET ?? 'test',
@@ -33,15 +35,10 @@ app.use(session({
 
 app.use('/auth', authRouter);
 app.use('/club', clubRouter);
-
-// app.get('/club/types', async (req, res) => {
-//   try {
-//     let types = await Type.findAll();
-//     types = types.map((el) => el.club_type);
-//     res.json(types);
-//   } catch {
-//     console.log('error');
-//   }
-// });
+app.use('/events', eventsRouter);
+app.use('/counter', counterRouter);
+app.use('/comments', commentsRouter);
+app.use('/suggestedByUser', userSuggestedEventsRouter);
+app.use('/fotos', eventFotoRouter);
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));

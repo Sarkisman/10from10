@@ -14,6 +14,7 @@ module.exports = {
           model: 'Users', // tableName
           key: 'id',
         },
+        onDelete: 'CASCADE',
       },
       event_id: {
         type: Sequelize.INTEGER,
@@ -21,6 +22,7 @@ module.exports = {
           model: 'Events', // tableName
           key: 'id',
         },
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,

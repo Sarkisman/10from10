@@ -1,0 +1,10 @@
+.eventbaner {
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.7);
+  /* border: 2px rgb(255, 255, 255) solid; */
+  border-radius: 10px;
+  width: 500px;
+  padding: 10px 5px 5px 5px;
+  font-size: xx-large;
+  text-align: center
+}

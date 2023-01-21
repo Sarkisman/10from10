@@ -1,0 +1,49 @@
+.split {
+  height: 100%;
+  position: sticky;
+  top: 20px;
+  overflow: hidden;
+  padding-top: 20px;
+}
+
+.sarkis {
+  padding: 2em;
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.left {
+  width: 30%;
+
+}
+
+.right {
+  right: 0;
+}
+
+/* .centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+} */
+
+/* .centered img {
+  width: 150px;
+  border-radius: 50%;
+} */
+
+.eventbaner {
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.7);
+  /* border: 2px rgb(255, 255, 255) solid; */
+  border-radius: 10px;
+  width: 500px;
+  padding: 10px 5px 5px 5px;
+  text-align: center
+}

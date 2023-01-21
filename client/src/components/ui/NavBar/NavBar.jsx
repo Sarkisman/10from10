@@ -5,39 +5,60 @@ import {
   Nav, Navbar, NavbarBrand, NavbarText, NavItem,
 } from 'reactstrap';
 import { logoutThunk } from '../../../redux/actions/UserActions';
+import SelectMUI from '../SelectMUI/SelectMUI';
+import classes from './NavBar.module.css';
 
-function NavBar() {
+function NavBar({ isRender, setIsRender }) {
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
-
   return (
     <div>
       <Navbar>
-        <NavbarBrand href="/">10/10</NavbarBrand>
         {!user ? (
-          <Nav style={{ width: '500px', justifyContent: 'space-between' }}>
+          <Nav className={classes.navFlex}>
+            <NavbarBrand className={classes.textColor} href="/">10/10</NavbarBrand>
             <NavItem>
-              <Link to="/auth" style={{ textDecoration: 'none', color: 'black' }}>Войти</Link>
+              <Link className={classes.textColor} to="/auth">Войти</Link>
             </NavItem>
             <NavItem>
-              <Link to="/reg" style={{ textDecoration: 'none', color: 'black' }}> Зарегистрироваться </Link>
+              <Link className={classes.textColor} to="/reg"> Зарегистрироваться </Link>
             </NavItem>
           </Nav>
         ) : (
           <>
-            <Nav style={{ width: '500px', justifyContent: 'space-between' }}>
+            <Nav className={classes.navFlex}>
+              <NavbarBrand className={classes.textColor} href="/">10/10</NavbarBrand>
               <NavItem>
-                <Link to={`/lk/${user.id}`}> Личный кабинет </Link>
+                <Link className={classes.textColor} to={`/lk/${user.id}`}> Личный кабинет </Link>
               </NavItem>
-              <NavItem>
-                <Link to="/" style={{ textDecoration: 'none', color: 'black' }} onClick={() => dispatch(logoutThunk())}> Выйти </Link>
-              </NavItem>
+              {(window.location.pathname === '/') && <SelectMUI isRender={isRender} setIsRender={setIsRender} />}
+              <div className={classes.exitAvatarFlex}>
+                {' '}
+                {user ? (
+                  <div style={{ marginRight: '25px' }}>
+                    <div className={classes.navAvatar}>
+                      <img
+                        className={classes.navAvatarImg}
+                        src={`http://localhost:3001/${user?.avatar}`}
+                        alt="avatar"
+                      />
+                    </div>
+                    <div style={{
+                      color: 'white',
+                      textAlign: 'center',
+                    }}
+                    >
+                      {user?.name}
+                    </div>
+                  </div>
+                ) : ''}
+                <div>
+                  <NavItem>
+                    <Link className={classes.textColor} to="/" onClick={() => { dispatch(logoutThunk()); window.location.href = '/'; }}> Выйти </Link>
+                  </NavItem>
+                </div>
+              </div>
             </Nav>
-            <NavbarText>
-              Привет -
-              {' '}
-              {user?.name}
-            </NavbarText>
           </>
         )}
 

@@ -3,7 +3,6 @@
 const express = require('express');
 const cors = require('cors');
 const multer = require('multer'); // мультер
-const { where } = require('sequelize');
 const { Type, Club, Club_Type } = require('../db/models');
 
 const clubRouter = express.Router();
@@ -46,42 +45,60 @@ clubRouter.get('/types', async (req, res) => {
 
 clubRouter.post('/types', async (req, res) => {
   const {
-    user_id, input: { clubName, address }, select,
+    user_id, input: { clubName, address, email }, select, longitude, latitude,
   } = req.body;
-  // console.log(req.body, '=======================');
   try {
     const [club, isCreated] = await Club.findOrCreate({
       where: { user_id },
       defaults: {
-        user_id, name: clubName, address,
+        user_id, name: clubName, email, address, longitude, latitude, avatar: 'ZaglushkaClub.jpeg',
       },
     });
-    // await Club_Type.create({ club_id: club.id, type_id: el.id });
     await select.map(async (el) => await Club_Type.create(
       { club_id: club.id, type_id: el.id },
     ));
-    // console.log(club);
+    res.json(club);
   } catch {
     console.log('error');
   }
 });
 // все клубы
 clubRouter.get('/clubs', async (req, res) => {
-  const allClubs = await Club.findAll();
+  const allClubs = await Club.findAll({ include: { model: Type } });
   res.json(allClubs);
 });
 // один клуб
 clubRouter.get('/oneclub', async (req, res) => {
-  const { id } = req.session;
-  const oneClub = await Club.findOne({ where: { user_id: id } });
+  const oneClub = await Club.findOne({ where: { user_id: req.session.user.id } });
   res.json(oneClub);
 });
 
-clubRouter.post('/avatar/:id', upload.single('avatar'), async (req, res) => {
-  const { id } = req.params;
-  // console.log('id:', id);
-  // console.log('reqFile =======>', req.file.path);
-  await Club.update({ avatar: req.file.path }, { where: { user_id: id } });
+clubRouter.patch('/:id', upload.single('avatar'), async (req, res) => {
+  try {
+    const {
+      name, phone, email, address, description,
+    } = req.body;
+    const { id } = req.params;
+    // console.log(req.file.path);
+    if (req.body.avatar !== 'undefined') {
+      await Club.update({
+        name, phone, email, address, description, avatar: req.file.path.slice(7),
+      }, { where: { id } });
+    } else {
+      await Club.update({
+        name, phone, email, address, description,
+      }, { where: { id } });
+    }
+    res.sendStatus(200);
+  } catch { console.log('err'); }
+});
+
+clubRouter.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const club = await Club.findOne({ where: { user_id: id } });
+    res.json(club);
+  } catch { console.log('err'); }
 });
 
 module.exports = clubRouter;

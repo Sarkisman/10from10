@@ -1,111 +1,74 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  Button,
-  Card, CardBody, CardImg, Col, Row, UncontrolledCarousel,
+  Button, Col, Row,
 } from 'reactstrap';
-import { useNavigate } from 'react-router-dom';
-import { getCommentsAction } from '../../../redux/actions/Comments';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getAvatar } from '../../../redux/actions/userAvatarAction';
+import NewUserCard from '../../ui/NewUserCard';
+import { checkHaveClub, getSingleClub } from '../../../redux/actions/ClubActions';
+import { getEventsByUser } from '../../../redux/actions/eventActions';
+import OneEventCard from '../../ui/OneEventCard/OneEventCard';
+import styles from './LK.module.css';
 
 export default function Lk() {
-  const club = null;
+  const { id } = useParams();
+  const club = useSelector((store) => store.club);
   const dispatch = useDispatch();
-  const user = useSelector((store) => store.user);
-  // const clubs = useSelector((store) => store.clubs);
-  const navigate = useNavigate();
   useEffect(() => {
-    dispatch(getCommentsAction());
-  });
+    dispatch(getAvatar());
+    dispatch(getSingleClub());
+  }, []);
+  const user = useSelector((store) => store.user);
+
+  const events = useSelector((store) => store.events);
+  const navigate = useNavigate();
+  if (user.id === id) (navigate(`http://localhost:3000/lk/${user.id}`));
+  useEffect(() => {
+    dispatch(getSingleClub());
+    dispatch(checkHaveClub(user?.id));
+    dispatch(getEventsByUser(user?.id));
+  }, []);
   const buttonHandler = () => {
     navigate(`/reg/${user.id}`);
   };
   return (
-    <>
-      <Row>
-        <Col>
-          <Card
-            style={{
-              width: '20rem',
-            }}
-          >
-            <CardImg
-              alt="Card image cap"
-              src="https://upload.wikimedia.org/wikipedia/commons/7/73/Lion_waiting_in_Namibia.jpg"
-              top
-              width="100%"
-            />
-            <CardBody>
-              <div>
-                {' '}
-                Арутюнян
-                {' '}
-                {user.name}
-                {' '}
-                Ваганович
-              </div>
-            </CardBody>
-          </Card>
-        </Col>
-        <Col>
-          <div>моя фотогалерея</div>
-          <UncontrolledCarousel
-            items={[
-              {
-                altText: 'Slide 1',
-                caption: 'Slide 1',
-                key: 1,
-                src: 'https://picsum.photos/id/123/1200/600',
-              },
-              {
-                altText: 'Slide 2',
-                caption: 'Slide 2',
-                key: 2,
-                src: 'https://picsum.photos/id/456/1200/600',
-              },
-              {
-                altText: 'Slide 3',
-                caption: 'Slide 3',
-                key: 3,
-                src: 'https://picsum.photos/id/678/1200/600',
-              },
-            ]}
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          История комментариев
-        </Col>
-        <Col>
-          Мои события
-        </Col>
-      </Row>
-      <Row>
+    <Row>
+      <Col md={{ offset: 1, size: 5 }}>
+        <NewUserCard />
         <Col>
           {club ? (
             <Button
+              style={{
+                width: '300px',
+                marginTop: '20px',
+                color: 'white',
+              }}
               color="primary"
-              outline
               type="button"
               onClick={() => navigate(`/club/${club?.id}`)}
             >
-              мой клуб
-
+              Мой клуб:
+              {'  '}
+              {club?.name}
             </Button>
           ) : (
             <Button
+              style={{ marginTop: '20px' }}
               color="primary"
-              outline
               type="button"
               onClick={() => buttonHandler()}
             >
               Подать заявку на регистрацию клуба.
-
             </Button>
           )}
 
         </Col>
-      </Row>
-    </>
+      </Col>
+      <Col>
+        <div className={styles.eventbaner}>Мои события</div>
+        {events?.map((event) => <OneEventCard key={event.id} event={event} />)}
+      </Col>
+    </Row>
   );
 }

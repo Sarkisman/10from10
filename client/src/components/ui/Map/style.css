@@ -1,0 +1,26 @@
+.map-test {
+  width: 100%;
+  height: 85vh;
+
+}
+
+[class*="copyright-pane"] {
+  display: none !important;
+}
+
+/* [class*="ground-pane"] {
+  filter: grayscale(1);
+} */
+
+
+.balloon__address {
+  color: yellow
+}
+
+.balloon a {
+  color: red
+}
+
+[class*="balloon__close-button"] {
+  opacity: 1
+}
