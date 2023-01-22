@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 // const multer = require('multer'); // мультер
+const path = require('path');
 const cors = require('cors');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 // app.use(express.static('images'));
 app.use('/', express.static('/build'));
+app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(session({
   name: 'user_sid',
   secret: process.env.SESSION_SECRET ?? 'test',
