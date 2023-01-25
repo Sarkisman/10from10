@@ -1,8 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
-// const multer = require('multer'); // мультер
-const path = require('path');
 const cors = require('cors');
+const path = require('path');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const {
@@ -21,9 +20,7 @@ app.use(cors({
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(express.static('images'));
-app.use('/', express.static('/build'));
-app.use('/static', express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 app.use(session({
   name: 'user_sid',
   secret: process.env.SESSION_SECRET ?? 'test',
@@ -43,5 +40,9 @@ app.use('/counter', counterRouter);
 app.use('/comments', commentsRouter);
 app.use('/suggestedByUser', userSuggestedEventsRouter);
 app.use('/fotos', eventFotoRouter);
+
+app.get('/*', async (req, res) => {
+  res.sendFile(path.join(__dirname, '/public/index.html'));
+});
 
 app.listen(PORT, () => console.log(`Server has started on PORT ${PORT}`));
