@@ -8,7 +8,7 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './redux/store';
 
-axios.defaults.baseURL = 'http://localhost:3001';
+axios.defaults.baseURL = 'https://one0from10.onrender.com';
 axios.defaults.withCredentials = true;
 
 const theme = createTheme({
