@@ -22,7 +22,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
-// app.use(express.static('images'));
+app.use(express.static('images'));
 app.use(session({
   name: 'user_sid',
   secret: process.env.SESSION_SECRET ?? 'test',
