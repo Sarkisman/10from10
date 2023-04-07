@@ -6,7 +6,7 @@ export default function MemberAvatar({ user }) {
     <div className={classes.container}>
       <div className={classes.secondContainer}>
         <img
-          src={`http://localhost:3001/${user?.avatar}`}
+          src={`https://one0from10.onrender.com/${user?.avatar}`}
           alt="avatar"
           className={classes.img}
         />

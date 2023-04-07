@@ -122,7 +122,7 @@ function ClubPage() {
               >
                 <img
                   alt="Sample"
-                  src={`http://localhost:3001/${avatar}`}
+                  src={`https://one0from10.onrender.com/${avatar}`}
                   style={{
                     marginTop: '10px',
                     width: '250px',

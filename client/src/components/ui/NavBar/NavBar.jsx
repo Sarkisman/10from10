@@ -39,7 +39,7 @@ function NavBar({ isRender, setIsRender }) {
                     <div className={classes.navAvatar}>
                       <img
                         className={classes.navAvatarImg}
-                        src={`http://localhost:3001/${user?.avatar}`}
+                        src={`https://one0from10.onrender.com/${user?.avatar}`}
                         alt="avatar"
                       />
                     </div>

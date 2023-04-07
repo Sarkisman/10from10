@@ -17,7 +17,7 @@ export default function Err() {
     <div className={classes.container}>
       <div className={classes.container}>
         <h1 className={classes.main}>OOOUPS</h1>
-        <img className={classes.errorImg} src="http://localhost:3001/404error.png" alt="" />
+        <img className={classes.errorImg} src="https://one0from10.onrender.com/404error.png" alt="" />
         <p>
           <h3 className={classes.main}>Произошло недоразумение, но эти ребята не виноваты!!!!</h3>
         </p>

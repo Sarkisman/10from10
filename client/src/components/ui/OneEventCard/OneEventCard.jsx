@@ -39,7 +39,7 @@ export default function OneEventCard({ event, club }) {
       }}
       >
         <img
-          src="http://localhost:3001/ZaglushkaEvent.png"
+          src="https://one0from10.onrender.com/ZaglushkaEvent.png"
           alt="mishen"
           style={{
             heigh: '100px',
