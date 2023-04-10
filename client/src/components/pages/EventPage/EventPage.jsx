@@ -356,7 +356,7 @@ function EventPage() {
                       <div className={classes.container}>
                         <div className={classes.secondContainer}>
                           <img
-                            src={`http://localhost:3001/${el.User.avatar}`}
+                            src={`https://one0from10.onrender.com/${el.User.avatar}`}
                             alt="avatar"
                             className={classes.img}
                           />
